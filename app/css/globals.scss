@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+:root {
+  --foreground-rgb: rgb(211, 216, 232);
+    // --navbar-height: 112px;
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background-color: #0d1224;
+}
+
+#sticky-card-1 {
+  --index: 1;
+}
+
+#sticky-card-2 {
+  --index: 2;
+}
+
+#sticky-card-3 {
+  --index: 3;
+}
+
+#sticky-card-4 {
+  --index: 4;
+}
+// #sticky-card-5 {
+//   --index: 5;
+// }
+
+.sticky-card {
+    position: sticky;
+    top: 120px;
+}
+
+// body::before {
+//   content: "";
+//   position: fixed;
+//   inset: 0;
+//   pointer-events: none;
+
+//   background-image:
+//     radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
+
+//   background-size: 5px 5px;
+
+//   opacity: .03;
+
+//   z-index: -40;
+// }
+
+// body::after {
+//   content: "";
+//   position: fixed;
+//   inset: 0;
+//   pointer-events: none;
+
+//   background:
+//     radial-gradient(circle, transparent 45%, rgba(0,0,0,.55));
+
+//   z-index: -30;
+// }
