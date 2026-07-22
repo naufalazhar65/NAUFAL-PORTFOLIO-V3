@@ -88,10 +88,17 @@ import macos from "/public/svg/skills/macos.svg";
 import code from "/public/svg/skills/code.svg";
 import jira from "/public/svg/skills/jira.svg";
 import linux from "/public/svg/skills/linux.svg";
+import android from "/public/svg/skills/android.svg";
+import apple from "/public/svg/skills/apple.svg";
+
 
 export const skillsImage = (skill) => {
   const skillID = skill.toLowerCase();
   switch (skillID) {
+    case "apple":
+      return apple;
+    case "android":
+      return android;
     case "linux":
       return linux;
     case "jira":

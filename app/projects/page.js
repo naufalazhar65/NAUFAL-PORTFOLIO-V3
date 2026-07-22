@@ -1,14 +1,13 @@
 import Projects from "../components/projects";
-import NextPage from "../components/common/NextPage";
+import NextPage from "../components/layout/NextPage";
 
 export const metadata = {
-  title: "Projects | Naufal",
+  title: "Projects",
 };
 
 export default function ProjectsPage() {
   return (
     <main>
-      <Projects />
       <Projects />
 
       <NextPage

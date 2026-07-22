@@ -1,5 +1,5 @@
 import HeroSection from "./components/hero";
-import NextPage from "./components/common/NextPage";
+import NextPage from "./components/layout/NextPage";
 
 export default function Home() {
   return (

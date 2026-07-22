@@ -1,8 +1,8 @@
 import AboutSection from "../components/about";
-import NextPage from "../components/common/NextPage";
+import NextPage from "../components/layout/NextPage";
 
 export const metadata = {
-  title: "About | Naufal",
+  title: "About",
 };
 
 export default function AboutPage() {

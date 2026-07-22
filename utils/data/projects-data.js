@@ -12,16 +12,13 @@ export const projectsData = [
     name: "Automation Testing",
     category: "Automation",
     icon: "🤖",
-
     color: "#16f2b3",
 
     year: "2025",
     status: "Completed",
-
     role: "QA Engineer",
 
     image: automation,
-
     gallery: [automation],
 
     summary:
@@ -30,23 +27,29 @@ export const projectsData = [
     description:
       "Developed end-to-end automation frameworks using Selenium, Cypress and WebdriverIO with Page Object Model architecture, reducing regression testing time and improving software quality.",
 
-    github: "https://github.com/naufalazhar65/CYPRESS-CUCUMBER-POM",
-    live: "",
+    challenge:
+      "Regression testing was taking too much time due to repetitive manual execution.",
 
-    githubLabel: "View GitHub",
-    liveLabel: "Live Demo",
+    solution:
+      "Built a Page Object Model automation framework integrated with GitHub Actions for faster and consistent regression testing.",
 
     highlight:
       "Reduced regression execution time by 70% through automated testing.",
 
+    github: "https://github.com/naufalazhar65/CYPRESS-CUCUMBER-POM",
+    githubLabel: "View GitHub",
+
+    live: "",
+    liveLabel: "Live Demo",
+
     tools: [
-      "Selenium",
-      "WebdriverIO",
-      "Cypress",
-      "Pytest",
-      "Java",
-      "Python",
-      "GitHub Actions",
+      { name: "Selenium" },
+      { name: "WebdriverIO" },
+      { name: "Cypress" },
+      { name: "Pytest" },
+      { name: "Java" },
+      { name: "Python" },
+      { name: "GitHub Actions" },
     ],
 
     features: [
@@ -61,16 +64,73 @@ export const projectsData = [
       {
         label: "Coverage",
         value: "96%",
+        featured: true,
       },
       {
         label: "Execution",
         value: "4 min",
+        featured: false,
       },
       {
         label: "Test Cases",
         value: "120+",
+        featured: true,
       },
     ],
+
+    repository: [
+      {
+        type: "folder",
+        name: "cypress",
+        level: 0,
+      },
+      {
+        type: "folder",
+        name: "e2e",
+        level: 1,
+      },
+      {
+        type: "folder",
+        name: "fixtures",
+        level: 1,
+      },
+      {
+        type: "folder",
+        name: "pages",
+        level: 1,
+      },
+      {
+        type: "folder",
+        name: "reports",
+        level: 1,
+      },
+      {
+        type: "folder",
+        name: "support",
+        level: 1,
+      },
+      {
+        type: "file",
+        name: "package.json",
+        level: 0,
+      },
+      {
+        type: "file",
+        name: "README.md",
+        level: 0,
+      },
+    ],
+
+    code: `describe("Login", () => {
+  beforeEach(() => {
+    cy.visit("/");
+  });
+
+  it("Login Successfully", () => {
+    LoginPage.login(username, password);
+    Dashboard.verifyDashboard();
+  });
+});`,
   },
 
   {
@@ -80,62 +140,114 @@ export const projectsData = [
     name: "Mobile App Testing",
     category: "Mobile",
     icon: "📱",
-
     color: "#3b82f6",
 
     year: "2025",
     status: "Completed",
-
     role: "QA Engineer",
 
     image: mobile,
-
     gallery: [mobile],
 
     summary:
-      "Cross-platform mobile automation using Appium and WebdriverIO.",
+      "Cross-platform mobile automation testing using Selenium and Python.",
 
     description:
-      "Automated Android and iOS testing using Appium and WebdriverIO, ensuring application quality across multiple devices and operating systems.",
+      "Developed an automated testing framework for Android applications using Selenium with Python. The framework follows the Page Object Model design pattern to improve maintainability and scalability.",
 
-    github: "https://github.com/naufalazhar65/WEBDRIVERIO-MOBILE",
-    live: "",
+    github: "https://github.com/naufalazhar65/SELENIUM-MOBILE-PYTHON",
 
     githubLabel: "View GitHub",
-    liveLabel: "Live Demo",
+
+    challenge:
+      "Manual testing on Android devices required repetitive execution and increased regression time.",
+
+    solution:
+      "Implemented a reusable Page Object Model framework with automated test execution and reporting.",
 
     highlight:
-      "Automated testing across Android and iOS devices with a single framework.",
+      "Improved mobile regression testing efficiency through reusable automation scripts.",
 
     tools: [
-      "Appium",
-      "WebdriverIO",
-      "JavaScript",
-      "Android",
-      "iOS",
+      { name: "Python" },
+      { name: "Selenium" },
+      { name: "iOS" },
+      { name: "Android" },
+      { name: "GitHub" },
     ],
 
     features: [
-      "Android Testing",
-      "iOS Testing",
-      "Cross Platform",
-      "BDD Framework",
-      "Real Device Support",
+      "Android Automation",
+      "Page Object Model",
+      "Reusable Components",
+      "Cross Device Testing",
+      "Automated Reporting",
     ],
 
     stats: [
+  {
+    label: "Test Cases",
+    value: "40+",
+    featured: true,
+  },
+  {
+    label: "Execution",
+    value: "5 min",
+    featured: false,
+  },
+  {
+    label: "Platform",
+    icons: ["android", "apple"],
+    featured: true,
+  },
+],
+
+    repository: [
       {
-        label: "Coverage",
-        value: "95%",
+        type: "folder",
+        name: "pages",
+        level: 0,
       },
       {
-        label: "Execution",
-        value: "6 min",
+        type: "folder",
+        name: "tests",
+        level: 0,
       },
       {
-        label: "Test Cases",
-        value: "80+",
+        type: "folder",
+        name: "utils",
+        level: 0,
       },
+      {
+        type: "folder",
+        name: "reports",
+        level: 0,
+      },
+      {
+        type: "file",
+        name: "requirements.txt",
+        level: 1,
+      },
+      {
+        type: "file",
+        name: "README.md",
+        level: 1,
+      },
+    ],
+
+    code: `from pages.login_page import LoginPage
+
+def test_login(driver):
+    login = LoginPage(driver)
+    login.login("standard_user","secret_sauce")
+    assert login.is_dashboard_displayed()`,
+
+    workflow: [
+      "Launch Android Emulator",
+      "Initialize Selenium Driver",
+      "Navigate to Login Screen",
+      "Execute Test Scenario",
+      "Generate HTML Report",
     ],
   },
 
@@ -158,8 +270,7 @@ export const projectsData = [
 
     gallery: [api],
 
-    summary:
-      "REST API testing using Postman, Newman, REST Assured and Jest.",
+    summary: "REST API testing using Postman, Newman, REST Assured and Jest.",
 
     description:
       "Performed REST API testing using Postman, Newman, REST Assured and Jest covering functional, performance and security testing.",
@@ -170,14 +281,13 @@ export const projectsData = [
     githubLabel: "",
     liveLabel: "View Postman Docs",
 
-    highlight:
-      "Achieved 98% API coverage through automated API validation.",
+    highlight: "Achieved 98% API coverage through automated API validation.",
 
     tools: [
-      "Postman",
-      "Newman",
-      "REST Assured",
-      "Jest",
+      { name: "Postman" },
+      { name: "Newman" },
+      { name: "REST Assured" },
+      { name: "Jest" },
     ],
 
     features: [
@@ -191,14 +301,17 @@ export const projectsData = [
       {
         label: "Coverage",
         value: "98%",
+        featured: true,
       },
       {
         label: "Execution",
         value: "3 min",
+        featured: false,
       },
       {
-        label: "Test Cases",
-        value: "150+",
+        label: "Endpoints",
+        value: "45+",
+        featured: true,
       },
     ],
   },
@@ -222,8 +335,7 @@ export const projectsData = [
 
     gallery: [performance],
 
-    summary:
-      "Performance testing using K6 and Apache JMeter.",
+    summary: "Performance testing using K6 and Apache JMeter.",
 
     description:
       "Performed load, stress and endurance testing using K6 and Apache JMeter to evaluate application scalability and system stability.",
@@ -237,10 +349,7 @@ export const projectsData = [
     highlight:
       "Validated application performance up to 1000 concurrent virtual users.",
 
-    tools: [
-      "K6",
-      "JMeter",
-    ],
+    tools: [{ name: "K6" }, { name: "JMeter" }],
 
     features: [
       "Load Testing",
@@ -251,16 +360,19 @@ export const projectsData = [
 
     stats: [
       {
-        label: "VUs",
+        label: "Virtual Users",
         value: "1000",
+        featured: true,
       },
       {
         label: "Response",
         value: "<300ms",
+        featured: true,
       },
       {
         label: "Execution",
         value: "5 min",
+        featured: false,
       },
     ],
   },
@@ -291,8 +403,7 @@ export const projectsData = [
       "Prepared Test Plans, Test Cases, Boundary Value Analysis and Bug Reports to support software quality assurance activities.",
 
     github: "",
-    live:
-      "https://docs.google.com/spreadsheets/d/1AfhnYF8g7SUe6a5VdKIg4pvIrOImEOLm1z5oqOwfZts/edit",
+    live: "https://docs.google.com/spreadsheets/d/1AfhnYF8g7SUe6a5VdKIg4pvIrOImEOLm1z5oqOwfZts/edit",
 
     githubLabel: "",
     liveLabel: "View Documentation",
@@ -301,10 +412,10 @@ export const projectsData = [
       "Created more than 250 testing scenarios and comprehensive QA documents.",
 
     tools: [
-      "Google Sheets",
-      "Test Case",
-      "Bug Report",
-      "BVA",
+      { name: "Google Sheets" },
+      { name: "Test Case" },
+      { name: "Bug Report" },
+      { name: "BVA" },
     ],
 
     features: [
@@ -318,14 +429,17 @@ export const projectsData = [
       {
         label: "Documents",
         value: "70+",
+        featured: false,
       },
       {
         label: "Scenarios",
         value: "250+",
+        featured: true,
       },
       {
-        label: "Bugs",
+        label: "Bugs Found",
         value: "100+",
+        featured: true,
       },
     ],
   },

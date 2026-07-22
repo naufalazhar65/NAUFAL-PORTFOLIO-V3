@@ -5,6 +5,31 @@ import { personalData } from "@/utils/data/personal-data";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useRef } from "react";
+import { FiFolder, FiCheckCircle, FiCode, FiAward } from "react-icons/fi";
+import TechBadge from "../ui/TechBadge";
+
+const stats = [
+  {
+    value: "4+",
+    label: "Years Learning",
+    icon: FiAward,
+  },
+  {
+    value: "20+",
+    label: "Projects",
+    icon: FiFolder,
+  },
+  {
+    value: "120+",
+    label: "Automation Tests",
+    icon: FiCheckCircle,
+  },
+  {
+    value: "25+",
+    label: "Technologies",
+    icon: FiCode,
+  },
+];
 
 const containerVariants = {
   hidden: {},
@@ -84,23 +109,119 @@ function AboutSection() {
         <span className="h-36 w-[2px] bg-[#1a1443]" />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 xl:gap-24 items-center">
         {/* Text */}
 
         <div className="order-2 lg:order-1">
+          <motion.span
+            variants={itemVariants}
+            className="
+    inline-block
+    uppercase
+    tracking-[6px]
+    text-[#16f2b3]
+    text-sm
+    font-semibold
+  "
+          >
+            Who I Am
+          </motion.span>
+
+          <motion.h2
+            variants={itemVariants}
+            className="
+    mt-5
+    text-4xl
+    md:text-5xl
+    xl:text-6xl
+    font-black
+    leading-tight
+    text-white
+  "
+          >
+            Software Quality
+            <br />
+            Assurance Engineer
+          </motion.h2>
+
           <motion.p
             variants={itemVariants}
-            className="mb-5 text-xl font-medium uppercase text-[#16f2b3]"
+            className="
+    mt-8
+    max-w-xl
+    text-lg
+    leading-9
+    text-gray-300
+  "
           >
-            Who I am?
+            I'm <span className="text-white font-semibold">Naufal Azhar</span>,
+            a Software Quality Assurance Engineer specializing in
+            <span className="text-[#16f2b3]"> Automation Testing</span>,
+            <span className="text-[#16f2b3]"> API Testing</span>,
+            <span className="text-[#16f2b3]"> Performance Testing</span>, and
+            <span className="text-[#16f2b3]"> CI/CD Integration</span>.
           </motion.p>
 
           <motion.p
             variants={itemVariants}
-            className="text-sm leading-8 text-gray-300 lg:text-lg"
+            className="
+    mt-6
+    max-w-xl
+    text-lg
+    leading-9
+    text-gray-400
+  "
           >
-            {personalData.description}
+            I enjoy building scalable automation frameworks, improving software
+            quality, and creating reliable testing solutions that help teams
+            deliver software faster with confidence.
           </motion.p>
+
+          {/* <motion.div
+  variants={itemVariants}
+  className="mt-12 grid grid-cols-2 gap-5"
+>
+  {stats.map((item) => {
+    const Icon = item.icon;
+
+    return (
+      <motion.div
+        key={item.label}
+        whileHover={{
+          y: -6,
+          scale: 1.03,
+        }}
+        transition={{
+          duration: 0.25,
+        }}
+        className="
+          group
+          rounded-3xl
+          border
+          border-white/10
+          bg-white/[0.03]
+          p-6
+          transition-all
+          duration-300
+          hover:border-[#16f2b3]/40
+          hover:bg-[#16f2b3]/5
+        "
+      >
+        <div className="flex items-center justify-between">
+          <Icon className="text-2xl text-[#16f2b3]" />
+
+          <span className="text-4xl font-black text-white">
+            {item.value}
+          </span>
+        </div>
+
+        <p className="mt-6 text-sm tracking-wide text-gray-400">
+          {item.label}
+        </p>
+      </motion.div>
+    );
+  })}
+</motion.div> */}
         </div>
 
         {/* Image */}
@@ -161,6 +282,33 @@ function AboutSection() {
               "
             />
 
+            {/* Status */}
+
+            <div
+              className="
+  absolute
+  -top-5
+  left-1/2
+  -translate-x-1/2
+  rounded-full
+  border
+  border-[#16f2b3]/30
+  bg-[#0d1224]/80
+  backdrop-blur-xl
+  px-5
+  py-2
+  text-sm
+  text-[#16f2b3]
+  flex
+  items-center
+  gap-2
+  z-20
+"
+            >
+              <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
+              Available
+            </div>
+
             {/* Image */}
 
             <Image
@@ -178,6 +326,76 @@ function AboutSection() {
                 transition-all
                 duration-700
               "
+            />
+            {/* TOP */}
+            <TechBadge
+              skill="cucumber"
+              className="left-1/2 -top-14 -translate-x-1/2"
+              duration={5.2}
+              delay={0.2}
+            />
+
+            {/* TOP LEFT */}
+            <TechBadge
+              skill="Selenium"
+              className="-left-16 top-12"
+              duration={4.6}
+              delay={0.1}
+            />
+
+            {/* TOP RIGHT */}
+            <TechBadge
+              skill="Cypress"
+              className="-right-16 top-12"
+              duration={5}
+              delay={0.3}
+            />
+
+            {/* MIDDLE LEFT */}
+            <TechBadge
+              skill="Android"
+              className="-left-24 top-1/2 -translate-y-1/2"
+              duration={5.5}
+              delay={0.5}
+            />
+
+            {/* MIDDLE RIGHT */}
+            <TechBadge
+              skill="apple"
+              className="-right-24 top-1/2 -translate-y-1/2"
+              duration={5.8}
+              delay={0.4}
+            />
+
+            {/* BOTTOM LEFT */}
+            <TechBadge
+              skill="Appium"
+              className="-left-16 bottom-12"
+              duration={5.1}
+              delay={0.6}
+            />
+
+            {/* BOTTOM RIGHT */}
+            <TechBadge
+              skill="Postman"
+              className="-right-16 bottom-12"
+              duration={4.8}
+              delay={0.7}
+            />
+
+            {/* BOTTOM */}
+            <TechBadge
+              skill="GitHub"
+              className="left-[35%] -bottom-14 -translate-x-1/2"
+              duration={6}
+              delay={0.4}
+            />
+
+            <TechBadge
+              skill="Code"
+              className="left-[65%] -bottom-14 -translate-x-1/2"
+              duration={5.4}
+              delay={0.8}
             />
           </motion.div>
         </motion.div>

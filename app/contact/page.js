@@ -1,9 +1,9 @@
 import ContactSection from "../components/contact";
-import NextPage from "../components/common/NextPage";
+import NextPage from "../components/layout/NextPage";
 
 
 export const metadata = {
-  title: "Contact | Naufal",
+  title: "Contact",
 };
 
 export default function ContactPage() {

@@ -1,8 +1,8 @@
 import Skills from "../components/skills";
-import NextPage from "../components/common/NextPage";
+import NextPage from "../components/layout/NextPage";
 
 export const metadata = {
-  title: "Skills | Naufal",
+  title: "Skills",
 };
 
 export default function SkillsPage() {

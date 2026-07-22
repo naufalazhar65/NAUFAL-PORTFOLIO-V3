@@ -5,12 +5,10 @@ import "react-toastify/dist/ReactToastify.css";
 import "./css/card.scss";
 import "./css/globals.scss";
 
-// import { ToastContainer } from "react-toastify";
-
-import Navbar from "./components/common/Navbar";
-import Footer from "./components/common/Footer";
-import BackToTop from "./components/common/BackToTop";
-// import AnimatedGrid from "./components/common/AnimatedGrid";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import BackToTop from "./components/layout/BackToTop";
+import PageTransition from "./components/layout/PageTransition";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,7 +19,7 @@ export const metadata = {
 
   title: {
     default: "Naufal Azhar | Portfolio",
-    template: "%s | Naufal Azhar",
+    template: "Naufal | %s",
   },
 
   description:
@@ -77,17 +75,17 @@ export default function RootLayout({ children }) {
 
         <main
           className="
-            relative
-            mx-auto
-            w-full
-            max-w-[1400px]
-            px-5
-            pt-24
-            sm:px-8
-            lg:px-10
-          "
+    relative
+    mx-auto
+    w-full
+    max-w-[1400px]
+    px-5
+    pt-24
+    sm:px-8
+    lg:px-10
+  "
         >
-          {children}
+          <PageTransition>{children}</PageTransition>
         </main>
 
         <Footer />

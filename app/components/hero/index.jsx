@@ -268,23 +268,94 @@ function HeroSection() {
             className="flex items-center gap-3"
           >
             <Link
-              href="#contact"
-              className="bg-gradient-to-r to-pink-500 from-violet-600 p-[1px] rounded-full transition-all duration-300 hover:from-pink-500 hover:to-violet-600"
+              href="/contact"
+              aria-label="Go to Contact page"
+              className="
+    rounded-full
+    bg-gradient-to-r
+    from-violet-600
+    to-pink-500
+    p-[1px]
+    transition-all
+    duration-300
+    hover:from-pink-500
+    hover:to-violet-600
+    focus:outline-none
+    focus-visible:ring-2
+    focus-visible:ring-[#16f2b3]
+    focus-visible:ring-offset-2
+    focus-visible:ring-offset-[#0d1224]
+  "
             >
-              <button className="px-3 text-xs md:px-8 py-3 md:py-4 bg-[#0d1224] rounded-full border-none text-center md:text-sm font-medium uppercase tracking-wider text-[#ffff] no-underline transition-all duration-200 ease-out  md:font-semibold flex items-center gap-1 hover:gap-3">
-                <span>Contact me</span>
-                <RiContactsFill size={16} />
-              </button>
+              <span
+                className="
+      flex
+      items-center
+      gap-1
+      rounded-full
+      bg-[#0d1224]
+      px-3
+      py-3
+      text-xs
+      font-medium
+      uppercase
+      tracking-wider
+      text-white
+      transition-all
+      duration-200
+      ease-out
+      hover:gap-3
+      md:px-8
+      md:py-4
+      md:text-sm
+      md:font-semibold
+    "
+              >
+                <span>Contact Me</span>
+                <RiContactsFill size={16} aria-hidden="true" />
+              </span>
             </Link>
 
             <Link
-              className="flex items-center gap-1 hover:gap-3 rounded-full bg-gradient-to-r from-[#C13584] to-violet-600 px-3 md:px-8 py-3 md:py-4 text-center text-xs md:text-sm font-medium uppercase tracking-wider text-white no-underline transition-all duration-200 ease-out hover:text-white hover:no-underline md:font-semibold"
-              role="button"
-              target="_blank"
               href={personalData.resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Download my resume"
+              className="
+    flex
+    items-center
+    gap-1
+    rounded-full
+    bg-gradient-to-r
+    from-[#C13584]
+    to-violet-600
+    px-3
+    py-3
+    text-center
+    text-xs
+    font-medium
+    uppercase
+    tracking-wider
+    text-white
+    no-underline
+    transition-all
+    duration-200
+    ease-out
+    hover:gap-3
+    hover:text-white
+    md:px-8
+    md:py-4
+    md:text-sm
+    md:font-semibold
+    focus:outline-none
+    focus-visible:ring-2
+    focus-visible:ring-[#16f2b3]
+    focus-visible:ring-offset-2
+    focus-visible:ring-offset-[#0d1224]
+  "
             >
               <span>Get Resume</span>
-              <MdDownload size={20} />
+              <MdDownload size={20} aria-hidden="true" />
             </Link>
           </motion.div>
         </motion.div>
