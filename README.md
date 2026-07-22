@@ -27,7 +27,6 @@ A modern and interactive portfolio website built with **Next.js**, showcasing my
 # 📸 Preview
 
 ```
-public/image/preview.png
 ```
 
 ![Portfolio Preview](./public/image/preview.png)
