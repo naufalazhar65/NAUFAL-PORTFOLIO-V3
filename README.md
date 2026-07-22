@@ -1,142 +1,208 @@
-# Developer Portfolio
+# 🚀 Naufal Azhar — Developer Portfolio
 
-### Are you struggling to create a professional portfolio website? Look no further! You can use the Developer Portfolio template and create your very own personalized portfolio today! My website is designed to be user-friendly and easily customizable, making it perfect for both developers and freelancers.
+A modern and interactive portfolio website built with **Next.js**, showcasing my experience as a **Software Quality Assurance Engineer**. This portfolio highlights automation testing projects, mobile testing, API testing, performance testing, QA documentation, technical skills, and professional experience.
 
----
+## 🌐 Live Demo
 
-# Demo :movie_camera:
-
-![](./public/image/screen.png)
-
-## View live preview [here](https://portnaufal.netlify.app/).
+👉 https://main--portfolio-naufall.netlify.app/
 
 ---
 
-## Table of Contents :scroll:
+# ✨ Features
 
-- [Sections](#sections-bookmark)
-- [Demo](#demo-movie_camera)
-- [Installation](#installation-arrow_down)
-- [Getting Started](#getting-started-dart)
-- [Usage](#usage-joystick)
-- [Packages Used](#packages-used-package)
-
----
-
-# Sections :bookmark:
-
-- HERO SECTION
-- ABOUT ME
-- EXPERIENCE
-- SKILLS
-- PROJECTS
-- EDUCATION
-- BLOG
-- CONTACTS
+- 🎨 Modern UI with glassmorphism
+- ⚡ Built with Next.js App Router
+- 🎥 Smooth animations using Framer Motion
+- 🌙 Dark theme
+- 📱 Fully responsive
+- 📂 Dynamic Project Case Study pages
+- 🧩 Interactive Tech Stack
+- 📈 Professional QA Portfolio
+- 📬 Contact form with EmailJS
+- 📰 Blog integration
+- 🚀 Optimized performance
 
 ---
 
-# Installation :arrow_down:
+# 📸 Preview
 
-### You will need to download Git and Node to run this project
-
-- [Git](https://git-scm.com/downloads)
-- [Node](https://nodejs.org/en/download/)
-
-#### Make sure you have the latest version of both Git and Node on your computer.
+> Add the latest portfolio screenshot here.
 
 ```
-node --version
-git --version
+public/image/preview.png
 ```
 
-## <br />
+![Portfolio Preview](./public/image/preview.png)
 
-# Getting Started :dart:
+---
 
-### Fork and Clone the repo
+# 🛠 Tech Stack
 
-To Fork the repo click on the fork button at the top right of the page. Once the repo is forked open your terminal and perform the following commands
+## Frontend
 
+- Next.js
+- React
+- Tailwind CSS
+- Sass
+
+## Animation
+
+- Framer Motion
+- Lottie React
+
+## Icons
+
+- React Icons
+
+## Services
+
+- EmailJS
+
+## Deployment
+
+- Netlify
+
+---
+
+# 📂 Project Structure
+
+```text
+app
+├── about
+├── contact
+├── projects
+│   └── [slug]
+├── skills
+├── components
+├── css
+└── layout.js
+
+public
+├── image
+├── svg
+└── lottie
+
+utils
+├── data
+├── helper
+└── skill-image.js
 ```
-git clone https://github.com/<YOUR GITHUB USERNAME>/developer-portfolio.git
 
-cd developer-portfolio
+---
+
+# 🚀 Getting Started
+
+## Clone Repository
+
+```bash
+git clone https://github.com/naufalazhar65/NAUFAL-PORTFOLIO-V3.git
 ```
 
-### Install packages from the root directory
+```bash
+cd NAUFAL-PORTFOLIO-V3
+```
+
+---
+
+## Install Dependencies
 
 ```bash
 npm install
-# or
-yarn install
 ```
 
-Then, run the development server:
+or
+
+```bash
+yarn
+```
+
+---
+
+## Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open
+
+```
+http://localhost:3000
+```
 
 ---
 
-# Usage :joystick:
+# ⚙ Environment Variables
 
-Goto [emailjs.com](https://www.emailjs.com/) and create a new account for the mail sending. In free trial you will get 200 mail per month. After setup `emailjs` account, Please create a new `.env` file from `.env.example` file.
-
-Eg:
+Create a `.env.local`
 
 ```env
-NEXT_PUBLIC_EMAILJS_SERVICE_ID =
-NEXT_PUBLIC_EMAILJS_TEMPLATE_ID =
-NEXT_PUBLIC_EMAILJS_PUBLIC_KEY =
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=
 ```
 
-### Then, Customize data in the `utils/data` [folder](  developer-portfolio/tree/main/utils/data).
+---
 
-Eg:
+# 🧩 Customization
 
-```javascript
-export const personalData = {
-  name: "Naufal Azhar",
-  profile: '/profile.png',
-  designation: "SQA Engineer",
-  description: "My name is Naufal Azhar. I am a dedicated SQA Engineer with expertise in manual and automated testing, test planning and design, bug tracking and reporting, test documentation, performance testing, security testing, and browser compatibility testing.",
-  email: 'naufalazhar65@gmail.com',
-  phone: '+6281296223037',
-  address: 'Jakarta, Indonesia ',
-  github: 'https://github.com/naufalazhar65',
-  facebook: '',
-  linkedIn: 'https://www.linkedin.com/in/naufal-azhar-0b2070240/',
-  twitter: 'https://www.instagram.com/naufalazhar65/',
-  stackOverflow: '',
-  leetcode: "",
-  devUsername: "naufalazhar65",
-  resume: "https://drive.google.com/file/d/1HFpQD4MsWdBASKxmaxszkTwlPE_D1Dwb/view?usp=sharing"
-}
+Most portfolio content can be customized inside:
+
+```text
+utils/data/
 ```
 
-`devUsername` Used for fetching blog from `dev.to`.
+Including:
+
+- Personal Information
+- Experience
+- Skills
+- Education
+- Projects
+- Blog
+- Contact
 
 ---
 
+# 📦 Dependencies
+
+| Package |
+|---------|
+| Next.js |
+| React |
+| Tailwind CSS |
+| Sass |
+| Framer Motion |
+| React Icons |
+| Lottie React |
+| React Toastify |
+| EmailJS |
+
 ---
 
-# Packages Used :package:
+# 📈 Lighthouse
 
-| Used Package List  |
-| :----------------: |
-|        next        |
-|  @emailjs/browser  |
-|    lottie-react    |
-| react-fast-marquee |
-|    react-icons     |
-|   react-toastify   |
-|        sass        |
-|    tailwindcss     |
+- ✅ Performance
+- ✅ Accessibility
+- ✅ Best Practices
+- ✅ SEO
+
+*(Latest score available in production build.)*
 
 ---
+
+# 👨‍💻 Author
+
+**Naufal Azhar**
+
+Software Quality Assurance Engineer
+
+- GitHub: https://github.com/naufalazhar65
+- LinkedIn: https://www.linkedin.com/in/naufal-azhar-0b2070240/
+- Portfolio: https://main--portfolio-naufall.netlify.app/
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.

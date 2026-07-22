@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { projectsData } from "@/utils/data/projects-data";
-import Hero from "./components/Hero";
+import Hero from "./components/hero";
 import Overview from "./components/Overview";
 import TechStack from "./components/TechStack";
 import Features from "./components/Features";
