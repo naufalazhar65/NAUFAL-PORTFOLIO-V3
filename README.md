@@ -4,7 +4,7 @@ A modern and interactive portfolio website built with **Next.js**, showcasing my
 
 ## 🌐 Live Demo
 
-👉 https://main--portfolio-naufall.netlify.app/
+👉 https://naufalv3.netlify.app/
 
 ---
 
@@ -25,8 +25,6 @@ A modern and interactive portfolio website built with **Next.js**, showcasing my
 ---
 
 # 📸 Preview
-
-> Add the latest portfolio screenshot here.
 
 ```
 public/image/preview.png
@@ -199,7 +197,7 @@ Software Quality Assurance Engineer
 
 - GitHub: https://github.com/naufalazhar65
 - LinkedIn: https://www.linkedin.com/in/naufal-azhar-0b2070240/
-- Portfolio: https://main--portfolio-naufall.netlify.app/
+- Portfolio: https://naufalv3.netlify.app/
 
 ---
 
