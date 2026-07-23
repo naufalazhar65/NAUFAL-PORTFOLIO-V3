@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 
+
 export default function Results({ project }) {
   return (
     <section className="relative py-24">
@@ -30,7 +31,7 @@ export default function Results({ project }) {
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 
-          {project.stats.map((item, index) => (
+          {project.stats.map((item, index,) => (
 
             <motion.div
               key={item.label}
@@ -84,8 +85,8 @@ export default function Results({ project }) {
                   group-hover:opacity-100
                 "
               />
-
-              <p className="text-5xl font-black text-[#16f2b3]">
+              
+              <p className= "text-5xl font-black text-[#16f2b3]">
                 {item.value}
               </p>
 
