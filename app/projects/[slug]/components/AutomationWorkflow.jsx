@@ -31,7 +31,6 @@ export default function AutomationWorkflow({ project }) {
 
   const [activeStep, setActiveStep] = useState(project.workflow[0]);
   const [mobileStep, setMobileStep] = useState(null);
-  console.log("MOBILE STEP =", mobileStep);
 
   return (
     <section className="py-24">

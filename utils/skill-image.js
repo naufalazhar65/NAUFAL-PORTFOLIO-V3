@@ -90,11 +90,15 @@ import jira from "/public/svg/skills/jira.svg";
 import linux from "/public/svg/skills/linux.svg";
 import android from "/public/svg/skills/android.svg";
 import apple from "/public/svg/skills/apple.svg";
+import webdriverio from "/public/svg/skills/webdriverio.svg";
+
 
 
 export const skillsImage = (skill) => {
   const skillID = skill.toLowerCase();
   switch (skillID) {
+    case "webdriverio":
+      return webdriverio;
     case "apple":
       return apple;
     case "android":

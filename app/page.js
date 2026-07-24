@@ -1,4 +1,4 @@
-import HeroSection from "./components/hero";
+import HeroSection from "./components/hero/Hero";
 import NextPage from "./components/layout/NextPage";
 
 export default function Home() {
