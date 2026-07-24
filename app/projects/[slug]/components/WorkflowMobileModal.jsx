@@ -108,24 +108,23 @@ export default function WorkflowMobileModal({ step, onClose }) {
           ease: [0.16, 1, 0.3, 1],
         }}
         className="
-          fixed
-          inset-x-3
-          top-24
-          z-[1000000]
-          mx-auto
-          max-w-md
-          overflow-hidden
-          rounded-3xl
-          border
-          border-[#16f2b3]/30
-          bg-[#111827]
-          shadow-[0_30px_80px_rgba(0,0,0,.45)]
-          
-        "
+    fixed
+    inset-x-3
+    top-24
+    z-[1000000]
+    mx-auto
+    max-w-md
+    overflow-hidden
+    rounded-3xl
+    border
+    border-[#16f2b3]/30
+    bg-[#111827]
+    shadow-[0_30px_80px_rgba(0,0,0,.45)]
+  "
       >
         {/* Header */}
 
-        <div className="border-b border-white/10 p-6">
+        <div className="border-b border-white/10 p-5 sm:p-6">
           <div className="flex items-start justify-between">
             <div>
               <span className="rounded-full bg-green-500/20 px-3 py-1 text-xs font-semibold text-green-400">
@@ -167,13 +166,13 @@ export default function WorkflowMobileModal({ step, onClose }) {
 
         <div
           className="
-max-h-[55vh]
+max-h-[50vh] sm:max-h-[55vh]
 overflow-y-auto
 overscroll-contain
 scroll-smooth
 custom-scrollbar
-space-y-7
-p-6
+space-y-5
+p-5 sm:p-6
 "
         >
           {/* Description */}
@@ -201,7 +200,7 @@ p-6
                   overflow-auto
                   rounded-xl
                   bg-[#0d1117]
-                  p-4
+                  p-3
                   text-sm
                   text-[#16f2b3]
                   custom-scrollbar
@@ -232,8 +231,8 @@ p-6
                       border
                       border-white/5
                       bg-white/5
-                      px-4
-                      py-3
+                      px-2
+                      py-2.5
                     "
                   >
                     <FiCheckCircle className="text-[#16f2b3]" />
