@@ -8,7 +8,7 @@ import DevelopmentProcess from "./components/DevelopmentProcess";
 import Results from "./components/Results";
 import ChallengeSolution from "./components/ChallengeSolution";
 import Repository from "./components/Repository";
-import CodePreview from "./components/CodePreview";
+import AutomationWorkflow from "./components/AutomationWorkflow";
 
 export async function generateStaticParams() {
   return projectsData.map((project) => ({
@@ -30,7 +30,7 @@ export default function ProjectPage({ params }) {
       <ChallengeSolution project={project} />
       <TechStack project={project} />
       <Repository project={project} />
-      <CodePreview project={project} />
+      <AutomationWorkflow project={project} />
       <Features project={project} />
       <DevelopmentProcess project={project} />
       <Results project={project} />

@@ -518,6 +518,161 @@ def driver():
       ],
     },
 
+    workflow: [
+      {
+        title: "Test Case",
+        icon: "test",
+        subtitle: "tests/ios/test_ios_login.py",
+
+        description:
+          "Pytest discovers the iOS login test case and prepares it for execution.",
+
+        command: "pytest tests/ios/test_ios_login.py -v",
+
+        output: [
+          "Collected 1 test",
+          "Loaded login test",
+          "Ready for execution",
+        ],
+      },
+
+      {
+        title: "Pytest",
+        icon: "pytest",
+        subtitle: "Execute Test",
+
+        description:
+          "Pytest starts the execution process, loads fixtures, and prepares the testing environment.",
+
+        command:
+          "pytest -v --html=reports/html/report.html --self-contained-html",
+
+        output: [
+          "Pytest Session Started",
+          "Fixture Loaded",
+          "Test Execution Started",
+        ],
+      },
+
+      {
+        title: "Page Object",
+        icon: "page",
+        subtitle: "login_page.py",
+
+        description:
+          "The test interacts with reusable Page Object classes that encapsulate application behavior and UI elements.",
+
+        command: "LoginPage(driver).login(username, password)",
+
+        output: [
+          "Username entered",
+          "Password entered",
+          "Login button clicked",
+        ],
+      },
+
+      {
+        title: "Driver Factory",
+        icon: "driver",
+        subtitle: "driver_factory.py",
+
+        description:
+          "Driver Factory creates the appropriate Appium driver based on the selected platform.",
+
+        command: "DriverFactory.create(platform='ios')",
+
+        output: [
+          "Platform detected",
+          "Capabilities loaded",
+          "Driver initialized",
+        ],
+      },
+
+      {
+        title: "Appium",
+        icon: "appium",
+        subtitle: "Appium Server",
+
+        description:
+          "Appium establishes a remote session and communicates with the mobile device through WebDriver protocol.",
+
+        command: "http://127.0.0.1:4723",
+
+        output: [
+          "Appium Server Running",
+          "Session Created",
+          "Application Launched",
+        ],
+      },
+
+      {
+        title: "Android Emulator",
+        icon: "android",
+        subtitle: "Pixel API 35",
+
+        description:
+          "Automation is executed on an Android Emulator (or physical device) where every interaction is simulated automatically.",
+
+        command: "adb devices",
+
+        output: [
+          "Pixel_API_35 Connected",
+          "Application Installed",
+          "Ready for Testing",
+        ],
+      },
+      {
+        title: "iOS Simulator",
+        icon: "ios",
+        subtitle: "iPhone 15 Simulator",
+
+        description:
+          "Appium connects to the iOS Simulator through XCUITest and launches the application for automated testing.",
+
+        command: "xcrun simctl boot 'iPhone 15'",
+
+        output: [
+          "iPhone 15 Simulator Booted",
+          "Application Installed",
+          "Ready for Testing",
+        ],
+      },
+
+      {
+        title: "HTML Report",
+        icon: "report",
+        subtitle: "pytest-html",
+
+        description:
+          "After execution, Pytest generates an HTML report including execution time, screenshots, and test results.",
+
+        command: "pytest-html reports/html/report.html",
+
+        output: [
+          "HTML Report Generated",
+          "Screenshot Attached",
+          "Summary Created",
+        ],
+      },
+
+      {
+        title: "Telegram",
+        icon: "telegram",
+        subtitle: "Notification",
+
+        description:
+          "The automation framework parses the final results and sends a notification to a Telegram group, including execution status and report link.",
+
+        command: "python send_report.py",
+
+        output: [
+          "Result Parsed",
+          "Telegram Message Sent",
+          "Automation Finished Successfully",
+        ],
+      },
+    ],
+
     code: `from pages.ios.login_page import LoginPage
 from utils.helpers import load_json
 import pytest
@@ -537,17 +692,6 @@ def test_login(driver):
     )
 
     assert login.is_login_success()`,
-
-    workflow: [
-      "Initialize Driver Factory",
-      "Load Platform Configuration",
-      "Launch Android/iOS Application",
-      "Execute Test Cases",
-      "Capture Screenshot on Failure",
-      "Generate HTML Report",
-      "Parse Test Result",
-      "Send Telegram Notification",
-    ],
   },
 
   {
