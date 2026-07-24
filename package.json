@@ -20,6 +20,7 @@
     "prism-react-renderer": "^2.4.1",
     "react": "latest",
     "react-bootstrap": "^2.2.1",
+    "react-countup": "^6.5.3",
     "react-dom": "latest",
     "react-easy-emoji": "^1.8.1",
     "react-fast-marquee": "^1.6.2",

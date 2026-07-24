@@ -232,22 +232,27 @@ npm run cy:run`,
     ],
 
     stats: [
-      {
-        label: "Platforms",
-        icons: ["FaAndroid", "FaApple"],
-        featured: true,
-      },
-      {
-        label: "Architecture",
-        value: "POM",
-        featured: true,
-      },
-      {
-        label: "CI/CD",
-        value: "GitHub",
-        featured: true,
-      },
-    ],
+  {
+    icon: "tests",
+    value: 32,
+    suffix: "+",
+    label: "Test Cases",
+    description: "Automated end-to-end scenarios",
+  },
+  {
+    icon: "platform",
+    value: 2,
+    label: "Platforms",
+    description: "Android & iOS execution",
+  },
+  {
+    icon: "performance",
+    value: 3,
+    suffix: " min",
+    label: "Execution Time",
+    description: "Average test suite duration",
+  },
+],
 
     repository: {
       root: "MOBILE-AUTOMATION-PYTHON",
