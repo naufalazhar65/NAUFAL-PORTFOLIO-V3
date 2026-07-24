@@ -13,8 +13,7 @@ export default function Repository({ project }) {
   if (!project.repository) return null;
 
   const totalItems =
-    project.repository.folders.length +
-    project.repository.files.length;
+    project.repository.folders.length + project.repository.files.length;
 
   return (
     <section className="relative py-24">
@@ -93,10 +92,18 @@ export default function Repository({ project }) {
 
           {/* Body */}
 
-          <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr]">
+          <div className="grid h-[700px] lg:grid-cols-[380px_1fr]">
             {/* Explorer */}
 
-            <div className="divide-y divide-white/5 lg:border-r lg:border-white/10">
+            <div
+              className="
+    divide-y
+    divide-white/5
+    overflow-y-auto
+    lg:border-r
+    lg:border-white/10
+  "
+            >
               {project.repository.folders.map((folder) => (
                 <RepositoryTree
                   key={folder.name}
@@ -118,8 +125,18 @@ export default function Repository({ project }) {
 
             {/* Preview (Desktop Only) */}
 
-            <div className="hidden lg:block">
-              <RepositoryPreview file={selectedFile} />
+            <div
+              className="
+    hidden
+    overflow-y-auto
+    bg-[#0d1117]
+    lg:block
+  "
+            >
+              <RepositoryPreview
+  file={selectedFile}
+  onClose={() => setSelectedFile(null)}
+/>
             </div>
           </div>
         </motion.div>

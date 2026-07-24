@@ -1,40 +1,52 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { FiX } from "react-icons/fi";
+
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const getLanguage = (fileName) => {
   const ext = fileName.split(".").pop()?.toLowerCase();
 
   switch (ext) {
     case "py":
-      return "Python";
+      return "python";
 
-    case "md":
-      return "Markdown";
+    case "js":
+      return "javascript";
+
+    case "jsx":
+      return "jsx";
+
+    case "ts":
+      return "typescript";
 
     case "json":
-      return "JSON";
+      return "json";
+
+    case "md":
+      return "markdown";
+
+    case "yml":
+    case "yaml":
+      return "yaml";
 
     case "ini":
-      return "INI";
+      return "ini";
 
-    case "txt":
-      return "Text";
+    case "html":
+      return "html";
 
-    case "apk":
-      return "Android APK";
-
-    case "png":
-    case "jpg":
-    case "jpeg":
-      return "Image";
+    case "css":
+      return "css";
 
     default:
-      return "File";
+      return "text";
   }
 };
 
-export default function RepositoryPreview({ file }) {
+export default function RepositoryPreview({ file, onClose, }) {
   if (!file) {
     return (
       <div className="flex h-full min-h-[700px] items-center justify-center bg-[#0d1117]">
@@ -67,7 +79,23 @@ export default function RepositoryPreview({ file }) {
         <div className="flex items-center gap-2 border-r border-white/10 bg-[#1f2937] px-5 py-3">
           <span className="text-sm text-white">{file.name}</span>
 
-          <span className="text-gray-500">×</span>
+          <button
+  onClick={onClose}
+  className="
+    flex
+    h-6
+    w-6
+    items-center
+    justify-center
+    rounded
+    text-gray-500
+    transition
+    hover:bg-red-500/20
+    hover:text-red-400
+  "
+>
+  <FiX size={14} />
+</button>
         </div>
       </div>
 
@@ -83,36 +111,22 @@ export default function RepositoryPreview({ file }) {
 
       {/* Code */}
 
-      <div className="overflow-auto p-6">
-        <table className="w-full border-collapse font-mono text-sm">
-          <tbody>
-            {lines.map((line, index) => (
-              <tr key={index}>
-                <td
-                  className="
-                    w-12
-                    select-none
-                    pr-5
-                    text-right
-                    text-gray-600
-                    align-top
-                  "
-                >
-                  {index + 1}
-                </td>
-
-                <td
-                  className="
-                    whitespace-pre
-                    text-gray-300
-                  "
-                >
-                  {line}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="overflow-auto">
+        <SyntaxHighlighter
+          language={getLanguage(file.name)}
+          style={vscDarkPlus}
+          showLineNumbers
+          wrapLongLines
+          customStyle={{
+            margin: 0,
+            padding: "24px",
+            background: "#0d1117",
+            fontSize: "14px",
+            minHeight: "650px",
+          }}
+        >
+          {previewContent}
+        </SyntaxHighlighter>
       </div>
     </motion.div>
   );
