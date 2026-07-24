@@ -92,18 +92,25 @@ export default function Repository({ project }) {
 
           {/* Body */}
 
-          <div className="grid h-[700px] lg:grid-cols-[380px_1fr]">
+          <div
+  className="
+    lg:grid
+    lg:h-[700px]
+    lg:grid-cols-[380px_1fr]
+  "
+>
             {/* Explorer */}
 
             <div
-              className="
+  className="
     divide-y
     divide-white/5
-    overflow-y-auto
+    lg:max-h-[700px]
+    lg:overflow-y-auto
     lg:border-r
     lg:border-white/10
   "
-            >
+>
               {project.repository.folders.map((folder) => (
                 <RepositoryTree
                   key={folder.name}
@@ -134,9 +141,9 @@ export default function Repository({ project }) {
   "
             >
               <RepositoryPreview
-  file={selectedFile}
-  onClose={() => setSelectedFile(null)}
-/>
+                file={selectedFile}
+                onClose={() => setSelectedFile(null)}
+              />
             </div>
           </div>
         </motion.div>

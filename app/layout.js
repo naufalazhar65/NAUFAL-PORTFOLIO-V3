@@ -85,7 +85,7 @@ export default function RootLayout({ children }) {
     lg:px-10
   "
         >
-          <PageTransition>{children}</PageTransition>
+          {children}
         </main>
 
         <Footer />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import WorkflowMobileModal from "./WorkflowMobileModal";
 import { motion } from "framer-motion";
 import {
   FiArrowRight,
@@ -29,6 +30,8 @@ export default function AutomationWorkflow({ project }) {
   if (!project?.workflow?.length) return null;
 
   const [activeStep, setActiveStep] = useState(project.workflow[0]);
+  const [mobileStep, setMobileStep] = useState(null);
+  console.log("MOBILE STEP =", mobileStep);
 
   return (
     <section className="py-24">
@@ -140,7 +143,11 @@ export default function AutomationWorkflow({ project }) {
             return (
               <div key={item.title} className="flex flex-col items-center">
                 <div
-                  onClick={() => setActiveStep(item)}
+                  onClick={() => {
+                    console.log("CLICK");
+                    console.log(item);
+                    setMobileStep(item);
+                  }}
                   className={`
                     w-full
                     max-w-sm
@@ -178,7 +185,7 @@ export default function AutomationWorkflow({ project }) {
           })}
         </div>
 
-        {/* ================= DETAIL ================= */}
+        {/* ================= DETAIL (Desktop Only) ================= */}
 
         <motion.div
           key={activeStep.title}
@@ -186,13 +193,16 @@ export default function AutomationWorkflow({ project }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.25 }}
           className="
-            mt-14
-            rounded-2xl
-            border
-            border-white/10
-            bg-[#111827]
-            p-8
-          "
+    hidden
+    lg:block
+
+    mt-14
+    rounded-2xl
+    border
+    border-white/10
+    bg-[#111827]
+    p-8
+  "
         >
           <div className="flex items-center gap-4">
             <div className="rounded-xl bg-[#16f2b3]/10 p-3">
@@ -246,6 +256,10 @@ export default function AutomationWorkflow({ project }) {
           )}
         </motion.div>
       </div>
+      <WorkflowMobileModal
+        step={mobileStep}
+        onClose={() => setMobileStep(null)}
+      />
     </section>
   );
 }
