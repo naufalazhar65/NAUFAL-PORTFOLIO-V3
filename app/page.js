@@ -5,6 +5,7 @@ export default function Home() {
   return (
     <>
       <HeroSection />
+      
 
       <NextPage
         href="/about"

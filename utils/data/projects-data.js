@@ -1,9 +1,9 @@
-import automation from "/public/projects/automation.png";
-import mobile from "/public/projects/mobile.png";
-import api from "/public/projects/api.png";
-import performance from "/public/projects/performance.png";
-
-import documentation from "/public/projects/documentation.png";
+import automation from "@/public/projects/automation.png";
+import mobile from "@/public/projects/mobile.png";
+import api from "@/public/projects/api.png";
+import performance from "@/public/projects/performance.png";
+import documentation from "@/public/projects/documentation.png";
+import flowtest from "@/public/projects/flowtest-studio.png";
 
 export const projectsData = [
   {
@@ -891,4 +891,99 @@ def test_login(driver):
       },
     ],
   },
+
+  {
+  id: 6,
+
+  slug: "flowtest-studio",
+
+  featured: true,
+
+  name: "FlowTest Studio",
+
+  category: "Automation IDE",
+
+  icon: "⚡",
+
+  color: "#16f2b3",
+
+  year: "2026",
+
+  status: "In Development",
+
+  role: "Creator",
+
+  image: flowtest,
+
+  gallery: [flowtest],
+
+  summary:
+    "A visual mobile automation testing platform inspired by Node-RED and React Flow.",
+
+  description:
+    "FlowTest Studio is a visual workflow builder designed for creating mobile automation tests without writing code. Users can drag and connect automation nodes such as Launch App, Tap, Input, Delay, Assert, Swipe, and Execute Workflow. The project is built with React Flow, Zustand, Tailwind CSS, and Framer Motion to provide an interactive testing experience.",
+
+  challenge:
+    "Traditional mobile automation frameworks require writing and maintaining code, making them difficult for non-developers and time-consuming for repetitive workflow creation.",
+
+  solution:
+    "Designed a visual node-based editor that allows automation workflows to be built through drag-and-drop interactions, complete with live execution simulation, workflow visualization, execution logs, and an interactive inspector.",
+
+  highlight:
+    "Built an interactive visual automation platform with real-time workflow execution and node-based testing.",
+
+  github: "https://github.com/naufalazhar65",
+
+  githubLabel: "Source Code",
+
+  live: "/flowtest",
+
+  liveLabel: "Launch Live Demo",
+
+  tools: [
+    { name: "Next.js" },
+    { name: "React Flow" },
+    { name: "Zustand" },
+    { name: "Tailwind CSS" },
+    { name: "Framer Motion" },
+    { name: "Appium" },
+    { name: "React Icons" },
+  ],
+
+  features: [
+    "Visual Workflow Builder",
+    "Drag & Drop Nodes",
+    "Interactive Execution",
+    "Execution Timeline",
+    "Inspector Panel",
+    "Execution Console",
+    "Animated Workflow",
+    "React Flow Canvas",
+  ],
+
+  stats: [
+    {
+      label: "Workflow Nodes",
+      value: "8+",
+      featured: true,
+    },
+    {
+      label: "Interactive",
+      value: "100%",
+      featured: true,
+    },
+    {
+      label: "Built With",
+      value: "React",
+      featured: true,
+    },
+  ],
+
+  code: `const workflow = [
+  launch(),
+  tap(),
+  input(),
+  assert()
+];`,
+},
 ];

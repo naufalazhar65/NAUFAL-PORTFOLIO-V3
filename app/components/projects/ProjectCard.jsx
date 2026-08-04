@@ -3,12 +3,14 @@
 import Image from "next/image";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
-import { FaGithub } from "react-icons/fa";
 import { useRef } from "react";
 import Link from "next/link";
-import { FaAndroid, FaApple } from "react-icons/fa";
 
-export default function ProjectItem({ project, reverse = false }) {
+export default function ProjectItem({
+  project,
+  reverse = false,
+  featured = false,
+}) {
   const cardRef = useRef(null);
 
   const mouseX = useMotionValue(0);
@@ -58,7 +60,26 @@ export default function ProjectItem({ project, reverse = false }) {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          {featured && project.live && (
+            <span
+              className="
+      rounded-full
+      border
+      border-[#16f2b3]/30
+      bg-[#16f2b3]/10
+      px-3
+      py-1
+      text-xs
+      font-semibold
+      uppercase
+      tracking-[2px]
+      text-[#16f2b3]
+    "
+            >
+              ⭐ Flagship Project
+            </span>
+          )}
           <span
             className="rounded-full px-4 py-2 text-sm font-semibold"
             style={{
@@ -72,27 +93,71 @@ export default function ProjectItem({ project, reverse = false }) {
           <span className="text-gray-500">{project.status}</span>
         </div>
 
-        <h2 className="mt-5 text-5xl font-bold text-white">{project.name}</h2>
+        <h2
+          className={`
+mt-5
+leading-tight
+font-black
+tracking-tight
+text-white
+transition-all
 
-        <p className="mt-5 text-xl text-[#16f2b3]">{project.highlight}</p>
+${featured ? "text-5xl lg:text-6xl" : "text-4xl lg:text-5xl"}
+`}
+        >
+          {project.name}
+        </h2>
 
-        <p className="mt-8 leading-8 text-gray-400">{project.description}</p>
+        <p
+          className="
+mt-6
+text-lg
+font-semibold
+tracking-wide
+text-[#16f2b3]
+"
+        >
+          {project.highlight}
+        </p>
+
+        <p className="mt-8 max-w-xl leading-8 text-gray-400">
+          {project.description}
+        </p>
+
+        {featured && project.live && (
+          <div className="mt-8 grid grid-cols-3 gap-5">
+            {project.stats.slice(0, 3).map((stat) => (
+              <div key={stat.label}>
+                <p className="text-3xl font-black text-white">{stat.value}</p>
+
+                <p className="mt-1 text-xs uppercase tracking-wider text-gray-500">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* TOOLS */}
 
-        {/* <div className="mt-8 flex max-h-24 flex-wrap gap-2 overflow-hidden">
+        <div className="mt-8 flex max-h-24 flex-wrap gap-2 overflow-hidden">
           {project.tools.slice(0, 5).map((tool) => (
             <span
               key={tool.name}
               className="
-                rounded-full
-                border
-                border-[#2b325a]
-                px-4
-                py-2
-                text-sm
-                text-gray-300
-              "
+rounded-full
+border
+border-white/10
+bg-white/5
+px-3
+py-1.5
+text-xs
+font-medium
+text-gray-300
+transition
+hover:border-[#16f2b3]/30
+hover:bg-[#16f2b3]/10
+"
             >
               {tool.name}
             </span>
@@ -114,33 +179,60 @@ export default function ProjectItem({ project, reverse = false }) {
               +{project.tools.length - 5}
             </span>
           )}
-        </div> */}
+        </div>
 
-        
-        <div className="mt-10">
+        <div className="mt-12 flex flex-wrap gap-4">
+          {featured && project.live && (
+            <Link
+              href="/flowtest"
+              className="
+        inline-flex
+        items-center
+        gap-2
+        rounded-xl
+        bg-[#16f2b3]
+        px-6
+        py-3
+        font-semibold
+        text-black
+        transition
+        hover:scale-105
+        hover:shadow-[0_10px_35px_rgba(22,242,179,.25)]
+      "
+            >
+              Launch Live Demo
+            </Link>
+          )}
+
           <Link
-  href={`/projects/${project.slug}`}
-  className="
-    group
-    inline-flex
-    items-center
-    gap-2
-    text-[#16f2b3]
-    font-semibold
-    mt-10
-"
->
-  View Case Study
-
-  <FiArrowUpRight
-    className="
-      transition-transform
-      duration-300
-      group-hover:translate-x-1
-      group-hover:-translate-y-1
+            href={`/projects/${project.slug}`}
+            className="
+      group
+      inline-flex
+      items-center
+      gap-2
+      rounded-xl
+      border
+      border-white/10
+      px-6
+      py-3
+      font-semibold
+      text-white
+      transition
+      hover:border-[#16f2b3]/30
+      hover:bg-white/5
+      hover:text-[#16f2b3]
     "
-  />
-</Link>
+          >
+            View Case Study
+            <FiArrowUpRight
+              className="
+        transition-transform
+        group-hover:translate-x-1
+        group-hover:-translate-y-1
+      "
+            />
+          </Link>
         </div>
       </motion.div>
 
@@ -155,40 +247,49 @@ export default function ProjectItem({ project, reverse = false }) {
           y: springY,
         }}
         whileHover={{
-          scale: 1.02,
+          scale: featured ? 1.03 : 1.015,
         }}
         transition={{
           duration: 0.35,
         }}
-        className="group relative"
+        className="group relative perspective-[1400px]"
       >
         {/* Glow */}
 
         <div
-          className="
-            absolute
-            -inset-12
-            opacity-0
-            blur-[120px]
-            transition-all
-            duration-700
-            group-hover:opacity-100
-            bg-[radial-gradient(circle,#16f2b355_0%,transparent_70%)]
-          "
+          className={`
+absolute
+-inset-12
+opacity-0
+blur-[120px]
+transition-all
+duration-700
+group-hover:opacity-100
+
+${
+  featured
+    ? "bg-[radial-gradient(circle,#16f2b388_0%,transparent_70%)]"
+    : "bg-[radial-gradient(circle,#16f2b344_0%,transparent_70%)]"
+}
+`}
         />
 
         {/* Screenshot */}
 
         <div
-          className="
-            relative
-            overflow-hidden
-            rounded-3xl
-            border
-            border-white/10
-            bg-[#11152c]
-            shadow-2xl
-          "
+          className={`
+relative
+overflow-hidden
+border
+border-white/10
+bg-[#11152c]
+
+${
+  featured
+    ? "rounded-[32px] shadow-[0_35px_90px_rgba(22,242,179,.18)]"
+    : "rounded-3xl shadow-2xl"
+}
+`}
         >
           <Image
             src={project.image}
@@ -199,7 +300,7 @@ export default function ProjectItem({ project, reverse = false }) {
               h-auto
               transition-transform
               duration-700
-              group-hover:scale-105
+              group-hover:scale-[1.08]
             "
           />
 
@@ -237,7 +338,7 @@ export default function ProjectItem({ project, reverse = false }) {
       transition-all
       duration-300
 
-      rounded-full
+      rounded-2xl
       bg-white
       px-6
       py-3
@@ -274,7 +375,7 @@ export default function ProjectItem({ project, reverse = false }) {
                 blur-xl
                 transition-all
                 duration-1000
-                group-hover:left-[140%]
+                group-hover:left-[160%]
               "
             />
           </div>

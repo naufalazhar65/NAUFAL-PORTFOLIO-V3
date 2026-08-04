@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://portnaufal.netlify.app/"),
+  metadataBase: new URL("https://naufalv3.netlify.app/"),
 
   title: {
     default: "Naufal Azhar | Portfolio",

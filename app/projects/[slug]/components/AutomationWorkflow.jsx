@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import WorkflowMobileModal from "./WorkflowMobileModal";
-import { motion } from "framer-motion";
+import Section from "@/app/components/ui/section/Section";
+import SectionHeader from "@/app/components/ui/section/SectionHeader";
+import Panel from "@/app/components/ui/panel/Panel";
 import {
   FiArrowRight,
   FiArrowDown,
@@ -13,6 +15,8 @@ import {
 } from "react-icons/fi";
 import { FaApple, FaAndroid, FaTelegram, FaHtml5 } from "react-icons/fa";
 import { SiAppium, SiPytest } from "react-icons/si";
+import { motion } from "framer-motion";
+
 
 const iconMap = {
   test: FiCheckCircle,
@@ -31,32 +35,34 @@ export default function AutomationWorkflow({ project }) {
 
   const [activeStep, setActiveStep] = useState(project.workflow[0]);
   const [mobileStep, setMobileStep] = useState(null);
+  const [runningStep, setRunningStep] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRunningStep((current) => {
+        const next = (current + 1) % project.workflow.length;
+
+        setActiveStep(project.workflow[next]);
+
+        return next;
+      });
+    }, 1800);
+
+    return () => clearInterval(interval);
+  }, [project.workflow]);
 
   return (
-    <section className="py-24">
-      <div className="mx-auto max-w-7xl px-4">
-        {/* Heading */}
+    <Section width="xl">
+      <SectionHeader
+        eyebrow="Automation"
+        title="Execution Pipeline"
+        description="End-to-end automation workflow executed during every test run."
+      />
+      {/* Heading */}
 
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <span className="text-sm uppercase tracking-[6px] text-[#16f2b3]">
-            Automation
-          </span>
+      {/* ================= DESKTOP ================= */}
 
-          <h2 className="mt-4 text-5xl font-extrabold text-white">
-            Execution Pipeline
-          </h2>
-
-          <p className="mt-5 max-w-3xl leading-8 text-gray-400">
-            End-to-end automation workflow executed during every test run.
-          </p>
-        </motion.div>
-
+      <Panel animated padding="none" className="overflow-hidden bg-[#0b1120]">
         {/* ================= DESKTOP ================= */}
 
         <div className="hidden overflow-x-auto scrollbar-hide pb-6 lg:block">
@@ -78,7 +84,9 @@ export default function AutomationWorkflow({ project }) {
                       duration-300
 
                       hover:border-[#16f2b3]
-                      hover:shadow-[0_0_30px_rgba(22,242,179,.15)]
+                      hover:-translate-y-1
+hover:border-[#16f2b3]
+hover:shadow-[0_0_30px_rgba(22,242,179,.18)]
 
                       ${
                         activeStep.title === item.title
@@ -95,16 +103,63 @@ export default function AutomationWorkflow({ project }) {
                       </span>
 
                       <div className="flex items-center gap-2">
-                        <div className="h-2 w-2 rounded-full bg-green-400" />
+                        <div
+                          className={`
+    h-2
+    w-2
+    rounded-full
+    transition-all
 
-                        <span className="text-xs text-green-400">Ready</span>
+    ${
+      index < runningStep
+        ? "bg-emerald-400"
+        : index === runningStep
+          ? "animate-pulse bg-[#16f2b3]"
+          : "bg-gray-500"
+    }
+  `}
+                        />
+
+                        <span
+                          className={`
+    text-xs
+    font-medium
+
+    ${
+      index < runningStep
+        ? "text-emerald-400"
+        : index === runningStep
+          ? "text-[#16f2b3]"
+          : "text-gray-500"
+    }
+  `}
+                        >
+                          {index < runningStep
+                            ? "Completed"
+                            : index === runningStep
+                              ? "Running"
+                              : "Pending"}
+                        </span>
                       </div>
                     </div>
 
                     {/* Icon */}
 
                     <div className="mb-5 inline-flex rounded-xl bg-[#16f2b3]/10 p-3">
-                      <Icon className="text-2xl text-[#16f2b3]" />
+                      <Icon
+                        className={`
+    text-2xl
+    transition-all
+
+    ${
+      index === runningStep
+        ? "scale-110 text-[#16f2b3]"
+        : index < runningStep
+          ? "text-emerald-400"
+          : "text-gray-400"
+    }
+  `}
+                      />
                     </div>
 
                     {/* Title */}
@@ -119,13 +174,62 @@ export default function AutomationWorkflow({ project }) {
 
                     {/* Progress */}
 
-                    <div className="mt-6 h-1 rounded-full bg-white/10">
-                      <div className="h-full w-full rounded-full bg-[#16f2b3]" />
+                    <div className="mt-6 h-1 rounded-full bg-white/10 overflow-hidden">
+                      <div
+                        className={`
+      h-full
+      rounded-full
+      transition-all
+      duration-700
+
+      ${
+        index < runningStep
+          ? "w-full bg-emerald-400"
+          : index === runningStep
+            ? "w-2/3 bg-[#16f2b3]"
+            : "w-0"
+      }
+    `}
+                      />
                     </div>
                   </div>
 
                   {index !== project.workflow.length - 1 && (
-                    <FiArrowRight className="mx-5 text-3xl text-[#16f2b3]" />
+                    <div className="mx-4 flex w-16 items-center">
+                      <div
+                        className={`
+      h-[2px]
+      flex-1
+      transition-all
+      duration-700
+
+      ${
+        index < runningStep
+          ? "bg-emerald-400"
+          : index === runningStep
+            ? "bg-[#16f2b3]"
+            : "bg-white/10"
+      }
+    `}
+                      />
+
+                      <FiArrowRight
+                        className={`
+      -ml-1
+      text-xl
+      transition-all
+      duration-700
+
+      ${
+        index < runningStep
+          ? "text-emerald-400"
+          : index === runningStep
+            ? "animate-pulse text-[#16f2b3]"
+            : "text-gray-600"
+      }
+    `}
+                      />
+                    </div>
                   )}
                 </div>
               );
@@ -142,11 +246,7 @@ export default function AutomationWorkflow({ project }) {
             return (
               <div key={item.title} className="flex flex-col items-center">
                 <div
-                  onClick={() => {
-                    console.log("CLICK");
-                    console.log(item);
-                    setMobileStep(item);
-                  }}
+                  onClick={() => {}}
                   className={`
                     w-full
                     max-w-sm
@@ -177,7 +277,38 @@ export default function AutomationWorkflow({ project }) {
                 </div>
 
                 {index !== project.workflow.length - 1 && (
-                  <FiArrowDown className="my-5 text-2xl text-[#16f2b3]" />
+                  <div className="my-4 flex flex-col items-center">
+                    <div
+                      className={`
+      w-[2px]
+      h-8
+      transition-all
+
+      ${
+        index < runningStep
+          ? "bg-emerald-400"
+          : index === runningStep
+            ? "bg-[#16f2b3]"
+            : "bg-white/10"
+      }
+    `}
+                    />
+
+                    <FiArrowDown
+                      className={`
+      mt-1
+      transition-all
+
+      ${
+        index < runningStep
+          ? "text-emerald-400"
+          : index === runningStep
+            ? "animate-pulse text-[#16f2b3]"
+            : "text-gray-600"
+      }
+    `}
+                    />
+                  </div>
                 )}
               </div>
             );
@@ -188,20 +319,18 @@ export default function AutomationWorkflow({ project }) {
 
         <motion.div
           key={activeStep.title}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.25 }}
-          className="
-    hidden
-    lg:block
-
-    mt-14
-    rounded-2xl
-    border
-    border-white/10
-    bg-[#111827]
-    p-8
-  "
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.3,
+          }}
+          className="hidden border-t border-white/10 p-8 lg:block"
         >
           <div className="flex items-center gap-4">
             <div className="rounded-xl bg-[#16f2b3]/10 p-3">
@@ -229,7 +358,19 @@ export default function AutomationWorkflow({ project }) {
                 Command
               </p>
 
-              <pre className="overflow-auto rounded-xl bg-[#0d1117] p-5 text-sm text-[#16f2b3]">
+              <pre
+                className="
+overflow-auto
+rounded-2xl
+border
+border-white/10
+bg-[#0d1117]
+p-5
+font-mono
+text-sm
+text-[#16f2b3]
+"
+              >
                 {activeStep.command}
               </pre>
             </div>
@@ -243,22 +384,33 @@ export default function AutomationWorkflow({ project }) {
 
               <div className="space-y-3">
                 {activeStep.output.map((item) => (
-                  <div
+                  <motion.div
                     key={item}
+                    initial={{
+                      opacity: 0,
+                      x: -10,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                    }}
+                    transition={{
+                      duration: 0.25,
+                    }}
                     className="rounded-xl border border-white/5 bg-white/5 px-4 py-3 text-gray-300"
                   >
                     ✅ {item}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
           )}
         </motion.div>
-      </div>
+      </Panel>
       <WorkflowMobileModal
         step={mobileStep}
         onClose={() => setMobileStep(null)}
       />
-    </section>
+    </Section>
   );
 }

@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
-import { projectsData } from "@/utils/data/projects-data";
+
+import { projectsData } from "@/utils/data/projects";
+
 import Hero from "./components/hero";
 import Overview from "./components/Overview";
 import TechStack from "./components/TechStack";
@@ -7,8 +9,14 @@ import Features from "./components/Features";
 import DevelopmentProcess from "./components/DevelopmentProcess";
 import Results from "./components/Results";
 import ChallengeSolution from "./components/ChallengeSolution";
-import Repository from "./components/Repository";
+import Repository from "./components/repository";
 import AutomationWorkflow from "./components/AutomationWorkflow";
+import ProjectNavigation from "./components/navigation/ProjectNavigation";
+import LiveDemo from "./components/live-demo/LiveDemo";
+import WhyBuilt from "./components/why-built/WhyBuilt";
+import Roadmap from "./components/roadmap/Roadmap";
+import CTA from "./components/cta/CTA";
+
 
 export async function generateStaticParams() {
   return projectsData.map((project) => ({
@@ -25,15 +33,36 @@ export default function ProjectPage({ params }) {
 
   return (
     <>
-      <Hero project={project} />
-      <Overview project={project} />
-      <ChallengeSolution project={project} />
-      <TechStack project={project} />
-      <Repository project={project} />
-      <AutomationWorkflow project={project} />
-      <Features project={project} />
-      <DevelopmentProcess project={project} />
-      <Results project={project} />
+      <ProjectNavigation />
+
+      <div className="xl:pl-64">
+        <Hero project={project} />
+
+        <LiveDemo project={project} />
+
+        <Overview project={project} />
+
+        <WhyBuilt project={project} />
+
+
+        <ChallengeSolution project={project} />
+
+        <TechStack project={project} />
+
+        <Roadmap project={project} />
+
+        <Repository project={project} />
+
+        <CTA project={project} />
+
+        <AutomationWorkflow project={project} />
+
+        <Features project={project} />
+
+        <DevelopmentProcess project={project} />
+
+        <Results project={project} />
+      </div>
     </>
   );
 }

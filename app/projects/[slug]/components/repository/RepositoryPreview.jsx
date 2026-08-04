@@ -46,7 +46,15 @@ const getLanguage = (fileName) => {
   }
 };
 
-export default function RepositoryPreview({ file, onClose, }) {
+const getBreadcrumb = (file) => {
+  if (file.path) {
+    return file.path.split("/");
+  }
+
+  return ["src", "features", "flow", file.name];
+};
+
+export default function RepositoryPreview({ file, onClose }) {
   if (!file) {
     return (
       <div className="flex h-full min-h-[700px] items-center justify-center bg-[#0d1117]">
@@ -80,8 +88,8 @@ export default function RepositoryPreview({ file, onClose, }) {
           <span className="text-sm text-white">{file.name}</span>
 
           <button
-  onClick={onClose}
-  className="
+            onClick={onClose}
+            className="
     flex
     h-6
     w-6
@@ -93,9 +101,29 @@ export default function RepositoryPreview({ file, onClose, }) {
     hover:bg-red-500/20
     hover:text-red-400
   "
->
-  <FiX size={14} />
-</button>
+          >
+            <FiX size={14} />
+          </button>
+        </div>
+      </div>
+
+      <div className="border-b border-white/10 bg-[#111827] px-6 py-2">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+          {getBreadcrumb(file).map((item, index) => (
+            <div key={`${item}-${index}`} className="flex items-center gap-2">
+              <span
+                className={
+                  index === getBreadcrumb(file).length - 1
+                    ? "text-[#16f2b3]"
+                    : ""
+                }
+              >
+                {item}
+              </span>
+
+              {index !== getBreadcrumb(file).length - 1 && <span>/</span>}
+            </div>
+          ))}
         </div>
       </div>
 
