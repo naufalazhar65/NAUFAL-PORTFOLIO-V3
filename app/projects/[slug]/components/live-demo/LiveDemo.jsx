@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+import { DemoProvider } from "./shared/DemoProvider";
+import DemoLayout from "./desktop/DemoLayout";
+import MobileLiveDemo from "./mobile/MobileLiveDemo";
 import BrowserFrame from "./BrowserFrame";
-import FlowTestLayout from "@/app/flowtest/components/FlowTestLayout";
 
 export default function LiveDemo({ project }) {
   if (project.slug !== "flowtest-studio") {
@@ -14,6 +16,8 @@ export default function LiveDemo({ project }) {
   return (
     <section id="live-demo" className="relative py-28">
       <div className="mx-auto max-w-7xl px-6">
+        {/* Header */}
+
         <motion.div
           initial={{
             opacity: 0,
@@ -45,7 +49,7 @@ export default function LiveDemo({ project }) {
             execution without leaving this page.
           </p>
 
-          <div className="mt-10 flex justify-center gap-4">
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link
               href="/flowtest"
               target="_blank"
@@ -83,8 +87,20 @@ export default function LiveDemo({ project }) {
           </div>
         </motion.div>
 
+        {/* Demo */}
+
         <BrowserFrame>
-          <FlowTestLayout embedded />
+          <DemoProvider>
+            {/* Desktop */}
+            <div className="hidden lg:block">
+              <DemoLayout />
+            </div>
+
+            {/* Mobile */}
+            <div className="lg:hidden">
+              <MobileLiveDemo />
+            </div>
+          </DemoProvider>
         </BrowserFrame>
       </div>
     </section>

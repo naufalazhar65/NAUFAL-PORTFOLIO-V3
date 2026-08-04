@@ -30,15 +30,17 @@ export default function TopBar() {
         relative
         flex
         h-16
+        flex-shrink-0
         items-center
         justify-between
+        overflow-hidden
         border-b
         border-white/10
         bg-[#161b22]
         px-6
       "
     >
-      {/* Progress Bar */}
+      {/* Progress */}
 
       <div
         className="
@@ -57,10 +59,10 @@ export default function TopBar() {
 
       {/* Left */}
 
-      <div className="flex items-center gap-5">
+      <div className="flex min-w-0 flex-1 items-center gap-5 overflow-hidden">
         {/* Logo */}
 
-        <div className="flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-3">
           <div
             className="
               flex
@@ -90,37 +92,41 @@ export default function TopBar() {
           </div>
         </div>
 
-        <StatusCard
-          title="Workflow"
-          value="Untitled.flow"
-          status={workflowStatus}
-          color={
-            running
-              ? "blue"
-              : progress === 100
+        {/* Status Cards */}
+
+        <div className="flex min-w-0 gap-3 overflow-x-auto scrollbar-hide">
+          <StatusCard
+            title="Workflow"
+            value="Untitled.flow"
+            status={workflowStatus}
+            color={
+              running
+                ? "blue"
+                : progress === 100
                 ? "green"
                 : "yellow"
-          }
-        />
+            }
+          />
 
-        <StatusCard
-          title="Platform"
-          value="Android"
-          status="Ready"
-          color="green"
-        />
+          <StatusCard
+            title="Platform"
+            value="Android"
+            status="Ready"
+            color="green"
+          />
 
-        <StatusCard
-          title="Server"
-          value="Appium"
-          status={running ? "Online" : "Offline"}
-          color={running ? "green" : "red"}
-        />
+          <StatusCard
+            title="Server"
+            value="Appium"
+            status={running ? "Online" : "Offline"}
+            color={running ? "green" : "red"}
+          />
+        </div>
       </div>
 
-      {/* Right */}
+      {/* Toolbar */}
 
-      <div className="flex items-center gap-3">
+      <div className="ml-6 flex shrink-0 items-center gap-3">
         <ToolbarButton
           icon={<FiFolder />}
           label="Open"
@@ -145,15 +151,8 @@ export default function TopBar() {
           onClick={runWorkflow}
         />
 
-        <ToolbarButton
-          icon={<FiSquare />}
-          label="Stop"
-          disabled={!running}
-        />
+        
 
-        <ToolbarButton
-          icon={<FiSettings />}
-        />
       </div>
     </header>
   );
@@ -172,6 +171,7 @@ function ToolbarButton({
       disabled={disabled}
       className={`
         flex
+        shrink-0
         items-center
         gap-2
         rounded-xl
@@ -215,6 +215,7 @@ function StatusCard({
   return (
     <div
       className="
+        shrink-0
         rounded-xl
         border
         border-white/10
