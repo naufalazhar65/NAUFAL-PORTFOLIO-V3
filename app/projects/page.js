@@ -1,4 +1,4 @@
-import Projects from "../components/projects";
+import Projects from "../components/projects/Projects";
 import NextPage from "../components/layout/NextPage";
 
 export const metadata = {

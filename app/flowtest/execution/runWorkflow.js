@@ -36,7 +36,6 @@ export async function runWorkflow() {
 
       // Focus node
       execution.setCurrent(node.id);
-      flowStore.selectNode(node);
 
       // Running state
       execution.setStatus(node.id, "running");

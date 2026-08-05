@@ -3,9 +3,8 @@ import NextPage from "./components/layout/NextPage";
 
 export default function Home() {
   return (
-    <>
+    <main>
       <HeroSection />
-      
 
       <NextPage
         href="/about"
@@ -13,6 +12,6 @@ export default function Home() {
         title="About Me"
         description="Learn more about my background"
       />
-    </>
+    </main>
   );
 }

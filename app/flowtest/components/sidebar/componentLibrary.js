@@ -14,7 +14,7 @@ export const componentLibrary = [
       },
 
       {
-        type: "input",
+        type: "textInput",
         title: "Input",
         subtitle: "Input text",
         icon: FiType,

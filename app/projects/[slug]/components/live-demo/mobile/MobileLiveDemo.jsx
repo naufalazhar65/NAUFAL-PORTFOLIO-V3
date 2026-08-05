@@ -35,16 +35,16 @@ export default function MobileLiveDemo() {
         {/* Workflow */}
 
         <div className="h-[170px] shrink-0">
-    <MobileWorkflow />
-</div>
+          <MobileWorkflow />
+        </div>
 
-<div className="min-h-0 flex-1">
-    <MobileProperties />
-</div>
+        <div className="min-h-0 flex-1">
+          <MobileProperties />
+        </div>
 
-<div className="h-[140px] shrink-0">
-    <MobileConsole />
-</div>
+        <div className="h-[140px] shrink-0">
+          <MobileConsole />
+        </div>
       </div>
 
       {/* Bottom */}

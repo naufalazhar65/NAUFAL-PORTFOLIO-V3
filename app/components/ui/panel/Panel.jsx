@@ -1,82 +1,101 @@
 "use client";
 
 import clsx from "clsx";
-import { motion } from "framer-motion";
-import { fadeUp } from "@/lib/motion";
 
-const variants = {
-  default: `
-    border border-white/10
-    bg-[#111827]
-  `,
-
-  glass: `
-    border border-white/10
-    bg-white/[0.03]
-    backdrop-blur-xl
-  `,
-
-  terminal: `
-    border border-[#16f2b3]/20
-    bg-[#0d1117]
-  `,
-
-  repository: `
-    border border-white/10
-    bg-[#0b1120]
-  `,
-
-  workflow: `
-    border border-[#16f2b3]/20
-    bg-[#0b1120]
-  `,
-
-  success: `
-    border border-[#16f2b3]/30
-    bg-[#111827]
-  `,
-};
-
-const paddings = {
-  none: "",
-  sm: "p-4",
-  md: "p-6",
-  lg: "p-8",
-  xl: "p-10",
-};
-
-export default function Panel({
+function Panel({
   children,
-  className = "",
-  variant = "default",
-  padding = "lg",
+  className,
   hover = false,
-  animated = false,
-  as = "div",
 }) {
-  const Component = animated ? motion[as] || motion.div : as;
-
   return (
-    <Component
-      {...(animated ? fadeUp : {})}
+    <div
       className={clsx(
         `
-          rounded-3xl
-          shadow-[0_20px_80px_rgba(0,0,0,.45)]
+          overflow-hidden
+          rounded-panel
+          border
+          border-border
+          bg-panel
+          shadow-panel
+
           transition-all
-          duration-300
+          duration-250
+          ease-smooth
         `,
-        variants[variant],
-        paddings[padding],
         hover &&
           `
-            hover:border-[#16f2b3]/40
-            hover:shadow-[0_20px_80px_rgba(22,242,179,.08)]
+            hover:-translate-y-1
+            hover:border-primary/20
+            hover:shadow-float
           `,
-        className,
+        className
       )}
     >
       {children}
-    </Component>
+    </div>
   );
 }
+
+function Header({
+  children,
+  className,
+}) {
+  return (
+    <div
+      className={clsx(
+        `
+          border-b
+          border-border
+          px-6
+          py-5
+        `,
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Body({
+  children,
+  className,
+}) {
+  return (
+    <div
+      className={clsx(
+        "p-6",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Footer({
+  children,
+  className,
+}) {
+  return (
+    <div
+      className={clsx(
+        `
+          border-t
+          border-border
+          px-6
+          py-5
+        `,
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+Panel.Header = Header;
+Panel.Body = Body;
+Panel.Footer = Footer;
+
+export default Panel;

@@ -74,6 +74,7 @@ export default function RootLayout({ children }) {
         <Navbar />
 
         <main
+          id="main-content"
           className="
     relative
     mx-auto
