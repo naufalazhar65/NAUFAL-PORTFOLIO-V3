@@ -17,13 +17,13 @@ export default function HeroImage({
         mx-auto
         w-full
         max-w-sm
-
         sm:max-w-md
-
         lg:max-w-none
       "
     >
-      {/* Glow */}
+      {/* ========================= */}
+      {/* Desktop Glow */}
+      {/* ========================= */}
 
       <div
         className="
@@ -32,6 +32,35 @@ export default function HeroImage({
           top-1/2
           -z-10
 
+          hidden
+          lg:block
+
+          h-[450px]
+          w-[450px]
+
+          -translate-x-1/2
+          -translate-y-1/2
+
+          rounded-full
+          bg-[#16f2b3]/20
+          blur-[120px]
+        "
+      />
+
+      {/* ========================= */}
+      {/* Mobile Glow */}
+      {/* ========================= */}
+
+      {/* <div
+        className="
+          absolute
+          left-1/2
+          top-[42%]
+          -z-10
+
+          block
+          lg:hidden
+
           h-72
           w-72
 
@@ -39,19 +68,14 @@ export default function HeroImage({
           -translate-y-1/2
 
           rounded-full
-          bg-[#16f2b3]/20
+          bg-[#16f2b3]/15
           blur-[90px]
-
-          sm:h-80
-          sm:w-80
-
-          lg:h-[450px]
-          lg:w-[450px]
-          lg:blur-[120px]
         "
-      />
+      /> */}
 
-      {/* Background Grid */}
+      {/* ========================= */}
+      {/* Desktop Background Grid */}
+      {/* ========================= */}
 
       <div
         className="
@@ -59,19 +83,21 @@ export default function HeroImage({
           inset-0
           -z-10
 
-          rounded-[28px]
+          hidden
+          lg:block
+
+          rounded-[40px]
           border
           border-white/5
 
           bg-[radial-gradient(circle_at_center,rgba(255,255,255,.03)_1px,transparent_1px)]
-          [background-size:18px_18px]
-
-          lg:rounded-[40px]
-          lg:[background-size:22px_22px]
+          [background-size:22px_22px]
         "
       />
 
+      {/* ========================= */}
       {/* Preview */}
+      {/* ========================= */}
 
       <motion.div
         animate={{
@@ -85,7 +111,9 @@ export default function HeroImage({
       >
         {preview ? (
           <>
+            {/* ========================= */}
             {/* Desktop */}
+            {/* ========================= */}
 
             <div className="hidden lg:block">
               <div
@@ -102,7 +130,9 @@ export default function HeroImage({
               </div>
             </div>
 
+            {/* ========================= */}
             {/* Mobile */}
+            {/* ========================= */}
 
             <div className="block lg:hidden">
               <PhonePreview />
@@ -112,14 +142,10 @@ export default function HeroImage({
           <div
             className="
               overflow-hidden
-
               rounded-[24px]
-
               border
               border-white/10
-
               bg-[#0d1117]
-
               shadow-[0_20px_60px_rgba(0,0,0,.45)]
 
               lg:rounded-[32px]
@@ -136,14 +162,15 @@ export default function HeroImage({
         )}
       </motion.div>
 
-      {/* Reflection */}
+      {/* ========================= */}
+      {/* Desktop Reflection */}
+      {/* ========================= */}
 
       <div
         className="
           pointer-events-none
           absolute
           inset-0
-
           hidden
           lg:block
 
@@ -157,4 +184,4 @@ export default function HeroImage({
       />
     </div>
   );
-} 
+}

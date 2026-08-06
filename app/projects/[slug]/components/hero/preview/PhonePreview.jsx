@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 import { HeroProvider } from "./HeroContext";
 
 import AndroidPreview from "./devices/AndroidPreview";
@@ -10,131 +8,106 @@ import IOSPreview from "./devices/IOSPreview";
 export default function PhonePreview() {
   return (
     <HeroProvider>
+      {/* ========================= */}
+      {/* Mobile */}
+      {/* ========================= */}
+
       <div
         className="
           relative
           flex
+          justify-center
+          md:hidden
+        "
+      >
+        {/* Glow */}
+
+        <div
+  className="
+    pointer-events-none
+    absolute
+    left-1/2
+    top-[46%]
+    -z-10
+    h-56
+    w-56
+    -translate-x-1/2
+    -translate-y-1/2
+    rounded-full
+    bg-[#16f2b3]/8
+    blur-[100px]
+  "
+/>
+
+        {/* Phone */}
+
+        <div className="relative">
+          <AndroidPreview />
+        </div>
+
+        {/* Bottom Fade */}
+
+        <div
+  className="
+    pointer-events-none
+    absolute
+    inset-x-0
+    -bottom-8
+    h-32
+
+    bg-gradient-to-t
+    via-[#0b1220]/20
+    to-transparent
+  "
+/>
+      </div>
+
+      {/* ========================= */}
+      {/* Tablet */}
+      {/* ========================= */}
+
+      <div
+        className="
+          relative
+          hidden
+          md:flex
+          lg:hidden
           items-end
           justify-center
-          gap-8
-          px-6
+          gap-10
           py-8
         "
       >
-        {/* Android */}
+        {/* Glow */}
 
-        <motion.div
-          initial={{
-            opacity: 0,
-            x: -40,
-            rotate: -6,
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-            rotate: -6,
-            y: [0, -8, 0],
-          }}
-          transition={{
-            opacity: {
-              duration: 0.8,
-            },
-            x: {
-              duration: 0.8,
-            },
-            y: {
-              repeat: Infinity,
-              duration: 5,
-              ease: "easeInOut",
-            },
-          }}
-          className="flex flex-col items-center"
-        >
-          <AndroidPreview />
-
-          <span
-            className="
-              mt-5
-              text-[10px]
-              font-semibold
-              uppercase
-              tracking-[3px]
-              text-[#16f2b3]
-            "
-          >
-            Android
-          </span>
-        </motion.div>
-
-        {/* Center Glow */}
-
-        <motion.div
-          animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.35, 0.7, 0.35],
-          }}
-          transition={{
-            repeat: Infinity,
-            duration: 3,
-            ease: "easeInOut",
-          }}
+        <div
           className="
+            pointer-events-none
             absolute
-            bottom-24
-            h-4
-            w-4
+            left-1/2
+            top-1/2
+            -z-10
+            h-80
+            w-80
+            -translate-x-1/2
+            -translate-y-1/2
             rounded-full
-            bg-[#16f2b3]
-            blur-[2px]
+            bg-[#16f2b3]/15
+            blur-[120px]
           "
         />
 
+        {/* Android */}
+
+        <div className="-rotate-6">
+          <AndroidPreview />
+        </div>
+
         {/* iPhone */}
 
-        <motion.div
-          initial={{
-            opacity: 0,
-            x: 40,
-            rotate: 6,
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-            rotate: 6,
-            y: [0, -10, 0],
-          }}
-          transition={{
-            opacity: {
-              duration: 0.8,
-              delay: 0.15,
-            },
-            x: {
-              duration: 0.8,
-              delay: 0.15,
-            },
-            y: {
-              repeat: Infinity,
-              duration: 5.5,
-              ease: "easeInOut",
-            },
-          }}
-          className="flex flex-col items-center"
-        >
+        <div className="rotate-6">
           <IOSPreview />
-
-          <span
-            className="
-              mt-5
-              text-[10px]
-              font-semibold
-              uppercase
-              tracking-[3px]
-              text-sky-400
-            "
-          >
-            iOS
-          </span>
-        </motion.div>
+        </div>
       </div>
     </HeroProvider>
   );
