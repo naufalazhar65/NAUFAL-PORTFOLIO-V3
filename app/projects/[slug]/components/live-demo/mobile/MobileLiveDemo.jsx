@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 
 import MobileHeader from "./MobileHeader";
 import MobileWorkflow from "./MobileWorkflow";
@@ -7,6 +8,8 @@ import MobileConsole from "./MobileConsole";
 import MobileBottomBar from "./MobileBottomBar";
 
 export default function MobileLiveDemo() {
+  const [consoleCollapsed, setConsoleCollapsed] = useState(true);
+
   return (
     <main
       className="
@@ -42,14 +45,18 @@ export default function MobileLiveDemo() {
           <MobileProperties />
         </div>
 
-        <div className="h-[140px] shrink-0">
-          <MobileConsole />
+        <div className="shrink-0">
+          <MobileConsole
+            collapsed={consoleCollapsed}
+            onToggle={setConsoleCollapsed}
+          />
         </div>
       </div>
 
       {/* Bottom */}
 
-      <MobileBottomBar />
+      {consoleCollapsed && <MobileBottomBar />}
+      
     </main>
   );
 }

@@ -1,65 +1,77 @@
 "use client";
 
-import { useReducer } from "react";
+import { useMemo, useReducer } from "react";
 
 import executionReducer, {
   initialExecutionState,
 } from "./executionReducer";
 
-import {
-  EXECUTION_ACTION,
-} from "./constants";
+import { EXECUTION_ACTION } from "./constants";
+
+import createExecutionEngine from "./engine/executionEngine";
+import { workflow } from "./data/workflowData";
 
 export default function useExecution() {
   const [state, dispatch] = useReducer(
     executionReducer,
-    initialExecutionState
+    initialExecutionState,
   );
 
-  const run = () =>
-    dispatch({
-      type: EXECUTION_ACTION.RUN,
-    });
+  const actions = useMemo(
+    () => ({
+      run: () =>
+        dispatch({
+          type: EXECUTION_ACTION.RUN,
+        }),
 
-  const pause = () =>
-    dispatch({
-      type: EXECUTION_ACTION.PAUSE,
-    });
+      pause: () =>
+        dispatch({
+          type: EXECUTION_ACTION.PAUSE,
+        }),
 
-  const reset = () =>
-    dispatch({
-      type: EXECUTION_ACTION.RESET,
-    });
+      reset: () =>
+        dispatch({
+          type: EXECUTION_ACTION.RESET,
+        }),
 
-  const nextStep = (index) =>
-    dispatch({
-      type: EXECUTION_ACTION.NEXT_STEP,
-      payload: index,
-    });
+      nextStep: (index) =>
+        dispatch({
+          type: EXECUTION_ACTION.NEXT_STEP,
+          payload: index,
+        }),
 
-  const addLog = (message) =>
-    dispatch({
-      type: EXECUTION_ACTION.ADD_LOG,
-      payload: {
-        id: crypto.randomUUID(),
-        time: new Date().toLocaleTimeString(),
-        message,
-      },
-    });
+      addLog: (log) =>
+        dispatch({
+          type: EXECUTION_ACTION.ADD_LOG,
+          payload: log,
+        }),
 
-  const finish = () =>
-    dispatch({
-      type: EXECUTION_ACTION.FINISH,
-    });
+      finish: () =>
+        dispatch({
+          type: EXECUTION_ACTION.FINISH,
+        }),
+    }),
+    [],
+  );
+
+  const engine = useMemo(
+  () =>
+    createExecutionEngine({
+      workflow,
+      ...actions,
+    }),
+  [actions],
+);
 
   return {
     state,
 
-    run,
-    pause,
-    reset,
-    nextStep,
-    addLog,
-    finish,
+    start: engine.execute,
+
+    stop: engine.stop,
+
+    reset: actions.reset,
+
+    pause: actions.pause,
   };
 }

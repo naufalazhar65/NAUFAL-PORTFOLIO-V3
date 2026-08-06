@@ -6,7 +6,7 @@ import {
   FiPlay,
 } from "react-icons/fi";
 
-import { useDemo } from "../shared/DemoProvider";
+import useDemo from "../shared/useDemo";
 
 export default function MobileWorkflow() {
   const {
@@ -14,30 +14,34 @@ export default function MobileWorkflow() {
     activeStep,
   } = useDemo();
 
+  const steps = workflow?.steps ?? [];
+
   const containerRef = useRef(null);
   const itemRefs = useRef([]);
 
   useEffect(() => {
-  const container = containerRef.current;
-  const activeItem = itemRefs.current[activeStep];
+    if (activeStep < 0) return;
 
-  if (!container || !activeItem) return;
+    const container = containerRef.current;
+    const activeItem = itemRefs.current[activeStep];
 
-  const containerRect = container.getBoundingClientRect();
-  const itemRect = activeItem.getBoundingClientRect();
+    if (!container || !activeItem) return;
 
-  const offset =
-    itemRect.top -
-    containerRect.top +
-    container.scrollTop -
-    container.clientHeight / 2 +
-    itemRect.height / 2;
+    const containerRect = container.getBoundingClientRect();
+    const itemRect = activeItem.getBoundingClientRect();
 
-  container.scrollTo({
-    top: offset,
-    behavior: "smooth",
-  });
-}, [activeStep]);
+    const offset =
+      itemRect.top -
+      containerRect.top +
+      container.scrollTop -
+      container.clientHeight / 2 +
+      itemRect.height / 2;
+
+    container.scrollTo({
+      top: offset,
+      behavior: "smooth",
+    });
+  }, [activeStep]);
 
   return (
     <section
@@ -70,7 +74,7 @@ export default function MobileWorkflow() {
         "
       >
         <div className="space-y-3">
-          {workflow.map((node, index) => {
+          {steps.map((node, index) => {
             const active = index === activeStep;
             const completed = index < activeStep;
 
@@ -87,13 +91,13 @@ export default function MobileWorkflow() {
                 <div className="mt-1">
                   {completed ? (
                     <FiCheckCircle
-                      className="text-green-400"
                       size={16}
+                      className="text-green-400"
                     />
                   ) : active ? (
                     <FiPlay
-                      className="text-[#16f2b3]"
                       size={15}
+                      className="text-[#16f2b3]"
                     />
                   ) : (
                     <div className="h-3 w-3 rounded-full bg-gray-600" />
@@ -107,21 +111,20 @@ export default function MobileWorkflow() {
                     className={`
                       text-sm
                       font-medium
-
                       ${
                         active
                           ? "text-[#16f2b3]"
                           : completed
-                          ? "text-white"
-                          : "text-gray-500"
+                            ? "text-white"
+                            : "text-gray-500"
                       }
                     `}
                   >
                     {node.title}
                   </p>
 
-                  <p className="mt-1 text-xs text-gray-500">
-                    {node.type}
+                  <p className="mt-1 text-xs uppercase tracking-wide text-gray-500">
+                    {node.action}
                   </p>
                 </div>
               </div>

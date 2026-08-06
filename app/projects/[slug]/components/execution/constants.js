@@ -14,4 +14,4 @@ export const EXECUTION_ACTION = {
   FINISH: "FINISH",
 };
 
-export const STEP_DELAY = 800;
+export const STEP_DELAY = 800;  

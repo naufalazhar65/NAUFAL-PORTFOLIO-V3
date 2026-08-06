@@ -1,192 +1,175 @@
 "use client";
 
 import {
-  FiSmartphone,
   FiActivity,
-  FiClock,
-  FiTarget,
   FiCheckCircle,
+  FiClock,
+  FiSmartphone,
+  FiTarget,
 } from "react-icons/fi";
 
-import { useDemo } from "../shared/DemoProvider";
+import useDemo from "../shared/useDemo";
+
+import DevicePreview from "./DevicePreview";
+import InspectorProperty from "./InspectorProperty";
+import ExecutionProgress from "./ExecutionProgress";
 
 export default function DemoInspector() {
-  const { activeNode, activeStep, workflow } = useDemo();
+  const { workflow, activeNode, activeStep, state } = useDemo();
 
-  if (!activeNode) return null;
+  if (!activeNode) {
+    return (
+      <aside
+        className="
+          flex
+          h-full
+          min-h-0
+          flex-col
+          overflow-hidden
+          border-l
+          border-white/10
+          bg-[#111827]
+        "
+      >
+        <div className="flex flex-1 items-center justify-center px-8 text-center">
+          <div>
+            <FiActivity size={32} className="mx-auto mb-4 text-gray-600" />
 
-  const progress = ((activeStep + 1) / workflow.length) * 100;
+            <h3 className="text-lg font-semibold text-white">
+              Ready to Execute
+            </h3>
+
+            <p className="mt-2 text-sm text-gray-400">
+              Press <span className="text-[#16f2b3]">Run</span> to start the
+              automation workflow.
+            </p>
+          </div>
+        </div>
+      </aside>
+    );
+  }
+
+  const totalSteps = workflow?.steps?.length ?? 0;
+
+  const currentStep = activeStep < 0 ? 0 : activeStep + 1;
+
+  const progress = totalSteps === 0 ? 0 : (currentStep / totalSteps) * 100;
+
+  const statusMap = {
+    idle: "Idle",
+    running: "Running",
+    paused: "Paused",
+    finished: "Completed",
+  };
+
+  const status = statusMap[state?.status] ?? "Idle";
 
   return (
-    <aside className="flex flex-col border-l border-white/10 bg-[#111827]">
+    <aside
+      className="
+        flex
+        h-full
+        min-h-0
+        flex-col
+        overflow-hidden
+        border-l
+        border-white/10
+        bg-[#111827]
+      "
+    >
       {/* Header */}
 
-      <div className="border-b border-white/10 px-6 py-5">
-        <h2 className="text-lg font-bold text-white">
-          Inspector
-        </h2>
+      <div className="shrink-0 border-b border-white/10 px-6 py-5">
+        <h2 className="text-lg font-bold text-white">Inspector</h2>
 
-        <p className="mt-1 text-sm text-gray-400">
-          Selected automation node
-        </p>
+        <p className="mt-1 text-sm text-gray-400">Selected automation node</p>
       </div>
 
-      {/* Scrollable Body */}
+      {/* Scroll Viewport */}
 
-      <div className="flex-1 space-y-6 overflow-y-auto p-6 scrollbar-hide">
-        {/* Device Preview */}
+      <div
+        className="
+          flex-1
+          min-h-0
+          overflow-y-auto
+          overscroll-contain
+          scrollbar-hide
+        "
+      >
+        <div className="space-y-6 p-6">
+          {/* Device */}
 
-        <div>
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[2px] text-gray-500">
-            Device Preview
-          </p>
+          <DevicePreview workflow={workflow} activeNode={activeNode} />
 
-          <div className="rounded-3xl border border-white/10 bg-[#161b22] p-5">
-            <div className="mx-auto flex h-[220px] w-[120px] flex-col rounded-[28px] border-4 border-[#30363d] bg-black p-2">
-              {/* Camera */}
+          {/* Status */}
 
-              <div className="mx-auto mb-3 h-2 w-12 rounded-full bg-[#30363d]" />
+          <div className="rounded-2xl border border-[#16f2b3]/20 bg-[#16f2b3]/5 p-5">
+            <div className="flex items-center gap-3">
+              <FiActivity size={18} className="text-[#16f2b3]" />
 
-              {/* Screen */}
+              <div>
+                <p className="text-xs uppercase tracking-[2px] text-gray-500">
+                  {status}
+                </p>
 
-              <div
-                className="
-                  flex
-                  flex-1
-                  items-center
-                  justify-center
-                  rounded-2xl
-                  bg-gradient-to-br
-                  from-[#16f2b3]/20
-                  via-[#2563eb]/20
-                  to-[#8b5cf6]/20
-                  transition-all
-                  duration-700
-                "
-              >
-                <div className="text-center">
-                  <FiSmartphone
-                    className="mx-auto mb-3 text-[#16f2b3]"
-                    size={26}
-                  />
-
-                  <p className="font-semibold text-white">
-                    {activeNode.screen}
-                  </p>
-
-                  <p className="mt-1 text-[11px] text-gray-400">
-                    Current Screen
-                  </p>
-                </div>
+                <h3 className="mt-1 text-lg font-bold text-white">
+                  {activeNode.title}
+                </h3>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Running Status */}
+          {/* Properties */}
 
-        <div className="rounded-2xl border border-[#16f2b3]/20 bg-[#16f2b3]/5 p-5">
-          <div className="flex items-center gap-3">
-            <FiActivity
-              className="text-[#16f2b3]"
-              size={18}
+          <div className="space-y-4">
+            <InspectorProperty
+              icon={<FiCheckCircle />}
+              label="Action"
+              value={activeNode.action}
             />
 
-            <div>
-              <p className="text-xs uppercase tracking-[2px] text-gray-500">
-                Running
-              </p>
+            <InspectorProperty
+              icon={<FiSmartphone />}
+              label="Platform"
+              value={workflow.platform}
+            />
 
-              <h3 className="mt-1 text-lg font-bold text-white">
-                {activeNode.title}
-              </h3>
-            </div>
-          </div>
-        </div>
+            <InspectorProperty
+              icon={<FiTarget />}
+              label="Locator"
+              value={activeNode.locator ?? "-"}
+            />
 
-        {/* Properties */}
+            <InspectorProperty
+              icon={<FiClock />}
+              label="Timeout"
+              value={`${activeNode.timeout} ms`}
+            />
 
-        <div className="space-y-4">
-          <Property
-            icon={<FiCheckCircle />}
-            label="Action"
-            value={activeNode.type}
-          />
+            <InspectorProperty
+              icon={<FiActivity />}
+              label="Duration"
+              value={`${activeNode.duration} ms`}
+            />
 
-          <Property
-            icon={<FiSmartphone />}
-            label="Current Screen"
-            value={activeNode.screen}
-          />
+            <InspectorProperty
+              icon={<FiCheckCircle />}
+              label="Retry"
+              value={String(activeNode.retry)}
+            />
 
-          <Property
-            icon={<FiTarget />}
-            label="Locator"
-            value={activeNode.locator}
-          />
-
-          <Property
-            icon={<FiClock />}
-            label="Timeout"
-            value={`${activeNode.timeout} ms`}
-          />
-
-          <Property
-            icon={<FiActivity />}
-            label="Progress"
-            value={`${activeStep + 1} / ${workflow.length}`}
-          />
-        </div>
-
-        {/* Execution */}
-
-        <div className="rounded-2xl border border-white/10 bg-[#161b22] p-5">
-          <div className="flex items-center justify-between">
-            <p className="text-xs uppercase tracking-[2px] text-gray-500">
-              Execution
-            </p>
-
-            <span className="text-xs font-semibold text-[#16f2b3]">
-              {Math.round(progress)}%
-            </span>
-          </div>
-
-          <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
-            <div
-              className="h-full rounded-full bg-[#16f2b3] transition-all duration-700"
-              style={{
-                width: `${progress}%`,
-              }}
+            <InspectorProperty
+              icon={<FiActivity />}
+              label="Progress"
+              value={`${currentStep} / ${totalSteps}`}
             />
           </div>
 
-          <p className="mt-4 text-sm text-gray-400">
-            Executing automation workflow...
-          </p>
+          {/* Progress */}
+
+          <ExecutionProgress progress={progress} state={state} />
         </div>
       </div>
     </aside>
-  );
-}
-
-function Property({
-  icon,
-  label,
-  value,
-}) {
-  return (
-    <div className="rounded-xl border border-white/10 bg-[#161b22] p-4">
-      <div className="mb-2 flex items-center gap-2 text-gray-400">
-        {icon}
-
-        <span className="text-xs uppercase tracking-[2px]">
-          {label}
-        </span>
-      </div>
-
-      <p className="break-all font-semibold text-white">
-        {value}
-      </p>
-    </div>
   );
 }

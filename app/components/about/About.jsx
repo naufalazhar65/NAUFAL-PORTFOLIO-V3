@@ -12,33 +12,33 @@ import AboutImage from "./components/AboutImage";
 export default function About() {
   return (
     <Section id="about">
-      <motion.div
-        variants={stagger}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{
-          once: true,
-          amount: 0.3,
-        }}
-      >
-        <LayoutContainer>
-          {/* AboutSideLabel nanti dipindahkan */}
+      <LayoutContainer>
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{
+            once: true,
+            amount: 0.3,
+          }}
+          className="
+            grid
+            grid-cols-1
+            items-center
+            gap-12
+            lg:grid-cols-[minmax(0,1fr)_420px]
+            lg:gap-16
+            xl:grid-cols-[minmax(0,1fr)_460px]
+            xl:gap-24
+          "
+        >
+          {/* Left */}
+          <AboutContent />
 
-          <div
-            className="
-              grid
-              grid-cols-1
-              items-center
-              gap-14
-              lg:grid-cols-2
-              xl:gap-24
-            "
-          >
-            <AboutContent />
-            <AboutImage />
-          </div>
-        </LayoutContainer>
-      </motion.div>
+          {/* Right */}
+          <AboutImage />
+        </motion.div>
+      </LayoutContainer>
     </Section>
   );
 }

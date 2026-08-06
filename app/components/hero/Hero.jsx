@@ -17,14 +17,7 @@ import { fadeUp, stagger } from "@/app/lib/motion";
 function HeroSection() {
   const greeting = useGreeting();
 
-  const {
-    cardRef,
-    springX,
-    springY,
-    isMobile,
-    handleMouseMove,
-    handleMouseLeave,
-  } = useHeroParallax();
+  const { handleMouseMove, handleMouseLeave } = useHeroParallax();
 
   return (
     <motion.section

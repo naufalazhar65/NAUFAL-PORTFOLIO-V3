@@ -7,12 +7,34 @@ import {
   FiTarget,
 } from "react-icons/fi";
 
-import { useDemo } from "../shared/DemoProvider";
+import useDemo from "../shared/useDemo";
+
 
 export default function MobileProperties() {
-  const { activeNode } = useDemo();
+  const demo = useDemo();
 
-  if (!activeNode) return null;
+  const activeNode = demo.activeNode;
+
+  const status =
+    demo.state?.status ?? "idle";
+
+  if (!activeNode) {
+    return (
+      <section className="flex flex-1 items-center justify-center border-t border-white/10">
+        <p className="text-sm text-gray-500">
+          Press <span className="text-[#16f2b3]">Run</span> to start
+          execution.
+        </p>
+      </section>
+    );
+  }
+
+  const statusColor = {
+    idle: "text-gray-400 bg-gray-500/10",
+    running: "text-[#16f2b3] bg-[#16f2b3]/10",
+    paused: "text-yellow-300 bg-yellow-500/10",
+    finished: "text-blue-300 bg-blue-500/10",
+  };
 
   return (
     <section
@@ -33,35 +55,36 @@ export default function MobileProperties() {
         </p>
       </div>
 
-      {/* Scroll Area */}
+      {/* Body */}
 
       <div
         className="
           min-h-0
           flex-1
           overflow-y-auto
-          scrollbar-hide
           px-5
           pb-5
+          scrollbar-hide
         "
       >
-        <div className="space-y-4">
+        <div className="space-y-3">
           <Property
             icon={<FiActivity />}
             label="Action"
-            value={activeNode.type}
+            value={activeNode.action}
           />
 
           <Property
             icon={<FiTarget />}
             label="Locator"
-            value={activeNode.locator}
+            value={activeNode.locator ?? "-"}
+            small
           />
 
           <Property
             icon={<FiSmartphone />}
-            label="Screen"
-            value={activeNode.screen}
+            label="Platform"
+            value="Android"
           />
 
           <Property
@@ -70,12 +93,35 @@ export default function MobileProperties() {
             value={`${activeNode.timeout} ms`}
           />
 
-          <Property
-            icon={<FiActivity />}
-            label="Status"
-            value="Running"
-            highlight
-          />
+          {/* Status */}
+
+          <div className="rounded-2xl border border-white/10 bg-[#161b22] p-4">
+            <div className="mb-3 flex items-center gap-2 text-gray-500">
+              <FiActivity />
+
+              <span className="text-[11px] uppercase tracking-[3px]">
+                Status
+              </span>
+            </div>
+
+            <span
+              className={`
+                rounded-full
+                px-3
+                py-2
+                text-sm
+                font-semibold
+                capitalize
+
+                ${
+                  statusColor[status] ??
+                  statusColor.idle
+                }
+              `}
+            >
+              {status}
+            </span>
+          </div>
         </div>
       </div>
     </section>
@@ -86,7 +132,7 @@ function Property({
   icon,
   label,
   value,
-  highlight = false,
+  small = false,
 }) {
   return (
     <div
@@ -98,7 +144,7 @@ function Property({
         p-4
       "
     >
-      <div className="mb-3 flex items-center gap-2 text-gray-500">
+      <div className="mb-2 flex items-center gap-2 text-gray-500">
         {icon}
 
         <span className="text-[11px] uppercase tracking-[3px]">
@@ -109,13 +155,13 @@ function Property({
       <p
         className={`
           break-all
-          text-lg
           font-semibold
+          text-white
 
           ${
-            highlight
-              ? "text-[#16f2b3]"
-              : "text-white"
+            small
+              ? "text-sm"
+              : "text-base"
           }
         `}
       >

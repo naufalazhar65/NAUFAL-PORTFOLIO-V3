@@ -1,37 +1,36 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useMemo } from "react";
 
-import { workflow, logs } from "../desktop/demoData";
+import DemoContext from "./DemoContext";
 
-const DemoContext = createContext(null);
+import useExecution from "../../execution/useExecution";
+import { workflow } from "../../execution/data/workflowData";
 
-export function DemoProvider({ children }) {
-  const [activeStep, setActiveStep] = useState(0);
+export default function DemoProvider({ children }) {
+  const execution = useExecution();
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveStep((current) => (current + 1) % workflow.length);
-    }, 1500);
-
-    return () => clearInterval(interval);
-  }, []);
+  const currentStep = execution.state.currentStep;
 
   const value = useMemo(
     () => ({
       workflow,
-      logs,
-      activeStep,
-      activeNode: workflow[activeStep],
-      progress: `${activeStep + 1} / ${workflow.length}`,
+
+      activeStep: currentStep,
+
+      activeNode:
+        currentStep >= 0
+          ? workflow.steps[currentStep]
+          : null,
+
+      progress: {
+        current: currentStep < 0 ? 0 : currentStep + 1,
+        total: workflow.steps.length,
+      },
+
+      ...execution,
     }),
-    [activeStep],
+    [execution, currentStep],
   );
 
   return (
@@ -39,8 +38,4 @@ export function DemoProvider({ children }) {
       {children}
     </DemoContext.Provider>
   );
-}
-
-export function useDemo() {
-  return useContext(DemoContext);
 }

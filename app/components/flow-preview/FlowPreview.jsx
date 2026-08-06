@@ -93,7 +93,25 @@ export default function FlowPreview() {
                 <PreviewNode label={node.label} status={statuses[node.id]} />
 
                 {index !== previewNodes.length - 1 && (
-                  <div className="ml-5 h-7 border-l border-border" />
+                  <motion.div
+                    initial={{
+                      height: 0,
+                    }}
+                    animate={{
+                      height: 28,
+                    }}
+                    transition={{
+                      duration: 0.4,
+                    }}
+                    className="
+    ml-5
+    border-l-2
+  "
+                    style={{
+                      borderColor:
+                        statuses[node.id] === "passed" ? "#16F2B3" : "#2a2a2a",
+                    }}
+                  />
                 )}
               </div>
             ))}
@@ -164,7 +182,24 @@ export default function FlowPreview() {
                   >
                     <span className="select-none text-primary">&gt;</span>
 
-                    <span className="truncate text-heading">{log}</span>
+                    <span className="truncate text-heading">
+                      {log}
+
+                      {index === displayLogs.length - 1 && (
+                        <motion.span
+                          animate={{
+                            opacity: [1, 0, 1],
+                          }}
+                          transition={{
+                            duration: 0.8,
+                            repeat: Infinity,
+                          }}
+                          className="ml-1 text-primary"
+                        >
+                          ▋
+                        </motion.span>
+                      )}
+                    </span>
                   </motion.div>
                 ))}
             </AnimatePresence>

@@ -7,16 +7,22 @@ import {
   FiServer,
 } from "react-icons/fi";
 
-import { useDemo } from "../shared/DemoProvider";
+import useDemo from "../shared/useDemo";
 
 export default function MobileBottomBar() {
   const {
-    activeStep,
     workflow,
+    activeStep,
+    state,
   } = useDemo();
 
+  const totalSteps = workflow?.steps?.length ?? 0;
+
+  const currentStep =
+    activeStep < 0 ? 0 : activeStep + 1;
+
   const completed =
-    activeStep === workflow.length - 1;
+    state?.status === "finished";
 
   return (
     <footer
@@ -43,12 +49,18 @@ export default function MobileBottomBar() {
         ) : (
           <FiActivity
             size={14}
-            className="text-[#16f2b3] animate-pulse"
+            className="animate-pulse text-[#16f2b3]"
           />
         )}
 
         <span className="text-[11px] font-medium text-white">
-          {completed ? "Completed" : "Running"}
+          {completed
+            ? "Completed"
+            : state?.status === "paused"
+              ? "Paused"
+              : state?.status === "running"
+                ? "Running"
+                : "Idle"}
         </span>
       </div>
 
@@ -59,7 +71,7 @@ export default function MobileBottomBar() {
           <FiSmartphone size={13} />
 
           <span className="text-[10px]">
-            Android
+            {workflow?.platform ?? "Android"}
           </span>
         </div>
 
@@ -72,7 +84,7 @@ export default function MobileBottomBar() {
         </div>
 
         <span className="rounded-full bg-white/5 px-2 py-1 text-[10px] text-gray-300">
-          {activeStep + 1}/{workflow.length}
+          {currentStep}/{totalSteps}
         </span>
       </div>
     </footer>
