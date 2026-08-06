@@ -80,11 +80,11 @@ export default function DemoInspector() {
     >
       {/* Header */}
 
-      <div className="shrink-0 border-b border-white/10 px-6 py-5">
+      {/* <div className="shrink-0 border-b border-white/10 px-6 py-5">
         <h2 className="text-lg font-bold text-white">Inspector</h2>
 
         <p className="mt-1 text-sm text-gray-400">Selected automation node</p>
-      </div>
+      </div> */}
 
       {/* Scroll Viewport */}
 

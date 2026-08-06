@@ -2,23 +2,56 @@
 
 import { motion } from "framer-motion";
 
-import { HeroProvider } from "./HeroContext";
-
 import AndroidPreview from "./devices/AndroidPreview";
 import IOSPreview from "./devices/IOSPreview";
 
-export default function PhonePreview() {
+export default function DeviceStack() {
   return (
-    <HeroProvider>
+    <section className="relative py-16">
+      {/* Background Glow */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+          flex
+          items-center
+          justify-center
+        "
+      >
+        <div
+          className="
+            h-[420px]
+            w-[420px]
+            rounded-full
+            bg-[#16f2b3]/5
+            blur-[140px]
+          "
+        />
+
+        <div
+          className="
+            absolute
+            h-[320px]
+            w-[320px]
+            rounded-full
+            bg-sky-500/5
+            blur-[120px]
+          "
+        />
+      </div>
+
+      {/* Devices */}
+
       <div
         className="
           relative
+          z-10
           flex
           items-end
           justify-center
-          gap-8
-          px-6
-          py-8
+          gap-24
         "
       >
         {/* Android */}
@@ -54,8 +87,8 @@ export default function PhonePreview() {
 
           <span
             className="
-              mt-5
-              text-[10px]
+              mt-6
+              text-xs
               font-semibold
               uppercase
               tracking-[3px]
@@ -81,8 +114,8 @@ export default function PhonePreview() {
           className="
             absolute
             bottom-24
-            h-4
-            w-4
+            h-5
+            w-5
             rounded-full
             bg-[#16f2b3]
             blur-[2px]
@@ -124,8 +157,8 @@ export default function PhonePreview() {
 
           <span
             className="
-              mt-5
-              text-[10px]
+              mt-6
+              text-xs
               font-semibold
               uppercase
               tracking-[3px]
@@ -136,6 +169,6 @@ export default function PhonePreview() {
           </span>
         </motion.div>
       </div>
-    </HeroProvider>
+    </section>
   );
 }

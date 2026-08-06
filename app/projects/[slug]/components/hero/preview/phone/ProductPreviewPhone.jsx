@@ -1,24 +1,20 @@
 "use client";
 
+import { HeroProvider } from "../HeroContext";
+
 import PhoneFrame from "./PhoneFrame";
 import PhoneHeader from "./PhoneHeader";
-import PhoneLibrary from "./PhoneLibrary";
-import PhoneWorkflow from "./PhoneWorkflow";
-import PhoneConsole from "./PhoneConsole";
+import PhoneScreen from "./PhoneScreen";
 import PhoneStatus from "./PhoneStatus";
 
 export default function ProductPreviewPhone() {
   return (
-    <PhoneFrame>
-      <PhoneHeader />
-
-      <PhoneLibrary />
-
-      <PhoneWorkflow />
-
-      <PhoneConsole />
-
-      <PhoneStatus />
-    </PhoneFrame>
+    <HeroProvider>
+      <PhoneFrame>
+        <PhoneHeader />
+        <PhoneScreen />
+        <PhoneStatus />
+      </PhoneFrame>
+    </HeroProvider>
   );
 }
