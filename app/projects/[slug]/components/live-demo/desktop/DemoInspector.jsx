@@ -10,7 +10,7 @@ import {
 
 import useDemo from "../shared/useDemo";
 
-import DevicePreview from "./DevicePreview";
+import DevicePreview from "./DevicePreview/DevicePreview";
 import InspectorProperty from "./InspectorProperty";
 import ExecutionProgress from "./ExecutionProgress";
 
