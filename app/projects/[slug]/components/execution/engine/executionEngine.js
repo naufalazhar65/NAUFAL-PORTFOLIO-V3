@@ -1,11 +1,10 @@
 import delay from "./delay";
 
 import { STEP_DELAY } from "../constants";
-
 import createLog from "../utils/createLog";
 
 export default function createExecutionEngine({
-  workflow = { steps: [] },
+  nodes = [],
   run,
   finish,
   nextStep,
@@ -13,58 +12,100 @@ export default function createExecutionEngine({
 }) {
   const engine = {
     cancelled: false,
+    paused: false,
+    running: false,
   };
 
+  async function waitUntilResume() {
+    while (engine.paused && !engine.cancelled) {
+      await delay(100);
+    }
+  }
+
   async function execute() {
+    // Hindari menjalankan workflow dua kali
+    if (engine.running) {
+      return;
+    }
+
+    engine.running = true;
     engine.cancelled = false;
+    engine.paused = false;
 
     run();
 
-    const steps = workflow.steps ?? [];
-
-    for (let index = 0; index < steps.length; index++) {
-      if (engine.cancelled) {
-        break;
-      }
-
-      const step = steps[index];
-
-      nextStep(index);
-
-      for (const message of step.logs ?? []) {
+    try {
+      for (let index = 0; index < nodes.length; index++) {
         if (engine.cancelled) {
           break;
         }
 
-        addLog(
-          createLog({
-            step: step.id,
-            message,
-            type: "info",
-          }),
-        );
+        await waitUntilResume();
 
-        await delay(300);
+        const node = nodes[index];
+
+        nextStep(index);
+
+        const logs = node.data?.logs ?? [];
+
+        for (const message of logs) {
+          if (engine.cancelled) {
+            break;
+          }
+
+          await waitUntilResume();
+
+          addLog(
+            createLog({
+              step: node.id,
+              message,
+              type: "info",
+            }),
+          );
+
+          await delay(300);
+        }
+
+        if (engine.cancelled) {
+          break;
+        }
+
+        await waitUntilResume();
+
+        await delay(node.data?.duration ?? STEP_DELAY);
       }
 
-      if (engine.cancelled) {
-        break;
+      if (!engine.cancelled) {
+        finish();
       }
-
-      await delay(step.duration ?? STEP_DELAY);
+    } finally {
+      engine.running = false;
+      engine.paused = false;
     }
+  }
 
-    if (!engine.cancelled) {
-      finish();
-    }
+  function pause() {
+    if (!engine.running) return;
+
+    engine.paused = true;
+  }
+
+  function resume() {
+    if (!engine.running) return;
+
+    engine.paused = false;
   }
 
   function stop() {
     engine.cancelled = true;
+    engine.paused = false;
+    engine.running = false;
   }
 
   return {
     execute,
+    pause,
+    resume,
     stop,
   };
 }

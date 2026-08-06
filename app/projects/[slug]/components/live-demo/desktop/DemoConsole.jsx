@@ -2,10 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  FiChevronDown,
-  FiChevronUp,
-} from "react-icons/fi";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 import useDemo from "../shared/useDemo";
 
@@ -24,31 +21,27 @@ export default function DemoConsole() {
 
   const bodyRef = useRef(null);
 
-  const [collapsed, setCollapsed] =
-    useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   const visibleLogs = useMemo(() => {
-    return logs.slice(
-      0,
-      Math.max(activeStep + 1, 0),
-    );
-  }, [logs, activeStep]);
+    return logs;
+  }, [logs]);
 
-useEffect(() => {
-  if (!bodyRef.current) return;
+  useEffect(() => {
+    if (!bodyRef.current) return;
 
-  bodyRef.current.scrollTop =
-    bodyRef.current.scrollHeight;
-}, [visibleLogs]);
+    bodyRef.current.scrollTo({
+      top: bodyRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [logs]);
 
   return (
     <section className="border-t border-white/10 bg-[#090d13]">
       {/* Header */}
 
       <button
-        onClick={() =>
-          setCollapsed(!collapsed)
-        }
+        onClick={() => setCollapsed(!collapsed)}
         className="
           flex
           w-full
@@ -73,13 +66,9 @@ useEffect(() => {
         </div>
 
         {collapsed ? (
-          <FiChevronUp
-            className="text-gray-400"
-          />
+          <FiChevronUp className="text-gray-400" />
         ) : (
-          <FiChevronDown
-            className="text-gray-400"
-          />
+          <FiChevronDown className="text-gray-400" />
         )}
       </button>
 
@@ -116,26 +105,19 @@ useEffect(() => {
                 scrollbar-hide
               "
             >
-              {visibleLogs.map(
-                (log, index) => (
-                  <ConsoleLine
-                    key={log.id ?? index}
-                    log={log}
-                    index={index}
-                    latest={
-                      index ===
-                      visibleLogs.length - 1
-                    }
-                  />
-                ),
-              )}
+              {visibleLogs.map((log, index) => (
+                <ConsoleLine
+                  key={log.id ?? index}
+                  log={log}
+                  index={index}
+                  latest={index === visibleLogs.length - 1}
+                />
+              ))}
 
               <div className="mt-3 flex items-center gap-2 text-gray-500">
                 <span>$</span>
 
-                <span className="animate-pulse">
-                  █
-                </span>
+                <span className="animate-pulse">█</span>
               </div>
             </div>
           </motion.div>
@@ -145,18 +127,10 @@ useEffect(() => {
   );
 }
 
-function ConsoleLine({
-  log,
-  latest,
-  index,
-}) {
-  const second = String(
-    20 + index,
-  ).padStart(2, "0");
+function ConsoleLine({ log, latest, index }) {
+  const second = String(20 + index).padStart(2, "0");
 
-  const level =
-    log.type?.toUpperCase() ??
-    "INFO";
+  const level = log.type?.toUpperCase() ?? "INFO";
 
   return (
     <motion.div
@@ -177,25 +151,16 @@ function ConsoleLine({
         items-center
         gap-4
 
-        ${
-          latest
-            ? "text-white"
-            : "text-gray-400"
-        }
+        ${latest ? "text-white" : "text-gray-400"}
       `}
     >
-      <span className="w-16 text-gray-600">
-        09:30:{second}
-      </span>
+      <span className="w-16 text-gray-600">09:30:{second}</span>
 
       <span
         className={`
           w-12
           font-bold
-          ${
-            levelColors[level] ??
-            "text-gray-400"
-          }
+          ${levelColors[level] ?? "text-gray-400"}
         `}
       >
         {level}

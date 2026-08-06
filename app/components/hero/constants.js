@@ -21,3 +21,13 @@ export const CODE_LINES = [
   '  status: "Open to Work"',
   "};",
 ];
+
+export const EXECUTION_ACTION = {
+  RUN: "RUN",
+  PAUSE: "PAUSE",
+  RESUME: "RESUME",
+  RESET: "RESET",
+  NEXT_STEP: "NEXT_STEP",
+  ADD_LOG: "ADD_LOG",
+  FINISH: "FINISH",
+};

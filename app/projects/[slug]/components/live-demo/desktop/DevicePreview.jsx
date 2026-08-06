@@ -3,6 +3,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function DevicePreview({ activeNode }) {
+  const node = activeNode?.data ?? activeNode;
+
   return (
     <div>
       <p className="mb-3 text-xs font-semibold uppercase tracking-[2px] text-gray-500">
@@ -16,7 +18,7 @@ export default function DevicePreview({ activeNode }) {
           <div className="flex-1 overflow-hidden rounded-2xl bg-[#0d1117]">
             <AnimatePresence mode="wait">
               <motion.div
-                key={activeNode.title}
+                key={node?.id}
                 initial={{
                   opacity: 0,
                   scale: 0.96,
@@ -34,7 +36,7 @@ export default function DevicePreview({ activeNode }) {
                 }}
                 className="h-full"
               >
-                <Screen activeNode={activeNode} />
+                <DeviceScreen node={node} />
               </motion.div>
             </AnimatePresence>
           </div>
@@ -44,21 +46,40 @@ export default function DevicePreview({ activeNode }) {
   );
 }
 
-function Screen({ activeNode }) {
-  switch (activeNode.title) {
-    case "Launch App":
+function DeviceScreen({ node }) {
+  if (!node) {
+    return <SplashScreen />;
+  }
+
+  switch (node.id) {
+    case "launch":
       return <SplashScreen />;
 
-    case "Tap Login":
-      return <LoginScreen tap />;
+    case "inputUsername":
+      return (
+        <LoginScreen
+          username="naufalazhar"
+        />
+      );
 
-    case "Input Username":
-      return <LoginScreen username="naufalazhar" />;
+    case "inputPassword":
+      return (
+        <LoginScreen
+          username="naufalazhar"
+          password="••••••••"
+        />
+      );
 
-    case "Input Password":
-      return <LoginScreen username="naufalazhar" password="••••••••••" />;
+    case "tapLogin":
+      return (
+        <LoginScreen
+          username="naufalazhar"
+          password="••••••••"
+          tap
+        />
+      );
 
-    case "Assert Dashboard":
+    case "assertDashboard":
       return <DashboardScreen />;
 
     default:
@@ -82,17 +103,27 @@ function SplashScreen() {
         🚀
       </motion.div>
 
-      <h3 className="font-bold text-white">FlowTest</h3>
+      <h3 className="font-bold text-white">
+        FlowTest
+      </h3>
 
-      <p className="mt-2 text-xs text-gray-500">Loading...</p>
+      <p className="mt-2 text-xs text-gray-500">
+        Loading...
+      </p>
     </div>
   );
 }
 
-function LoginScreen({ tap = false, username = "", password = "" }) {
+function LoginScreen({
+  tap = false,
+  username = "",
+  password = "",
+}) {
   return (
     <div className="p-4">
-      <h3 className="mb-5 text-center font-bold text-white">Login</h3>
+      <h3 className="mb-5 text-center font-bold text-white">
+        Login
+      </h3>
 
       <div className="mb-3 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-white">
         {username || "Username"}
@@ -124,7 +155,9 @@ function LoginScreen({ tap = false, username = "", password = "" }) {
 function DashboardScreen() {
   return (
     <div className="p-4">
-      <h3 className="mb-4 text-center font-bold text-white">Dashboard</h3>
+      <h3 className="mb-4 text-center font-bold text-white">
+        Dashboard
+      </h3>
 
       <motion.div
         initial={{
@@ -136,15 +169,23 @@ function DashboardScreen() {
         className="space-y-2"
       >
         <div className="rounded-lg bg-[#16f2b3]/20 p-3">
-          <p className="text-xs text-[#16f2b3]">Automation</p>
+          <p className="text-xs text-[#16f2b3]">
+            Automation
+          </p>
 
-          <p className="mt-1 text-lg font-bold text-white">Passed</p>
+          <p className="mt-1 text-lg font-bold text-white">
+            Passed
+          </p>
         </div>
 
         <div className="rounded-lg bg-white/5 p-3">
-          <p className="text-xs text-gray-400">Total Tests</p>
+          <p className="text-xs text-gray-400">
+            Total Tests
+          </p>
 
-          <p className="mt-1 text-lg font-bold text-white">12</p>
+          <p className="mt-1 text-lg font-bold text-white">
+            12
+          </p>
         </div>
       </motion.div>
     </div>

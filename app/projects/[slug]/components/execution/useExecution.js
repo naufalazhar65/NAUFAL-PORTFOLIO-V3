@@ -2,20 +2,15 @@
 
 import { useMemo, useReducer } from "react";
 
-import executionReducer, {
-  initialExecutionState,
-} from "./executionReducer";
+import executionReducer, { initialExecutionState } from "./executionReducer";
 
 import { EXECUTION_ACTION } from "./constants";
 
 import createExecutionEngine from "./engine/executionEngine";
-import { workflow } from "./data/workflowData";
+import { workflow, nodes, edges } from "./data/workflowData";
 
 export default function useExecution() {
-  const [state, dispatch] = useReducer(
-    executionReducer,
-    initialExecutionState,
-  );
+  const [state, dispatch] = useReducer(executionReducer, initialExecutionState);
 
   const actions = useMemo(
     () => ({
@@ -27,6 +22,11 @@ export default function useExecution() {
       pause: () =>
         dispatch({
           type: EXECUTION_ACTION.PAUSE,
+        }),
+
+      resume: () =>
+        dispatch({
+          type: EXECUTION_ACTION.RESUME,
         }),
 
       reset: () =>
@@ -55,23 +55,41 @@ export default function useExecution() {
   );
 
   const engine = useMemo(
-  () =>
-    createExecutionEngine({
-      workflow,
-      ...actions,
-    }),
-  [actions],
-);
+    () =>
+      createExecutionEngine({
+        workflow,
+        nodes,
+        edges,
+        ...actions,
+      }),
+    [actions],
+  );
 
   return {
     state,
 
-    start: engine.execute,
+    start: () => {
+      if (state.status === "paused") {
+        actions.resume();
+        engine.resume();
+        return;
+      }
+
+      engine.execute();
+    },
 
     stop: engine.stop,
 
     reset: actions.reset,
 
-    pause: actions.pause,
+    pause: () => {
+      actions.pause();
+      engine.pause();
+    },
+
+    resume: () => {
+      actions.resume();
+      engine.resume();
+    },
   };
 }

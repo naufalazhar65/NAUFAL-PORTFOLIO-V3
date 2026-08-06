@@ -21,6 +21,8 @@ export default function DemoTopBar() {
   const state = demo.state ?? {
     status: "idle",
   };
+  const paused = state.status === "paused";
+  const finished = state.status === "finished";
 
   const start = demo.start ?? (() => {});
   const pause = demo.pause ?? (() => {});
@@ -86,43 +88,44 @@ export default function DemoTopBar() {
             onClick={start}
             disabled={running}
             className="
-              flex
-              items-center
-              gap-2
-              rounded-xl
-              bg-[#16f2b3]
-              px-5
-              py-2.5
-              font-medium
-              text-black
-              transition
-              hover:scale-105
-              disabled:cursor-not-allowed
-              disabled:opacity-40
-            "
+    flex
+    items-center
+    gap-2
+    rounded-xl
+    bg-[#16f2b3]
+    px-5
+    py-2.5
+    font-medium
+    text-black
+    transition
+    hover:scale-105
+    disabled:cursor-not-allowed
+    disabled:opacity-40
+  "
           >
             <FiPlay size={15} />
-            Run
+
+            {paused ? "Resume" : finished ? "Run Again" : "Run"}
           </button>
 
           <button
             onClick={pause}
-            disabled={!running}
+            disabled={!running || finished}
             className="
-              flex
-              items-center
-              gap-2
-              rounded-xl
-              border
-              border-white/10
-              px-5
-              py-2.5
-              text-white
-              transition
-              hover:bg-white/5
-              disabled:cursor-not-allowed
-              disabled:opacity-40
-            "
+                      flex
+                      items-center
+                      gap-2
+                      rounded-xl
+                      border
+                      border-white/10
+                      px-5
+                      py-2.5
+                      text-white
+                      transition
+                      hover:bg-white/5
+                      disabled:cursor-not-allowed
+                      disabled:opacity-40
+                    "
           >
             <FiPause size={15} />
             Pause

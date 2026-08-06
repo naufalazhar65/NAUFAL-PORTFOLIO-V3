@@ -16,6 +16,7 @@ import ExecutionProgress from "./ExecutionProgress";
 
 export default function DemoInspector() {
   const { workflow, activeNode, activeStep, state } = useDemo();
+  const node = activeNode?.data ?? activeNode;
 
   if (!activeNode) {
     return (
@@ -113,7 +114,7 @@ export default function DemoInspector() {
                 </p>
 
                 <h3 className="mt-1 text-lg font-bold text-white">
-                  {activeNode.title}
+                  {node.title}
                 </h3>
               </div>
             </div>
@@ -125,43 +126,31 @@ export default function DemoInspector() {
             <InspectorProperty
               icon={<FiCheckCircle />}
               label="Action"
-              value={activeNode.action}
-            />
-
-            <InspectorProperty
-              icon={<FiSmartphone />}
-              label="Platform"
-              value={workflow.platform}
+              value={node.action}
             />
 
             <InspectorProperty
               icon={<FiTarget />}
               label="Locator"
-              value={activeNode.locator ?? "-"}
+              value={node.locator ?? "-"}
             />
 
             <InspectorProperty
               icon={<FiClock />}
               label="Timeout"
-              value={`${activeNode.timeout} ms`}
+              value={`${node.timeout ?? 0} ms`}
             />
 
             <InspectorProperty
               icon={<FiActivity />}
               label="Duration"
-              value={`${activeNode.duration} ms`}
+              value={`${node.duration ?? 0} ms`}
             />
 
             <InspectorProperty
               icon={<FiCheckCircle />}
               label="Retry"
-              value={String(activeNode.retry)}
-            />
-
-            <InspectorProperty
-              icon={<FiActivity />}
-              label="Progress"
-              value={`${currentStep} / ${totalSteps}`}
+              value={String(node.retry ?? 0)}
             />
           </div>
 
