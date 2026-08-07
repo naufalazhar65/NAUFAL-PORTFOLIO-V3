@@ -6,6 +6,7 @@ export default function TypingText({
   text,
   speed = 60,
   cursor = true,
+  onKeyPress,
 }) {
   const [value, setValue] = useState("");
 
@@ -17,9 +18,15 @@ export default function TypingText({
     const timer = setInterval(() => {
       index++;
 
+      const current = text[index - 1];
+
       setValue(text.slice(0, index));
 
+      onKeyPress?.(current.toUpperCase());
+
       if (index >= text.length) {
+        onKeyPress?.("");
+
         clearInterval(timer);
       }
     }, speed);

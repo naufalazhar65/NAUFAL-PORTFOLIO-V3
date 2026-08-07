@@ -1,48 +1,49 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Activity, CheckCircle2, Clock3, Smartphone } from "lucide-react";
+import {
+  CheckCircle2,
+  Globe,
+  Smartphone,
+  Server,
+  ChevronRight,
+  PlayCircle,
+} from "lucide-react";
 
 import PhoneCard from "../components/PhoneCard";
 import ProgressBar from "../components/ProgressBar";
 import StatusChip from "../components/StatusChip";
 
-const stats = [
+const environments = [
   {
-    icon: CheckCircle2,
-    label: "Passed",
-    value: "24",
-    color: "text-[#16f2b3]",
-  },
-  {
-    icon: Activity,
-    label: "Failed",
-    value: "0",
-    color: "text-emerald-400",
-  },
-  {
-    icon: Clock3,
-    label: "Duration",
-    value: "14.2s",
-    color: "text-sky-400",
+    icon: Globe,
+    name: "Chrome",
+    status: "Ready",
   },
   {
     icon: Smartphone,
-    label: "Device",
-    value: "Pixel 9",
-    color: "text-amber-400",
+    name: "Android",
+    status: "Connected",
+  },
+  {
+    icon: Smartphone,
+    name: "iOS",
+    status: "Connected",
   },
 ];
 
-const activities = [
-  "Login Test Passed",
-  "Checkout Flow Passed",
-  "Dashboard Assertion Passed",
+const executions = [
+  "Launch Application",
+  "Locate Username Field",
+  "Type Username",
+  "Type Password",
+  "Tap Login Button",
+  "Verify Dashboard",
 ];
 
 export default function DashboardScreen() {
   return (
-    <div className="flex h-full flex-col bg-[#0d1117] px-5 py-6">
+    <div className="flex h-full flex-col px-5 pt-4 pb-4">
       {/* Header */}
 
       <motion.div
@@ -55,57 +56,55 @@ export default function DashboardScreen() {
           y: 0,
         }}
       >
-        <p className="text-xs text-gray-400">Welcome back 👋</p>
-
-        <div className="mt-2 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-white">FlowTest Studio</h2>
-
-          <StatusChip>Ready</StatusChip>
-        </div>
-
-        <p className="mt-2 text-xs text-gray-500">
-          Automation environment initialized
+        <p className="text-[11px] uppercase tracking-[2px] text-gray-500">
+          FlowTest Studio
         </p>
 
+        <h2 className="mt-1 text-xl font-bold text-white">
+          Automation Summary
+        </h2>
+
         <div className="mt-4">
-          <ProgressBar />
+          <PhoneCard className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs text-gray-400">
+                  Workflow Progress
+                </p>
+
+                <p className="mt-2 text-2xl font-bold text-white">
+                  24
+                </p>
+
+                <p className="text-[11px] text-gray-500">
+                  Tests Passed
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-[#16f2b3]/10 p-3">
+                <PlayCircle
+                  size={22}
+                  className="text-[#16f2b3]"
+                />
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <ProgressBar />
+            </div>
+
+            <div className="mt-3 flex items-center justify-between">
+              <span className="text-[11px] text-gray-400">
+                Automation Completed
+              </span>
+
+              <StatusChip>100%</StatusChip>
+            </div>
+          </PhoneCard>
         </div>
       </motion.div>
 
-      {/* Stats */}
-
-      <div className="mt-6 grid grid-cols-2 gap-3">
-        {stats.map((item, index) => {
-          const Icon = item.icon;
-
-          return (
-            <motion.div
-              key={item.label}
-              initial={{
-                opacity: 0,
-                scale: 0.9,
-              }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-              }}
-              transition={{
-                delay: index * 0.08,
-              }}
-            >
-              <PhoneCard className="p-3">
-                <Icon className={`mb-3 h-5 w-5 ${item.color}`} />
-
-                <p className="text-lg font-bold text-white">{item.value}</p>
-
-                <p className="mt-1 text-[11px] text-gray-400">{item.label}</p>
-              </PhoneCard>
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* Activity */}
+      {/* Environment */}
 
       <motion.div
         initial={{
@@ -117,47 +116,106 @@ export default function DashboardScreen() {
           y: 0,
         }}
         transition={{
-          delay: 0.4,
+          delay: 0.15,
         }}
-        className="mt-6"
+        className="mt-5"
       >
-        <PhoneCard className="p-4">
-          <div className="flex items-center justify-between">
-            <h3
-              className="
-                text-[11px]
-                font-semibold
-                uppercase
-                tracking-[2px]
-                text-gray-400
-              "
-            >
-              Recent Activity
-            </h3>
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="text-[11px] font-semibold uppercase tracking-[2px] text-gray-400">
+            Environment
+          </h3>
 
-            <StatusChip>Live</StatusChip>
-          </div>
+          <ChevronRight
+            size={16}
+            className="text-gray-500"
+          />
+        </div>
 
-          <div className="mt-4 space-y-3">
-            {activities.map((item) => (
-              <div
-                key={item}
-                className="
-                  flex
-                  items-center
-                  gap-3
-                  rounded-xl
-                  border
-                  border-white/5
-                  bg-white/[0.02]
-                  px-3
-                  py-2
-                "
+        <div className="space-y-2">
+          {environments.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <PhoneCard
+                key={item.name}
+                className="p-3"
               >
-                <CheckCircle2 size={15} className="text-[#16f2b3]" />
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Icon
+                      size={17}
+                      className="text-[#16f2b3]"
+                    />
 
-                <span className="text-xs text-gray-300">{item}</span>
-              </div>
+                    <span className="text-sm text-white">
+                      {item.name}
+                    </span>
+                  </div>
+
+                  <StatusChip>
+                    {item.status}
+                  </StatusChip>
+                </div>
+              </PhoneCard>
+            );
+          })}
+        </div>
+      </motion.div>
+
+      {/* Execution Feed */}
+
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 8,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          delay: 0.3,
+        }}
+        className="mt-5 flex-1"
+      >
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="text-[11px] font-semibold uppercase tracking-[2px] text-gray-400">
+            Execution Feed
+          </h3>
+
+          <Server
+            size={15}
+            className="text-gray-500"
+          />
+        </div>
+
+        <PhoneCard className="p-3">
+          <div className="space-y-3">
+            {executions.map((item, index) => (
+              <motion.div
+                key={item}
+                initial={{
+                  opacity: 0,
+                  x: -8,
+                }}
+                animate={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                transition={{
+                  delay: 0.45 + index * 0.06,
+                }}
+                className="flex items-center gap-3"
+              >
+                <CheckCircle2
+                  size={15}
+                  className="text-[#16f2b3]"
+                />
+
+                <span className="text-[11px] text-gray-300">
+                  {item}
+                </span>
+              </motion.div>
             ))}
           </div>
         </PhoneCard>
@@ -165,23 +223,37 @@ export default function DashboardScreen() {
 
       {/* Footer */}
 
-      <div className="mt-auto pt-6">
+      <motion.div
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+        }}
+        transition={{
+          delay: 0.8,
+        }}
+        className="mt-4"
+      >
         <PhoneCard className="p-3">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-semibold text-white">
-                All Tests Passed
+                Latest Run
               </p>
 
               <p className="mt-1 text-[11px] text-gray-500">
-                Latest workflow executed successfully
+                Completed successfully in 14.2s
               </p>
             </div>
 
-            <CheckCircle2 size={22} className="text-[#16f2b3]" />
+            <CheckCircle2
+              size={20}
+              className="text-[#16f2b3]"
+            />
           </div>
         </PhoneCard>
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -10,14 +10,15 @@ export default function PhoneInput({
   placeholder,
   active = false,
   password = false,
+  accent = "#16f2b3",
+  onKeyPress,
 }) {
   return (
     <div>
-      <label
+      <p
         className="
           mb-2
-          block
-          text-[11px]
+          text-[10px]
           font-semibold
           uppercase
           tracking-[2px]
@@ -25,7 +26,7 @@ export default function PhoneInput({
         "
       >
         {label}
-      </label>
+      </p>
 
       <motion.div
         animate={{
@@ -34,31 +35,35 @@ export default function PhoneInput({
         transition={{
           duration: 0.2,
         }}
-        className={`
+        className="
           flex
-          h-12
+          h-10
           items-center
           rounded-xl
           border
-          px-4
+          px-3
           transition-all
           duration-300
-
-          ${
-            active
-              ? "border-[#16f2b3]/50 bg-[#16f2b3]/5 shadow-[0_0_24px_rgba(22,242,179,.12)]"
-              : "border-white/10 bg-white/[0.03]"
-          }
-        `}
+        "
+        style={
+          active
+            ? {
+                borderColor: `${accent}80`,
+                backgroundColor: `${accent}08`,
+                boxShadow: `0 0 24px ${accent}22`,
+              }
+            : {
+                borderColor: "rgba(255,255,255,.10)",
+                backgroundColor: "rgba(255,255,255,.03)",
+              }
+        }
       >
         {value ? (
-          password ? (
-            <TypingText
-              text={"•".repeat(value.length)}
-            />
-          ) : (
-            <TypingText text={value} />
-          )
+          <TypingText
+            text={value}
+            password={password}
+            onKeyPress={onKeyPress}
+          />
         ) : (
           <span className="text-sm text-gray-600">
             {placeholder}

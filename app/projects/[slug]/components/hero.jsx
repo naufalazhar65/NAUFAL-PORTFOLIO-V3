@@ -11,22 +11,28 @@ import HeroImage from "./hero/HeroImage";
 
 export default function Hero({ project }) {
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28">
+    <section className="relative overflow-hidden">
       <div
-        className="
-          mx-auto
-          grid
-          max-w-7xl
-          grid-cols-1
-          items-center
-          gap-14
-          px-6
+  className="
+    mx-auto
+    grid
+    min-h-[760px]
 
-          lg:grid-cols-2
-          lg:gap-20
-        "
-      >
+    max-w-[1550px]
+
+    grid-cols-1
+    items-center
+
+    gap-14
+
+    px-8
+
+    lg:grid-cols-[1fr_1.15fr]
+  "
+>
+        {/* ========================= */}
         {/* LEFT */}
+        {/* ========================= */}
 
         <motion.div
           {...fadeLeft}
@@ -67,10 +73,10 @@ export default function Hero({ project }) {
 
               sm:text-6xl
 
-              lg:max-w-2xl
+              lg:max-w-xl
               lg:text-7xl
 
-              xl:text-8xl
+              xl:text-[5.4rem]
             "
           >
             {project.name}
@@ -112,7 +118,9 @@ export default function Hero({ project }) {
           {/* Tech */}
 
           <div className="mt-8">
-            <HeroBadges badges={project.hero?.badges || []} />
+            <HeroBadges
+              badges={project.hero?.badges || []}
+            />
           </div>
 
           {/* Buttons */}
@@ -127,19 +135,31 @@ export default function Hero({ project }) {
           {/* Stats */}
 
           <div className="mt-12">
-            <HeroStats stats={project.hero?.stats || []} />
+            <HeroStats
+              stats={project.hero?.stats || []}
+            />
           </div>
         </motion.div>
 
+        {/* ========================= */}
         {/* RIGHT */}
+        {/* ========================= */}
 
         <motion.div
           {...fadeRight}
-          className="flex justify-center lg:justify-end"
+          className="
+            flex
+            w-full
+            items-center
+            justify-center
+          "
         >
           <HeroImage
             image={project.image}
-            preview={project.slug === "flowtest-studio"}
+            preview={
+              project.slug ===
+              "flowtest-studio"
+            }
           />
         </motion.div>
       </div>

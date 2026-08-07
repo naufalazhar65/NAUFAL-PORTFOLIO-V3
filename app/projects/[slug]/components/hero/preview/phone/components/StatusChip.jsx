@@ -12,7 +12,7 @@ export default function StatusChip({
         border
         border-[#16f2b3]/20
         bg-[#16f2b3]/10
-        px-3
+        px-2.5
         py-1
         text-[10px]
         font-semibold
