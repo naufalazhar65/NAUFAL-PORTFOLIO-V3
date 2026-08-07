@@ -79,8 +79,9 @@ export default function ProjectNavigation() {
       >
         <p
           className="
-            px-3
-            text-[11px]
+            px-5
+            py-3
+            text-[13px]
             font-semibold
             uppercase
             tracking-[4px]
@@ -90,7 +91,7 @@ export default function ProjectNavigation() {
           Project Contents
         </p>
 
-        <div className="my-4 h-px bg-white/5" />
+        <div className="my-0.5 h-px bg-white/5" />
 
         <div className="space-y-1">
           {sections.map((section) => (

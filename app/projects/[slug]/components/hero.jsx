@@ -13,7 +13,7 @@ export default function Hero({ project }) {
   return (
     <section className="relative overflow-hidden">
       <div
-  className="
+        className="
     mx-auto
     grid
     min-h-[760px]
@@ -27,117 +27,115 @@ export default function Hero({ project }) {
 
     px-8
 
-    lg:grid-cols-[1fr_1.15fr]
+   lg:grid-cols-[1fr_1.3fr]
   "
->
+      >
         {/* ========================= */}
         {/* LEFT */}
         {/* ========================= */}
 
-        <motion.div
-          {...fadeLeft}
-          className="text-center lg:text-left"
-        >
-          {/* Status */}
-
-          <span
+        <motion.div {...fadeLeft} className="text-center lg:text-left">
+          <div
             className="
-              inline-flex
-              items-center
-              rounded-full
-              border
-              border-[#16f2b3]/30
-              bg-[#16f2b3]/10
-              px-4
-              py-2
-              text-xs
-              font-semibold
-              uppercase
-              tracking-[3px]
-              text-[#16f2b3]
-            "
+      pt-8
+      sm:pt-10
+      lg:pt-0
+    "
           >
-            {project.status}
-          </span>
+            {/* Status */}
 
-          {/* Title */}
+            <span
+              className="
+        inline-flex
+        items-center
+        rounded-full
+        border
+        border-[#16f2b3]/30
+        bg-[#16f2b3]/10
+        px-4
+        py-2
+        text-xs
+        font-semibold
+        uppercase
+        tracking-[3px]
+        text-[#16f2b3]
+      "
+            >
+              {project.status}
+            </span>
 
-          <h1
-            className="
-              mt-6
-              text-5xl
-              font-black
-              leading-[0.95]
-              tracking-tight
-              text-white
+            {/* Title */}
 
-              sm:text-6xl
+            <h1
+              className="
+        mt-6
+        text-5xl
+        font-black
+        leading-[0.95]
+        tracking-tight
+        text-white
 
-              lg:max-w-xl
-              lg:text-7xl
+        sm:text-6xl
 
-              xl:text-[5.4rem]
-            "
-          >
-            {project.name}
-          </h1>
+        lg:max-w-xl
+        lg:text-7xl
 
-          {/* Tagline */}
+        xl:text-[5.4rem]
+      "
+            >
+              {project.name}
+            </h1>
 
-          <p
-            className="
-              mt-6
-              text-lg
-              font-semibold
-              text-[#16f2b3]
+            {/* Tagline */}
 
-              sm:text-xl
+            <p
+              className="
+        mt-6
+        text-lg
+        font-semibold
+        text-[#16f2b3]
 
-              lg:text-2xl
-            "
-          >
-            {project.hero?.tagline}
-          </p>
+        sm:text-xl
 
-          {/* Description */}
+        lg:text-2xl
+      "
+            >
+              {project.hero?.tagline}
+            </p>
 
-          <p
-            className="
-              mx-auto
-              mt-8
-              max-w-xl
-              leading-8
-              text-gray-400
+            {/* Description */}
 
-              lg:mx-0
-            "
-          >
-            {project.hero?.description}
-          </p>
+            <p
+              className="
+        mx-auto
+        mt-8
+        max-w-xl
+        leading-8
+        text-gray-400
 
-          {/* Tech */}
+        lg:mx-0
+      "
+            >
+              {project.hero?.description}
+            </p>
 
-          <div className="mt-8">
-            <HeroBadges
-              badges={project.hero?.badges || []}
-            />
-          </div>
+            {/* Tech */}
 
-          {/* Buttons */}
+            <div className="mt-8">
+              <HeroBadges badges={project.hero?.badges || []} />
+            </div>
 
-          <div className="mt-10">
-            <HeroButtons
-              github={project.github}
-              live={project.live}
-            />
-          </div>
+            {/* Buttons */}
 
-          {/* Stats */}
+            <div className="mt-10">
+              <HeroButtons github={project.github} live={project.live} />
+            </div>
 
-          <div className="mt-12">
-            <HeroStats
-              stats={project.hero?.stats || []}
-            />
+            {/* Stats */}
+
+            <div className="mt-12">
+              <HeroStats stats={project.hero?.stats || []} />
+            </div>
           </div>
         </motion.div>
 
@@ -148,18 +146,19 @@ export default function Hero({ project }) {
         <motion.div
           {...fadeRight}
           className="
-            flex
-            w-full
-            items-center
-            justify-center
-          "
+    mt-10
+
+    flex
+    w-full
+    items-center
+    justify-center
+
+    lg:mt-0
+  "
         >
           <HeroImage
             image={project.image}
-            preview={
-              project.slug ===
-              "flowtest-studio"
-            }
+            preview={project.slug === "flowtest-studio"}
           />
         </motion.div>
       </div>

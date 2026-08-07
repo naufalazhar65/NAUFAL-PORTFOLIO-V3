@@ -34,7 +34,7 @@ export default function HeroImage({ image, preview = false }) {
   <>
     {/* Desktop */}
 
-    <div className="hidden lg:block">
+    <div className="hidden lg:flex lg:justify-center">
       <PreviewStack />
     </div>
 
@@ -45,6 +45,7 @@ export default function HeroImage({ image, preview = false }) {
     </div>
   </>
 ) : (
+
         <div
           className="
       overflow-hidden

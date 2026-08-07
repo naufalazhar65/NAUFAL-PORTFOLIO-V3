@@ -43,17 +43,17 @@ export default function PreviewStackMobile() {
 
         <div
           className="
-            absolute
+absolute
 
-            left-12
-            top-0
+left-12
+top-0
 
-            origin-top-left
+origin-top-left
 
-            scale-[0.38]
+scale-[0.37]
 
-            z-20
-          "
+z-20
+"
         >
           <DesktopFrame />
         </div>

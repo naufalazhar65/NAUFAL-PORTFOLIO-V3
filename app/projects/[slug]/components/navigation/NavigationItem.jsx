@@ -22,7 +22,7 @@ export default function NavigationItem({ id, label, active }) {
         overflow-hidden
         rounded-xl
         px-4
-        py-3
+        py-3 
         text-left
         transition-all
         duration-300
