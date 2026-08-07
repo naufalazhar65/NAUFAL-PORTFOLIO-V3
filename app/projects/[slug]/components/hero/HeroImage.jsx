@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 import PreviewStack from "./PreviewStack";
+import PreviewStackMobile from "./PreviewStackMobile";
 
 export default function HeroImage({ image, preview = false }) {
   return (
@@ -30,10 +31,20 @@ export default function HeroImage({ image, preview = false }) {
       {/* Preview */}
 
       {preview ? (
-        <div className="hidden lg:block">
-          <PreviewStack />
-        </div>
-      ) : (
+  <>
+    {/* Desktop */}
+
+    <div className="hidden lg:block">
+      <PreviewStack />
+    </div>
+
+    {/* Mobile */}
+
+    <div className="flex justify-center lg:hidden">
+      <PreviewStackMobile />
+    </div>
+  </>
+) : (
         <div
           className="
       overflow-hidden
