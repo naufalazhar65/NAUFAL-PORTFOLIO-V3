@@ -1,71 +1,69 @@
-// @flow strict
 "use client";
 
 import { motion } from "framer-motion";
 
-import HeroBackground from "./components/HeroBackground";
 import HeroHeading from "./components/HeroHeading";
 import HeroSocial from "./components/HeroSocial";
 import HeroButtons from "./components/HeroButtons";
 import FlowPreview from "@/app/components/flow-preview";
 
 import useGreeting from "./hooks/useGreeting";
-import useHeroParallax from "./hooks/useHeroParallax";
 
 import { fadeUp, stagger } from "@/app/lib/motion";
 
 function HeroSection() {
   const greeting = useGreeting();
 
-  const { handleMouseMove, handleMouseLeave } = useHeroParallax();
-
   return (
     <motion.section
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       initial={{
         opacity: 0,
-        scale: 0.98,
-        filter: "blur(12px)",
+        scale: 0.985,
       }}
       animate={{
         opacity: 1,
         scale: 1,
-        filter: "blur(0px)",
       }}
       transition={{
-        duration: 1,
+        duration: 0.9,
         ease: [0.16, 1, 0.3, 1],
       }}
       className="
         relative
         flex
+        min-h-[calc(100vh-84px)]
         flex-col
-        items-center
-        justify-between
-        pt-8
-        pb-10
-        sm:pt-12
-        md:pt-16
-        lg:pt-24
-        lg:pb-16
-        xl:pt-28
+        justify-center
+
+        py-12
+
+        sm:py-16
+        lg:py-20
+        xl:py-24
       "
     >
-      <HeroBackground />
-
       <div
         className="
+          mx-auto
           grid
           w-full
+          max-w-[1250px]
+
           grid-cols-1
-          gap-10
+          items-center
+
+          gap-12
+
           lg:grid-cols-[minmax(0,1fr)_430px]
-          lg:items-center
+          lg:gap-14
+
           xl:grid-cols-[minmax(0,1fr)_460px]
+          xl:gap-16
         "
       >
-        {/* Left */}
+        {/* ========================= */}
+        {/* LEFT */}
+        {/* ========================= */}
 
         <motion.div
           variants={stagger}
@@ -76,9 +74,10 @@ function HeroSection() {
             flex-col
             items-start
             justify-center
+
             p-2
-            pb-10
-            lg:pt-10
+
+            lg:translate-y-[-4px]
           "
         >
           <HeroHeading greeting={greeting} />
@@ -88,20 +87,32 @@ function HeroSection() {
           <HeroButtons />
         </motion.div>
 
-        {/* Right */}
+        {/* ========================= */}
+        {/* RIGHT */}
+        {/* ========================= */}
 
         <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
+          {...fadeUp}
           className="
+            relative
             flex
+            w-full
+            items-center
             justify-center
+
             lg:justify-end
-            lg:items-start
           "
         >
-          <FlowPreview />
+          <div
+            className="
+              w-full
+              max-w-[430px]
+
+              xl:max-w-[460px]
+            "
+          >
+            <FlowPreview />
+          </div>
         </motion.div>
       </div>
     </motion.section>

@@ -23,7 +23,13 @@ export default function AboutImage() {
   return (
     <motion.div
       variants={fadeUp}
-      className="order-1 flex justify-center lg:order-2"
+      className="
+        order-1
+        flex
+        justify-center
+
+        lg:order-2
+      "
     >
       <motion.div
         ref={cardRef}
@@ -33,68 +39,99 @@ export default function AboutImage() {
           x: springX,
           y: springY,
         }}
-        animate={{
-          y: [0, -10, 0],
-        }}
-        transition={{
-          y: {
-            repeat: Infinity,
-            duration: 5,
-            ease: "easeInOut",
-          },
-        }}
         whileHover={{
-          scale: 1.03,
+          scale: 1.02,
         }}
-        className="relative"
+        className="
+          group
+          relative
+        "
       >
-        {/* Glow */}
-
-        <div
-          className="
-            absolute
-            -inset-6
-            -z-10
-            rounded-full
-            bg-[#16f2b3]/20
-            blur-3xl
-            opacity-60
-          "
-        />
-
-        {/* Glass Border */}
+        {/* ========================= */}
+        {/* GLOW */}
+        {/* ========================= */}
 
         <div
           className="
             pointer-events-none
+
             absolute
-            inset-0
-            rounded-3xl
-            border
-            border-white/10
-            bg-white/[0.02]
-            backdrop-blur-sm
+            -inset-8
+            -z-10
+
+            rounded-full
+
+            bg-[#16f2b3]/10
+
+            blur-3xl
+
+            opacity-70
+
+            transition-opacity
+            duration-500
+
+            group-hover:opacity-90
           "
         />
 
+        {/* ========================= */}
+        {/* GLASS BORDER */}
+        {/* ========================= */}
+
+        <div
+          className="
+            pointer-events-none
+
+            absolute
+            inset-0
+            z-10
+
+            rounded-3xl
+
+            border
+            border-white/10
+
+            bg-white/[0.02]
+
+          "
+        />
+
+        {/* ========================= */}
+        {/* STATUS */}
+        {/* ========================= */}
+
         <AboutStatus />
+
+        {/* ========================= */}
+        {/* PROFILE IMAGE */}
+        {/* ========================= */}
 
         <Image
           src={personalData.profile}
           alt="Naufal Azhar"
           width={320}
           height={320}
+          priority
           className="
             relative
+
             rounded-3xl
+
             border
             border-white/10
+
             object-cover
-            shadow-2xl
+
+            shadow-[0_25px_70px_rgba(0,0,0,0.35)]
+
             transition-all
-            duration-700
+            duration-500
           "
         />
+
+        {/* ========================= */}
+        {/* FLOATING TECH */}
+        {/* ========================= */}
 
         <FloatingTechStack />
       </motion.div>

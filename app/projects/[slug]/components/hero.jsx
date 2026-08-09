@@ -13,23 +13,23 @@ export default function Hero({ project }) {
   return (
     <section className="relative overflow-hidden">
       <div
-        className="
+  className="
     mx-auto
     grid
     min-h-[760px]
-
     max-w-[1550px]
 
     grid-cols-1
     items-center
-
     gap-14
+
+    overflow-visible
 
     px-8
 
-   lg:grid-cols-[1fr_1.3fr]
+    lg:grid-cols-[0.85fr_1.4fr]
   "
-      >
+>
         {/* ========================= */}
         {/* LEFT */}
         {/* ========================= */}
@@ -37,6 +37,7 @@ export default function Hero({ project }) {
         <motion.div {...fadeLeft} className="text-center lg:text-left">
           <div
             className="
+            lg:-translate-x-6
       pt-8
       sm:pt-10
       lg:pt-0
@@ -144,23 +145,25 @@ export default function Hero({ project }) {
         {/* ========================= */}
 
         <motion.div
-          {...fadeRight}
-          className="
-    mt-10
-
+  {...fadeRight}
+  className="
+    relative
+    mt-0
     flex
     w-full
     items-center
     justify-center
 
-    lg:mt-0
+    overflow-visible
+
+    lg:mt-1
   "
-        >
-          <HeroImage
-            image={project.image}
-            preview={project.slug === "flowtest-studio"}
-          />
-        </motion.div>
+>
+  <HeroImage
+    image={project.image}
+    preview={project.slug === "flowtest-studio"}
+  />
+</motion.div>
       </div>
     </section>
   );

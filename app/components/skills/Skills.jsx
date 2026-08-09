@@ -2,19 +2,16 @@
 
 import { motion } from "framer-motion";
 
-import SectionHeader from "../ui/SectionHeader";
-
 import { skillGroups } from "./constants";
 import { stagger } from "@/app/lib/motion";
-import { fadeUp } from "@/app/lib/motion";
 
+import SkillsHeader from "./components/SkillsHeader";
 import SkillGroup from "./components/SkillGroup";
 
 export default function Skills() {
   return (
     <motion.section
       id="skills"
-      className="relative my-28"
       variants={stagger}
       initial="hidden"
       whileInView="visible"
@@ -22,34 +19,47 @@ export default function Skills() {
         once: true,
         amount: 0.2,
       }}
+      className="
+        relative
+        my-24
+
+        lg:my-28
+      "
     >
       {/* Background Glow */}
 
       <div
         className="
+          pointer-events-none
           absolute
           left-1/2
           top-20
+
           h-80
           w-80
+
           -translate-x-1/2
+
           rounded-full
-          bg-violet-600/20
+
+          bg-[#16f2b3]/10
+
           blur-[120px]
         "
       />
 
-      <motion.div variants={fadeUp}>
-        <SectionHeader
-          eyebrow="TECH STACK"
-          title="Technologies & Tools"
-          description="A collection of programming languages, testing frameworks, automation tools, CI/CD platforms, and technologies I use to deliver reliable and high-quality software."
-        />
-      </motion.div>
+      {/* Header */}
 
-      <div className="space-y-12">
+      <SkillsHeader />
+
+      {/* Skill Groups */}
+
+      <div className="relative mt-12 space-y-12">
         {skillGroups.map((group) => (
-          <SkillGroup key={group.title} group={group} />
+          <SkillGroup
+            key={group.title}
+            group={group}
+          />
         ))}
       </div>
     </motion.section>

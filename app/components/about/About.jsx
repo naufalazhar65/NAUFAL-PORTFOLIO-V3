@@ -11,7 +11,7 @@ import AboutImage from "./components/AboutImage";
 
 export default function About() {
   return (
-    <Section id="about">
+    <Section>
       <LayoutContainer>
         <motion.div
           variants={stagger}
@@ -26,16 +26,24 @@ export default function About() {
             grid-cols-1
             items-center
             gap-12
+
             lg:grid-cols-[minmax(0,1fr)_420px]
             lg:gap-16
+
             xl:grid-cols-[minmax(0,1fr)_460px]
             xl:gap-24
           "
         >
-          {/* Left */}
+          {/* ========================= */}
+          {/* LEFT */}
+          {/* ========================= */}
+
           <AboutContent />
 
-          {/* Right */}
+          {/* ========================= */}
+          {/* RIGHT */}
+          {/* ========================= */}
+
           <AboutImage />
         </motion.div>
       </LayoutContainer>

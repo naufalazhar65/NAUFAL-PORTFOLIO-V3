@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function ProjectsPage() {
   return (
-    <main>
+    <main className="min-h-screen">
       <Projects />
 
       <NextPage

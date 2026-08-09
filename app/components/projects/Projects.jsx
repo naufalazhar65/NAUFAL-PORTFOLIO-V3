@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 
 import { projectsData } from "@/utils/data/projects-data";
@@ -9,110 +8,102 @@ import SectionHeader from "../ui/SectionHeader";
 
 import FeaturedProject from "./components/FeaturedProject";
 import ProjectsList from "./components/ProjectsList";
-import ProjectModal from "./components/ProjectModal";
 
 export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [open, setOpen] = useState(false);
-
   const featuredProject = projectsData.find(
-    (project) => project.slug === "flowtest-studio"
+    (project) => project.featured,
   );
 
   const otherProjects = projectsData.filter(
-    (project) => project.slug !== "flowtest-studio"
+    (project) => !project.featured,
   );
-
-  const handleOpen = (project) => {
-    setSelectedProject(project);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    setSelectedProject(null);
-  };
 
   return (
     <section
       id="projects"
-      className="relative overflow-hidden py-24"
+      className="
+        relative
+        w-full
+        overflow-visible
+        px-6
+        py-24
+        sm:px-8
+        lg:px-12
+        lg:py-28
+      "
     >
-      {/* Background */}
+      {/* Background Glow */}
 
       <div
         className="
+          pointer-events-none
           absolute
-          left-20
+          left-10
           top-20
           h-72
           w-72
           rounded-full
-          bg-violet-600/20
+          bg-violet-600/10
           blur-[140px]
         "
       />
 
       <div
         className="
+          pointer-events-none
           absolute
-          bottom-10
-          right-20
+          bottom-20
+          right-10
           h-72
           w-72
           rounded-full
-          bg-pink-500/20
+          bg-pink-500/10
           blur-[140px]
         "
       />
 
-      {/* Section Header */}
+      <div className="relative mx-auto max-w-7xl">
+        {/* Header */}
 
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 60,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          duration: 0.8,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-      >
-        <SectionHeader
-          eyebrow="PORTFOLIO"
-          title="Engineering Projects"
-          description="A curated collection of software quality assurance, automation engineering, API testing, performance testing, and modern testing tools built throughout my journey."
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 0.8,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+        >
+          <SectionHeader
+            eyebrow="PORTFOLIO"
+            title="Engineering Projects"
+            description="A curated collection of software quality assurance, automation engineering, API testing, performance testing, and modern testing tools built throughout my journey."
+          />
+        </motion.div>
+
+        {/* Featured */}
+
+        <FeaturedProject
+          project={featuredProject}
         />
-      </motion.div>
 
-      {/* Featured */}
+        {/* Other Projects */}
 
-      <FeaturedProject
-        project={featuredProject}
-        onOpen={handleOpen}
-      />
-
-      {/* Other Projects */}
-
-      <ProjectsList
-        projects={otherProjects}
-        onOpen={handleOpen}
-      />
-
-      {/* Modal */}
-
-      <ProjectModal
-        open={open}
-        project={selectedProject}
-        onClose={handleClose}
-      />
+        <div className="mt-20 lg:mt-24">
+          <ProjectsList
+            projects={otherProjects}
+          />
+        </div>
+      </div>
     </section>
   );
 }

@@ -14,12 +14,14 @@ export default function useAboutParallax() {
 
   const springX = useSpring(mouseX, {
     stiffness: 120,
-    damping: 18,
+    damping: 20,
+    mass: 0.5,
   });
 
   const springY = useSpring(mouseY, {
     stiffness: 120,
-    damping: 18,
+    damping: 20,
+    mass: 0.5,
   });
 
   const handleMouseMove = (event) => {
@@ -35,8 +37,18 @@ export default function useAboutParallax() {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    mouseX.set((x - centerX) * 0.04);
-    mouseY.set((y - centerY) * 0.04);
+    const offsetX = x - centerX;
+    const offsetY = y - centerY;
+
+    /*
+     * Very subtle movement.
+     *
+     * The avatar should feel interactive,
+     * not like a 3D card.
+     */
+
+    mouseX.set(offsetX * 0.025);
+    mouseY.set(offsetY * 0.025);
   };
 
   const handleMouseLeave = () => {

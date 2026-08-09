@@ -2,29 +2,63 @@
 
 import { motion } from "framer-motion";
 
-import { stagger } from "@/app/lib/motion";
+import { fadeUp, stagger } from "@/app/lib/motion";
 
 import SkillCard from "./SkillCard";
-import { fadeUp } from "@/app/lib/motion";
-
 
 export default function SkillGroup({ group }) {
   return (
     <motion.div
       variants={fadeUp}
+      className="relative"
     >
-      <h3 className="mb-6 text-2xl font-semibold text-white">
-        {group.title}
-      </h3>
+      {/* ========================= */}
+      {/* GROUP TITLE */}
+      {/* ========================= */}
+
+      <div className="mb-6 flex items-center gap-4">
+        <h3
+          className="
+            text-xl
+            font-bold
+            tracking-tight
+            text-white
+
+            md:text-2xl
+          "
+        >
+          {group.title}
+        </h3>
+
+        <div
+          className="
+            h-px
+            flex-1
+
+            bg-gradient-to-r
+            from-[#16f2b3]/30
+            to-transparent
+          "
+        />
+      </div>
+
+      {/* ========================= */}
+      {/* SKILLS */}
+      {/* ========================= */}
 
       <motion.div
         variants={stagger}
         className="
           grid
           grid-cols-2
-          gap-6
+          gap-4
+
           sm:grid-cols-3
-          lg:grid-cols-5
+          sm:gap-5
+
+          lg:grid-cols-4
+          xl:grid-cols-5
+          xl:gap-6
         "
       >
         {group.skills.map((skill) => (

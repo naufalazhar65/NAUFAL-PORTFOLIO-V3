@@ -11,12 +11,12 @@ const sections = [
     label: "Live Demo",
   },
   {
-    id: "why-built",
-    label: "Why I Built It",
-  },
-  {
     id: "overview",
     label: "Overview",
+  },
+  {
+    id: "why-built",
+    label: "Why I Built It",
   },
   {
     id: "challenge",
@@ -43,12 +43,12 @@ const sections = [
     label: "Workflow",
   },
   {
-    id: "results",
-    label: "Results",
-  },
-  {
     id: "development",
     label: "Development",
+  },
+  {
+    id: "results",
+    label: "Results",
   },
 ];
 
