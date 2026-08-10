@@ -9,12 +9,9 @@ export default function PreviewStack() {
     <div
       className="
         relative
-
-        h-[650px]
-        w-[850px]
-
+        h-[620px]
+        w-[820px]
         max-w-none
-
         overflow-visible
       "
     >
@@ -25,22 +22,16 @@ export default function PreviewStack() {
       <div
         className="
           pointer-events-none
-
           absolute
-          left-[55%]
+          left-[56%]
           top-[48%]
-
           z-0
-
-          h-[460px]
-          w-[640px]
-
+          h-[440px]
+          w-[600px]
           -translate-x-1/2
           -translate-y-1/2
-
           rounded-full
-
-
+          bg-[#16f2b3]/5
           blur-[140px]
         "
       />
@@ -52,56 +43,40 @@ export default function PreviewStack() {
       <div
         className="
           absolute
-
-          left-[-20px]
-          top-[90px]
-
+          left-[5px]
+          top-[105px]
           z-10
-
-          w-[310px]
-
-          -rotate-[3deg]
-
-          opacity-45
-
-          transition-all
-          duration-700
-          ease-out
+          w-[300px]
+          -rotate-[4deg]
+          opacity-50
         "
       >
         <AppleFrame
           title="Element Inspector"
           className="
             rounded-[16px]
-
-            shadow-[0_30px_90px_rgba(0,0,0,0.55)]
+            shadow-[0_25px_70px_rgba(0,0,0,0.4)]
           "
         >
-          <Image
-            src="/projects/hero-back.png"
-            alt="FlowTest Studio Element Inspector"
-            width={850}
-            height={1786}
-            priority
-            className="
-              block
-              h-auto
-              w-full
-            "
-          />
+          <div className="relative">
+            <Image
+              src="/projects/hero-back.png"
+              alt="FlowTest Studio Element Inspector"
+              width={850}
+              height={1786}
+              priority
+              className="block h-auto w-full"
+            />
 
-          {/* Dark Overlay */}
-
-          <div
-            className="
-              pointer-events-none
-
-              absolute
-              inset-0
-
-              bg-[#080b12]/25
-            "
-          />
+            <div
+              className="
+                pointer-events-none
+                absolute
+                inset-0
+                bg-[#080b12]/15
+              "
+            />
+          </div>
         </AppleFrame>
       </div>
 
@@ -112,27 +87,18 @@ export default function PreviewStack() {
       <div
         className="
           absolute
-
-          left-[150px]
+          left-[125px]
           top-[20px]
-
           z-20
-
           w-[680px]
-
           rotate-[1deg]
-
-          transition-all
-          duration-700
-          ease-out
         "
       >
         <AppleFrame
           title="FlowTest Studio"
           className="
             rounded-[20px]
-
-            shadow-[0_45px_130px_rgba(0,0,0,0.7)]
+            shadow-[0_35px_90px_rgba(0,0,0,0.5)]
           "
         >
           <Image
@@ -141,11 +107,7 @@ export default function PreviewStack() {
             width={2048}
             height={1483}
             priority
-            className="
-              block
-              h-auto
-              w-full
-            "
+            className="block h-auto w-full"
           />
         </AppleFrame>
       </div>
@@ -157,15 +119,11 @@ export default function PreviewStack() {
       <div
         className="
           pointer-events-none
-
           absolute
           inset-x-0
           bottom-0
-
           z-30
-
-          h-[160px]
-
+          h-[100px]
           
         "
       />

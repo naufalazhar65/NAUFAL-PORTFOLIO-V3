@@ -18,31 +18,23 @@ export default function LiveDemo({ project }) {
   }
 
   return (
-    <Section
-      id="live-demo"
-      spacing="xl"
-      className="relative"
-    >
-      <Container size="lg">
+    <Section>
+      <Container>
         <SectionHeading
-          align="center"
-          eyebrow="Live Interactive Demo"
+          eyebrow="LIVE DEMO"
           title="Experience FlowTest Studio"
-          description="
-            Explore a simplified version of FlowTest Studio directly inside the
-            browser. Build automation workflows, inspect nodes, and simulate
-            execution without leaving this page.
-          "
+          description="Explore the interactive automation workflow, execution engine, and testing interface built for FlowTest Studio."
         />
 
+        {/* Actions */}
+
         <div className="mb-16 flex flex-wrap justify-center gap-4">
-          <MagneticButton
-            className="inline-flex"
-            strength={0.3}
-          >
+          <MagneticButton className="inline-flex" strength={0.3}>
             <Link
               href="/flowtest"
               target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Launch FlowTest Studio full demo"
               className="
                 rounded-2xl
                 bg-[#16f2b3]
@@ -58,13 +50,12 @@ export default function LiveDemo({ project }) {
             </Link>
           </MagneticButton>
 
-          <MagneticButton
-            className="inline-flex"
-            strength={0.3}
-          >
+          <MagneticButton className="inline-flex" strength={0.3}>
             <Link
               href={project.github}
               target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View FlowTest Studio source code"
               className="
                 rounded-2xl
                 border
@@ -82,11 +73,17 @@ export default function LiveDemo({ project }) {
           </MagneticButton>
         </div>
 
+        {/* Demo */}
+
         <BrowserFrame>
           <DemoProvider>
+            {/* Desktop */}
+
             <div className="hidden lg:block">
               <DemoLayout />
             </div>
+
+            {/* Mobile */}
 
             <div className="lg:hidden">
               <MobileLiveDemo />
