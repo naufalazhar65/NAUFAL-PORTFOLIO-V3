@@ -18,7 +18,7 @@ export default function LiveDemo({ project }) {
   }
 
   return (
-    <Section>
+    <Section id="live-demo">
       <Container>
         <SectionHeading
           eyebrow="LIVE DEMO"
