@@ -1,33 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 import PreviewStackMobile from "./PreviewStackMobile";
 
-const heroImages = [
-  "/projects/hero-front-01.webp",
-  "/projects/hero-front-02.webp",
-  "/projects/hero-front-03.webp",
-  "/projects/hero-front-04.webp",
-];
-
 export default function HeroImage({ image, preview = false }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    if (!preview) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((current) => (current + 1) % heroImages.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [preview]);
-
-  /* ================================================= */
-  /* NORMAL PROJECT IMAGE */
-  /* ================================================= */
+  /*
+   * =========================================
+   * NORMAL PROJECT IMAGE
+   * =========================================
+   */
 
   if (!preview) {
     return (
@@ -41,6 +23,7 @@ export default function HeroImage({ image, preview = false }) {
           border-white/10
           bg-[#0d1117]
           shadow-[0_20px_60px_rgba(0,0,0,.45)]
+
           lg:rounded-[32px]
           lg:shadow-[0_30px_100px_rgba(0,0,0,.45)]
         "
@@ -59,9 +42,9 @@ export default function HeroImage({ image, preview = false }) {
 
   return (
     <>
-      {/* ================================================= */}
+      {/* ========================================= */}
       {/* DESKTOP */}
-      {/* ================================================= */}
+      {/* ========================================= */}
 
       <div
         className="
@@ -73,9 +56,9 @@ export default function HeroImage({ image, preview = false }) {
           lg:flex
         "
       >
-        {/* ============================================= */}
+        {/* ===================================== */}
         {/* AMBIENT GLOW */}
-        {/* ============================================= */}
+        {/* ===================================== */}
 
         <div
           className="
@@ -92,9 +75,9 @@ export default function HeroImage({ image, preview = false }) {
           "
         />
 
-        {/* ============================================= */}
-        {/* SOFT CONTACT SHADOW */}
-        {/* ============================================= */}
+        {/* ===================================== */}
+        {/* CONTACT SHADOW */}
+        {/* ===================================== */}
 
         <div
           className="
@@ -112,65 +95,85 @@ export default function HeroImage({ image, preview = false }) {
           "
         />
 
-        {/* ============================================= */}
-        {/* 3D PERSPECTIVE STAGE */}
-        {/* ============================================= */}
+        {/* ===================================== */}
+        {/* BACK SCREENSHOT */}
+        {/* ===================================== */}
+
+        {/* <div
+          className="
+            absolute
+            left-[5px]
+            top-[105px]
+            z-10
+            w-[300px]
+            -rotate-[4deg]
+            opacity-50
+          "
+        >
+          <div
+            className="
+              overflow-hidden
+              rounded-[16px]
+              shadow-[0_30px_80px_rgba(0,0,0,0.55)]
+            "
+          >
+            <Image
+              src="/projects/hero-back.png"
+              alt="FlowTest Studio Element Inspector"
+              width={850}
+              height={1786}
+              priority
+              className="block h-auto w-full"
+            />
+
+            <div
+              className="
+                pointer-events-none
+                absolute
+                inset-0
+                bg-[#080b12]/15
+              "
+            />
+          </div>
+        </div> */}
+
+        {/* ===================================== */}
+        {/* FRONT SCREENSHOT */}
+        {/* ===================================== */}
 
         <div
           className="
             absolute
-            right-[-55px]
-            top-[60px]
-            z-10
-            w-[740px]
-            [perspective:1200px]
+            left-[95px]
+            top-[20px]
+            z-20
+            w-[880px]
           "
         >
-          {/* =========================================== */}
-          {/* SCREENSHOT */}
-          {/* =========================================== */}
-
           <div
             className="
-              relative
-              transform-gpu
               overflow-hidden
               rounded-[20px]
               border
-              border-white/[0.14]
+              border-white/[0.08]
               bg-[#0d1117]
-
-              drop-shadow-[0_35px_35px_rgba(0,0,0,0.38)]
-              drop-shadow-[0_12px_18px_rgba(0,0,0,0.28)]
-
-              [transform:rotateX(5deg)_rotateY(-32deg)_rotateZ(1deg)]
+              shadow-[0_35px_90px_rgba(0,0,0,0.5)]
             "
           >
-            {/* ========================================= */}
-            {/* IMAGE */}
-            {/* ========================================= */}
-
             <Image
-              key={heroImages[currentIndex]}
-              src={heroImages[currentIndex]}
-              alt={`FlowTest Studio screenshot ${currentIndex + 1}`}
+              src="/projects/hero-front-01.webp"
+              alt="FlowTest Studio Workflow Canvas"
               width={2048}
               height={1483}
-              priority={currentIndex === 0}
+              priority
               className="
                 block
                 h-auto
                 w-full
-                brightness-[1.08]
-  contrast-[1.03]
-                transition-opacity
-                duration-300
               "
             />
 
-            {/* ========================================= */}
-            {/* CINEMATIC OVERLAY */}
-            {/* ========================================= */}
+            {/* Cinematic overlay */}
 
             <div
               className="
@@ -178,15 +181,13 @@ export default function HeroImage({ image, preview = false }) {
                 absolute
                 inset-0
                 bg-gradient-to-br
-                from-white/[0.035]
+                from-white/[0.025]
                 via-transparent
                 to-black/20
               "
             />
 
-            {/* ========================================= */}
-            {/* EDGE HIGHLIGHT */}
-            {/* ========================================= */}
+            {/* Edge */}
 
             <div
               className="
@@ -199,45 +200,27 @@ export default function HeroImage({ image, preview = false }) {
               "
             />
           </div>
-
-          {/* =========================================== */}
-          {/* CAROUSEL INDICATOR */}
-          {/* =========================================== */}
-
-          <div
-            className="
-              absolute
-              bottom-[-35px]
-              left-1/2
-              z-30
-              flex
-              -translate-x-1/2
-              items-center
-              gap-2
-            "
-          >
-            {heroImages.map((_, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={() => setCurrentIndex(index)}
-                aria-label={`Show screenshot ${index + 1}`}
-                className={`
-                  h-1.5
-                  rounded-full
-                  transition-all
-                  duration-200
-                  
-                `}
-              />
-            ))}
-          </div>
         </div>
+
+        {/* ===================================== */}
+        {/* BOTTOM FADE */}
+        {/* ===================================== */}
+
+        <div
+          className="
+            pointer-events-none
+            absolute
+            inset-x-0
+            bottom-0
+            z-30
+            h-[100px]
+          "
+        />
       </div>
 
-      {/* ================================================= */}
+      {/* ========================================= */}
       {/* MOBILE */}
-      {/* ================================================= */}
+      {/* ========================================= */}
 
       <div
         className="

@@ -16,7 +16,7 @@ import LiveDemo from "./components/live-demo/LiveDemo";
 import WhyBuilt from "./components/why-built/WhyBuilt";
 import Roadmap from "./components/roadmap/Roadmap";
 import CTA from "./components/cta/CTA";
-
+import Gallery from "./components/gallery/Gallery";
 
 export async function generateStaticParams() {
   return projectsData.map((project) => ({
@@ -46,6 +46,8 @@ export default function ProjectPage({ params }) {
 
 
         <ChallengeSolution project={project} />
+
+        <Gallery project={project} />
 
         <TechStack project={project} />
 
