@@ -43,7 +43,7 @@ export default function Projects() {
           h-72
           w-72
           rounded-full
-          bg-violet-600/10
+          bg-[#16f2b3]/[0.06]
           blur-[140px]
         "
       />
@@ -57,7 +57,7 @@ export default function Projects() {
           h-72
           w-72
           rounded-full
-          bg-pink-500/10
+          bg-[#16f2b3]/[0.04]
           blur-[140px]
         "
       />

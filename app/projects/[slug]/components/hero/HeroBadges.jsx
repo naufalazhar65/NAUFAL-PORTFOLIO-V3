@@ -2,23 +2,24 @@
 
 export default function HeroBadges({ badges }) {
   return (
-    <div className="mt-8 flex flex-wrap gap-3">
+    <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
       {badges.map((badge) => (
         <span
           key={badge}
           className="
-            rounded-full
+            rounded-lg
             border
-            border-white/10
-            bg-white/5
-            px-4
-            py-2
-            text-sm
-            text-gray-300
-            transition
-            hover:border-[#16f2b3]/40
-            hover:bg-[#16f2b3]/10
-            hover:text-white
+            border-white/[0.08]
+            bg-white/[0.03]
+            px-2.5
+            py-1
+            font-mono
+            text-xs
+            text-gray-400
+            transition-colors
+            duration-200
+            hover:border-[#16f2b3]/30
+            hover:text-[#16f2b3]
           "
         >
           {badge}

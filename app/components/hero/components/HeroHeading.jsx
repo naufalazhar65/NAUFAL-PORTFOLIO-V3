@@ -20,17 +20,30 @@ export default function HeroHeading({ greeting }) {
           inline-flex
           w-fit
           items-center
+          gap-2
           rounded-full
           border
-          border-[#16F2B3]/20
-          bg-[#16F2B3]/10
-          px-4
-          py-2
-          text-sm
+          border-white/[0.08]
+          bg-white/[0.03]
+          px-3.5
+          py-1.5
+          text-[13px]
           font-medium
-          text-primary
+          text-muted
+          backdrop-blur-xl
         "
       >
+        <span
+          className="
+            h-1.5
+            w-1.5
+            shrink-0
+            rounded-full
+            bg-primary
+            shadow-[0_0_8px_rgba(22,242,179,0.8)]
+          "
+        />
+
         {greeting}
       </motion.p>
 
@@ -40,11 +53,12 @@ export default function HeroHeading({ greeting }) {
         variants={fadeUp}
         className="
           text-4xl
-          font-black
+          font-semibold
           leading-tight
+          tracking-tight
           text-heading
           md:text-6xl
-          xl:text-7xl
+          xl:text-6xl
         "
       >
         {personalData.name}
@@ -55,11 +69,12 @@ export default function HeroHeading({ greeting }) {
       <motion.div
         variants={fadeUp}
         className="
-          mt-6
+          mt-5
           text-xl
-          font-semibold
+          font-medium
+          tracking-tight
           text-primary
-          md:text-3xl
+          md:text-2xl
         "
       >
         <Typewriter
@@ -78,12 +93,12 @@ export default function HeroHeading({ greeting }) {
       <motion.p
         variants={fadeUp}
         className="
-          mt-8
+          mt-7
           max-w-2xl
-          text-base
-          leading-8
+          text-[15px]
+          leading-7
           text-muted
-          md:text-lg
+          md:text-base
         "
       >
         {personalData.description}

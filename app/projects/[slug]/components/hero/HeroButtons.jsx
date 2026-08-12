@@ -13,7 +13,7 @@ export default function HeroButtons({
   documentation,
 }) {
   return (
-    <div className="mt-10 flex flex-wrap gap-4">
+    <div className="flex flex-wrap items-center gap-3">
 
       {/* Live Demo */}
 
@@ -27,27 +27,29 @@ export default function HeroButtons({
             inline-flex
             items-center
             gap-2
-            rounded-2xl
+            rounded-full
             bg-[#16f2b3]
-            px-6
-            py-4
-            font-semibold
+            px-5
+            py-2.5
+            text-sm
+            font-medium
             text-black
-            transition-all
-            duration-300
-            hover:scale-105
+            transition-transform
+            duration-200
+            hover:scale-[1.03]
           "
         >
-          <FiPlay />
+          <FiPlay className="text-[13px]" />
 
           Live Demo
 
           <FiArrowUpRight
             className="
+              text-[13px]
               transition-transform
-              duration-300
-              group-hover:translate-x-1
-              group-hover:-translate-y-1
+              duration-200
+              group-hover:translate-x-0.5
+              group-hover:-translate-y-0.5
             "
           />
         </a>
@@ -65,30 +67,33 @@ export default function HeroButtons({
             inline-flex
             items-center
             gap-2
-            rounded-2xl
+            rounded-full
             border
-            border-white/10
+            border-white/[0.08]
             bg-white/[0.03]
-            px-6
-            py-4
-            font-semibold
+            px-5
+            py-2.5
+            text-sm
+            font-medium
             text-white
-            transition-all
-            duration-300
-            hover:border-[#16f2b3]/40
+            backdrop-blur-xl
+            transition-colors
+            duration-200
+            hover:border-[#16f2b3]/30
             hover:bg-white/[0.05]
           "
         >
-          <FiGithub />
+          <FiGithub className="text-[13px]" />
 
           GitHub
 
           <FiArrowUpRight
             className="
+              text-[13px]
               transition-transform
-              duration-300
-              group-hover:translate-x-1
-              group-hover:-translate-y-1
+              duration-200
+              group-hover:translate-x-0.5
+              group-hover:-translate-y-0.5
             "
           />
         </a>
@@ -106,30 +111,33 @@ export default function HeroButtons({
             inline-flex
             items-center
             gap-2
-            rounded-2xl
+            rounded-full
             border
-            border-white/10
+            border-white/[0.08]
             bg-white/[0.03]
-            px-6
-            py-4
-            font-semibold
+            px-5
+            py-2.5
+            text-sm
+            font-medium
             text-white
-            transition-all
-            duration-300
-            hover:border-[#16f2b3]/40
+            backdrop-blur-xl
+            transition-colors
+            duration-200
+            hover:border-[#16f2b3]/30
             hover:bg-white/[0.05]
           "
         >
-          <FiBookOpen />
+          <FiBookOpen className="text-[13px]" />
 
           Documentation
 
           <FiArrowUpRight
             className="
+              text-[13px]
               transition-transform
-              duration-300
-              group-hover:translate-x-1
-              group-hover:-translate-y-1
+              duration-200
+              group-hover:translate-x-0.5
+              group-hover:-translate-y-0.5
             "
           />
         </a>

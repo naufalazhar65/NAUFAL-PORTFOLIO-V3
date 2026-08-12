@@ -64,21 +64,23 @@ export default function FlowPreview() {
         {/* Title Bar */}
         {/* ========================= */}
 
-        <div className="flex items-center justify-between border-b border-border bg-panel px-5 py-4">
+        <div className="flex h-11 items-center justify-between border-b border-border bg-panel px-4">
           <div className="flex items-center gap-3">
-            <div className="flex gap-2">
-              <span className="h-3 w-3 rounded-full bg-red-500" />
-              <span className="h-3 w-3 rounded-full bg-yellow-400" />
-              <span className="h-3 w-3 rounded-full bg-green-500" />
+            <div className="flex items-center gap-[6px]">
+              <span className="h-[10px] w-[10px] rounded-full bg-[#FF5F57]" />
+              <span className="h-[10px] w-[10px] rounded-full bg-[#FEBC2E]" />
+              <span className="h-[10px] w-[10px] rounded-full bg-[#28C840]" />
             </div>
 
-            <h3 className="font-semibold text-heading">FlowTest Studio</h3>
+            <h3 className="text-sm font-medium text-heading">
+              FlowTest Studio
+            </h3>
           </div>
 
-          <div className="flex items-center gap-2 text-primary">
-            <HiCheckCircle size={18} />
+          <div className="flex items-center gap-1.5 text-primary">
+            <HiCheckCircle size={15} />
 
-            <span className="text-sm font-medium">Ready</span>
+            <span className="text-xs font-medium">Ready</span>
           </div>
         </div>
 
@@ -109,7 +111,7 @@ export default function FlowPreview() {
   "
                     style={{
                       borderColor:
-                        statuses[node.id] === "passed" ? "#16F2B3" : "#2a2a2a",
+                        statuses[node.id] === "passed" ? "#16f2b3" : "#2a2a2a",
                     }}
                   />
                 )}
@@ -126,8 +128,8 @@ export default function FlowPreview() {
           {/* Header */}
 
           <div className="flex items-center justify-between border-b border-border px-5 py-3">
-            <span className="text-xs font-bold tracking-[0.3em] text-muted">
-              CONSOLE
+            <span className="text-[11px] font-medium uppercase tracking-[2.5px] text-muted">
+              Console
             </span>
 
             <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">

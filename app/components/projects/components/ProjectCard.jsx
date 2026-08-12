@@ -49,29 +49,44 @@ export default function ProjectCard({
       >
         {/* Category / Status */}
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2">
           {featured && (
             <span
               className="
+                inline-flex
+                items-center
+                gap-2
+
                 rounded-full
 
                 border
-                border-[#16f2b3]/30
+                border-white/[0.08]
 
-                bg-[#16f2b3]/10
+                bg-white/[0.03]
 
                 px-3
                 py-1
 
-                text-xs
-                font-semibold
+                text-[11px]
+                font-medium
                 uppercase
                 tracking-[2px]
 
-                text-[#16f2b3]
+                text-gray-400
+
+                backdrop-blur-xl
               "
             >
-              Flagship Project
+              <span
+                className="
+                  h-1.5
+                  w-1.5
+                  rounded-full
+                  bg-[#16f2b3]
+                  shadow-[0_0_8px_rgba(22,242,179,0.8)]
+                "
+              />
+              Flagship
             </span>
           )}
 
@@ -80,24 +95,23 @@ export default function ProjectCard({
               rounded-full
 
               border
-              border-white/10
+              border-white/[0.08]
 
-              bg-white/[0.04]
+              bg-white/[0.03]
 
-              px-4
-              py-2
+              px-3
+              py-1
 
-              text-sm
-              font-semibold
+              text-[11px]
+              font-medium
+
+              text-gray-400
             "
-            style={{
-              color: project.color,
-            }}
           >
             {project.category}
           </span>
 
-          <span className="text-sm text-gray-500">
+          <span className="text-[11px] text-gray-600">
             {project.status}
           </span>
         </div>
@@ -108,16 +122,16 @@ export default function ProjectCard({
           className={`
             mt-5
 
-            font-black
-            leading-[1.05]
+            font-semibold
+            leading-[1.1]
             tracking-tight
 
             text-white
 
             ${
               featured
-                ? "text-5xl lg:text-6xl"
-                : "text-4xl lg:text-5xl"
+                ? "text-4xl lg:text-5xl"
+                : "text-3xl lg:text-4xl"
             }
           `}
         >
@@ -128,11 +142,11 @@ export default function ProjectCard({
 
         <p
           className="
-            mt-6
+            mt-4
 
-            text-lg
-            font-semibold
-            tracking-wide
+            text-base
+            font-medium
+            tracking-tight
 
             text-[#16f2b3]
           "
@@ -144,13 +158,14 @@ export default function ProjectCard({
 
         <p
           className="
-            mt-7
+            mt-5
 
-            max-w-xl
+            max-w-lg
 
-            leading-8
+            text-[15px]
+            leading-7
 
-            text-gray-400
+            text-gray-500
           "
         >
           {project.description}
@@ -159,13 +174,27 @@ export default function ProjectCard({
         {/* Featured Stats */}
 
         {featured && project.stats?.length > 0 && (
-          <div className="mt-8 grid grid-cols-3 gap-5">
+          <div
+            className="
+              mt-8
+
+              flex
+              flex-wrap
+
+              divide-x
+              divide-white/[0.06]
+            "
+          >
             {project.stats.slice(0, 3).map((stat) => (
-              <div key={stat.label}>
+              <div
+                key={stat.label}
+                className="px-5 first:pl-0"
+              >
                 <p
                   className="
-                    text-3xl
-                    font-black
+                    text-2xl
+                    font-semibold
+                    tracking-tight
                     text-white
                   "
                 >
@@ -176,11 +205,12 @@ export default function ProjectCard({
                   className="
                     mt-1
 
-                    text-xs
+                    text-[11px]
+                    font-medium
                     uppercase
-                    tracking-wider
+                    tracking-[1.5px]
 
-                    text-gray-500
+                    text-gray-600
                   "
                 >
                   {stat.label}
@@ -208,26 +238,25 @@ export default function ProjectCard({
               <span
                 key={tool.name}
                 className="
-                  rounded-full
+                  rounded-lg
 
                   border
                   border-white/[0.08]
 
                   bg-white/[0.03]
 
-                  px-3
-                  py-1.5
+                  px-2.5
+                  py-1
 
+                  font-mono
                   text-xs
-                  font-medium
 
-                  text-gray-300
+                  text-gray-400
 
                   transition-colors
-                  duration-300
+                  duration-200
 
                   hover:border-[#16f2b3]/30
-                  hover:bg-[#16f2b3]/10
                   hover:text-[#16f2b3]
                 "
               >
@@ -238,18 +267,18 @@ export default function ProjectCard({
             {project.tools.length > 5 && (
               <span
                 className="
-                  rounded-full
+                  rounded-lg
 
                   border
                   border-[#16f2b3]/20
 
-                  bg-[#16f2b3]/10
+                  bg-[#16f2b3]/[0.06]
 
-                  px-3
-                  py-1.5
+                  px-2.5
+                  py-1
 
+                  font-mono
                   text-xs
-                  font-medium
 
                   text-[#16f2b3]
                 "
@@ -262,7 +291,7 @@ export default function ProjectCard({
 
         {/* Actions */}
 
-        <div className="mt-10 flex flex-wrap gap-4">
+        <div className="mt-9 flex flex-wrap items-center gap-3">
           {featured && project.live && (
             <Link
               href="/flowtest"
@@ -271,27 +300,27 @@ export default function ProjectCard({
                 items-center
                 gap-2
 
-                rounded-xl
+                rounded-full
 
                 bg-[#16f2b3]
 
-                px-6
-                py-3
+                px-5
+                py-2.5
 
-                font-semibold
+                text-sm
+                font-medium
 
                 text-black
 
-                transition-all
-                duration-300
+                transition-transform
+                duration-200
 
-                hover:-translate-y-0.5
-                hover:shadow-[0_10px_35px_rgba(22,242,179,.20)]
+                hover:scale-[1.03]
               "
             >
               Launch Live Demo
 
-              <FiArrowUpRight />
+              <FiArrowUpRight className="text-[13px]" />
             </Link>
           )}
 
@@ -304,36 +333,41 @@ export default function ProjectCard({
               items-center
               gap-2
 
-              rounded-xl
+              rounded-full
 
               border
-              border-white/10
+              border-white/[0.08]
 
-              px-6
-              py-3
+              bg-white/[0.03]
 
-              font-semibold
+              px-5
+              py-2.5
+
+              text-sm
+              font-medium
 
               text-white
 
-              transition-all
-              duration-300
+              backdrop-blur-xl
 
-              hover:-translate-y-0.5
+              transition-colors
+              duration-200
+
               hover:border-[#16f2b3]/30
-              hover:bg-white/[0.04]
-              hover:text-[#16f2b3]
+              hover:bg-white/[0.05]
             "
           >
             View Case Study
 
             <FiArrowUpRight
               className="
-                transition-transform
-                duration-300
+                text-[13px]
 
-                group-hover:translate-x-1
-                group-hover:-translate-y-1
+                transition-transform
+                duration-200
+
+                group-hover:translate-x-0.5
+                group-hover:-translate-y-0.5
               "
             />
           </Link>
@@ -341,7 +375,7 @@ export default function ProjectCard({
       </motion.div>
 
       {/* ========================= */}
-      {/* RIGHT IMAGE */}
+      {/* RIGHT IMAGE — window chrome */}
       {/* ========================= */}
 
       <motion.div
@@ -388,111 +422,140 @@ export default function ProjectCard({
           "
         />
 
-        {/* Image */}
+        {/* Window */}
 
         <div
-          className={`
+          className="
             relative
             overflow-hidden
+
+            rounded-2xl
 
             border
             border-white/[0.08]
 
             bg-[#0d1117]
 
-            ${
-              featured
-                ? "rounded-[28px] shadow-[0_30px_80px_rgba(0,0,0,0.30)]"
-                : "rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.25)]"
-            }
-          `}
+            shadow-[0_25px_70px_rgba(0,0,0,0.35)]
+          "
         >
-          <Image
-            src={project.image}
-            alt={project.name}
-            width={1200}
-            height={800}
-            className="
-              block
-              h-auto
-              w-full
-
-              transition-transform
-              duration-700
-              ease-out
-
-              group-hover:scale-[1.02]
-            "
-          />
-
-          {/* Bottom Gradient */}
+          {/* Title bar */}
 
           <div
             className="
-              pointer-events-none
-
-              absolute
-              inset-x-0
-              bottom-0
-
-              h-32
-
-              bg-gradient-to-t
-              from-[#0d1117]/50
-              to-transparent
-            "
-          />
-
-          {/* View Details */}
-
-          <div
-            className="
-              pointer-events-none
-
-              absolute
-              inset-0
-
+              relative
               flex
+              h-10
               items-center
               justify-center
-
-              bg-black/0
-
-              transition-colors
-              duration-500
-
-              group-hover:bg-black/30
+              border-b
+              border-white/[0.06]
+              bg-white/[0.02]
+              px-4
             "
           >
-            <Link
-              href={`/projects/${project.slug}`}
+            <div className="absolute left-4 flex items-center gap-[6px]">
+              <span className="h-[10px] w-[10px] rounded-full bg-[#FF5F57]" />
+              <span className="h-[10px] w-[10px] rounded-full bg-[#FEBC2E]" />
+              <span className="h-[10px] w-[10px] rounded-full bg-[#28C840]" />
+            </div>
+
+            <span className="text-[11px] font-medium text-gray-500">
+              {project.slug}
+            </span>
+          </div>
+
+          {/* Image */}
+
+          <div className="relative">
+            <Image
+              src={project.image}
+              alt={project.name}
+              width={1200}
+              height={800}
               className="
-                pointer-events-auto
+                block
+                h-auto
+                w-full
 
-                translate-y-3
+                transition-transform
+                duration-700
+                ease-out
 
-                rounded-xl
+                group-hover:scale-[1.02]
+              "
+            />
 
-                bg-white
+            {/* Bottom Gradient */}
 
-                px-6
-                py-3
+            <div
+              className="
+                pointer-events-none
 
-                font-semibold
+                absolute
+                inset-x-0
+                bottom-0
 
-                text-black
+                h-28
 
-                opacity-0
+                bg-gradient-to-t
+                from-[#0d1117]/50
+                to-transparent
+              "
+            />
 
-                transition-all
-                duration-300
+            {/* View Details */}
 
-                group-hover:translate-y-0
-                group-hover:opacity-100
+            <div
+              className="
+                pointer-events-none
+
+                absolute
+                inset-0
+
+                flex
+                items-center
+                justify-center
+
+                bg-black/0
+
+                transition-colors
+                duration-500
+
+                group-hover:bg-black/30
               "
             >
-              View Details
-            </Link>
+              <Link
+                href={`/projects/${project.slug}`}
+                className="
+                  pointer-events-auto
+
+                  translate-y-3
+
+                  rounded-full
+
+                  bg-white
+
+                  px-5
+                  py-2.5
+
+                  text-sm
+                  font-medium
+
+                  text-black
+
+                  opacity-0
+
+                  transition-all
+                  duration-300
+
+                  group-hover:translate-y-0
+                  group-hover:opacity-100
+                "
+              >
+                View Details
+              </Link>
+            </div>
           </div>
         </div>
       </motion.div>

@@ -23,22 +23,22 @@ export default function ProjectsList({ projects }) {
         }}
         className="flex items-center gap-5"
       >
-        <div className="h-px flex-1 bg-white/10" />
+        <div className="h-px flex-1 bg-white/[0.08]" />
 
         <span
           className="
             shrink-0
-            text-xs
-            font-semibold
+            text-[11px]
+            font-medium
             uppercase
-            tracking-[4px]
+            tracking-[2.5px]
             text-gray-500
           "
         >
           Other Projects
         </span>
 
-        <div className="h-px flex-1 bg-white/10" />
+        <div className="h-px flex-1 bg-white/[0.08]" />
       </motion.div>
 
       {projects.map((project, index) => (

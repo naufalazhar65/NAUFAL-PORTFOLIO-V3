@@ -53,19 +53,30 @@ export default function Hero({ project }) {
             className="
               inline-flex
               items-center
+              gap-2
               rounded-full
               border
-              border-[#16f2b3]/30
-              bg-[#16f2b3]/10
-              px-4
-              py-2
-              text-xs
-              font-semibold
+              border-white/[0.08]
+              bg-white/[0.03]
+              px-3
+              py-1
+              text-[11px]
+              font-medium
               uppercase
-              tracking-[3px]
-              text-[#16f2b3]
+              tracking-[2.5px]
+              text-gray-400
+              backdrop-blur-xl
             "
           >
+            <span
+              className="
+                h-1.5
+                w-1.5
+                rounded-full
+                bg-[#16f2b3]
+                shadow-[0_0_8px_rgba(22,242,179,0.8)]
+              "
+            />
             {project.status}
           </span>
 
@@ -75,14 +86,13 @@ export default function Hero({ project }) {
             className="
               mt-6
               text-5xl
-              font-black
-              leading-[0.95]
+              font-semibold
+              leading-[1.05]
               tracking-tight
               text-white
               sm:text-6xl
               lg:max-w-xl
-              lg:text-7xl
-              xl:text-[5.4rem]
+              lg:text-[4.25rem]
             "
           >
             {project.name}
@@ -92,12 +102,12 @@ export default function Hero({ project }) {
 
           <p
             className="
-              mt-6
+              mt-5
               text-lg
-              font-semibold
+              font-medium
+              tracking-tight
               text-[#16f2b3]
               sm:text-xl
-              lg:text-2xl
             "
           >
             {project.hero?.tagline}
@@ -108,10 +118,11 @@ export default function Hero({ project }) {
           <p
             className="
               mx-auto
-              mt-8
-              max-w-xl
-              leading-8
-              text-gray-400
+              mt-6
+              max-w-lg
+              text-[15px]
+              leading-7
+              text-gray-500
               lg:mx-0
             "
           >
@@ -126,16 +137,63 @@ export default function Hero({ project }) {
 
           {/* Buttons */}
 
-          <div className="mt-10">
+          <div
+            className="
+              mt-9
+              flex
+              flex-col
+              items-center
+              gap-4
+              sm:flex-row
+              sm:justify-center
+              lg:justify-start
+            "
+          >
             <HeroButtons
               github={project.github}
               live={project.live}
             />
+
+            <span
+              className="
+                hidden
+                items-center
+                gap-1.5
+                text-xs
+                text-gray-600
+                sm:flex
+              "
+            >
+              Press
+              <kbd
+                className="
+                  rounded-md
+                  border
+                  border-white/10
+                  bg-white/[0.04]
+                  px-1.5
+                  py-0.5
+                  font-mono
+                  text-[11px]
+                  text-gray-400
+                "
+              >
+                ⏎
+              </kbd>
+              to launch
+            </span>
           </div>
 
           {/* Stats */}
 
-          <div className="mt-12">
+          <div
+            className="
+              mt-12
+              border-t
+              border-white/[0.06]
+              pt-8
+            "
+          >
             <HeroStats stats={project.hero?.stats || []} />
           </div>
         </div>

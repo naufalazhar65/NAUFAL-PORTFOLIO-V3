@@ -33,17 +33,17 @@ export default function FeaturedProject({ project }) {
         <span
           className="
             shrink-0
-            text-sm
-            font-semibold
+            text-[11px]
+            font-medium
             uppercase
-            tracking-[4px]
+            tracking-[2.5px]
             text-[#16f2b3]
           "
         >
           Featured Project
         </span>
 
-        <div className="h-px flex-1 bg-gradient-to-r from-[#16f2b3]/40 to-transparent" />
+        <div className="h-px flex-1 bg-gradient-to-r from-[#16f2b3]/30 to-transparent" />
       </div>
 
       <ProjectCard

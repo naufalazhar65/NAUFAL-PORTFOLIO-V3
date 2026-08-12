@@ -18,13 +18,12 @@ export default function HeroImage({ image, preview = false }) {
           relative
           w-full
           overflow-hidden
-          rounded-[24px]
+          rounded-2xl
           border
-          border-white/10
+          border-white/[0.08]
           bg-[#0d1117]
           shadow-[0_20px_60px_rgba(0,0,0,.45)]
 
-          lg:rounded-[32px]
           lg:shadow-[0_30px_100px_rgba(0,0,0,.45)]
         "
       >
@@ -96,49 +95,7 @@ export default function HeroImage({ image, preview = false }) {
         />
 
         {/* ===================================== */}
-        {/* BACK SCREENSHOT */}
-        {/* ===================================== */}
-
-        {/* <div
-          className="
-            absolute
-            left-[5px]
-            top-[105px]
-            z-10
-            w-[300px]
-            -rotate-[4deg]
-            opacity-50
-          "
-        >
-          <div
-            className="
-              overflow-hidden
-              rounded-[16px]
-              shadow-[0_30px_80px_rgba(0,0,0,0.55)]
-            "
-          >
-            <Image
-              src="/projects/hero-back.png"
-              alt="FlowTest Studio Element Inspector"
-              width={850}
-              height={1786}
-              priority
-              className="block h-auto w-full"
-            />
-
-            <div
-              className="
-                pointer-events-none
-                absolute
-                inset-0
-                bg-[#080b12]/15
-              "
-            />
-          </div>
-        </div> */}
-
-        {/* ===================================== */}
-        {/* FRONT SCREENSHOT */}
+        {/* FRONT SCREENSHOT — window chrome */}
         {/* ===================================== */}
 
         <div
@@ -153,52 +110,65 @@ export default function HeroImage({ image, preview = false }) {
           <div
             className="
               overflow-hidden
-              rounded-[20px]
+              rounded-[18px]
               border
               border-white/[0.08]
               bg-[#0d1117]
               shadow-[0_35px_90px_rgba(0,0,0,0.5)]
             "
           >
-            <Image
-              src="/projects/hero-front-01.webp"
-              alt="FlowTest Studio Workflow Canvas"
-              width={2048}
-              height={1483}
-              priority
-              className="
-                block
-                h-auto
-                w-full
-              "
-            />
-
-            {/* Cinematic overlay */}
+            {/* Title bar */}
 
             <div
               className="
-                pointer-events-none
-                absolute
-                inset-0
-                bg-gradient-to-br
-                from-white/[0.025]
-                via-transparent
-                to-black/20
-              "
-            />
-
-            {/* Edge */}
-
-            <div
-              className="
-                pointer-events-none
-                absolute
-                inset-0
-                rounded-[20px]
-                border
+                relative
+                flex
+                h-10
+                items-center
+                justify-center
+                border-b
                 border-white/[0.06]
+                bg-white/[0.02]
+                px-4
               "
-            />
+            >
+              <div className="absolute left-4 flex items-center gap-[6px]">
+                <span className="h-[10px] w-[10px] rounded-full bg-[#FF5F57]" />
+                <span className="h-[10px] w-[10px] rounded-full bg-[#FEBC2E]" />
+                <span className="h-[10px] w-[10px] rounded-full bg-[#28C840]" />
+              </div>
+
+              <span className="text-[11px] font-medium text-gray-500">
+                flowtest-studio
+              </span>
+            </div>
+
+            {/* Screenshot */}
+
+            <div className="relative">
+              <Image
+                src="/projects/hero.webp"
+                alt="FlowTest Studio Workflow Canvas"
+                width={2048}
+                height={1483}
+                priority
+                className="block h-auto w-full"
+              />
+
+              {/* Cinematic overlay */}
+
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  inset-0
+                  bg-gradient-to-br
+                  from-white/[0.025]
+                  via-transparent
+                  to-black/20
+                "
+              />
+            </div>
           </div>
         </div>
 

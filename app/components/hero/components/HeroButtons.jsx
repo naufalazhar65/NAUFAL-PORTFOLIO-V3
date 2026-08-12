@@ -14,7 +14,7 @@ export default function HeroButtons() {
   return (
     <motion.div
       variants={fadeUp}
-      className="mt-10 flex flex-wrap items-center gap-4"
+      className="mt-9 flex flex-wrap items-center gap-3"
     >
       {/* Download CV */}
 

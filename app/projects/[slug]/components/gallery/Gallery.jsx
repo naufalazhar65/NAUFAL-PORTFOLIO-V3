@@ -2,36 +2,41 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const screenshots = [
   {
-    src: "/projects/hero-front-01.webp",
+    src: "/projects/builder.webp",
     title: "Visual Workflow Builder",
     description:
-      "Build mobile automation workflows visually using connected nodes.",
+      "Build and visualize mobile automation workflows by connecting reusable testing nodes in an intuitive flow-based editor.",
+    label: "Builder",
   },
   {
-    src: "/projects/hero-front-02.webp",
-    title: "Element Inspector",
+    src: "/projects/reports.webp",
+    title: "Report Analytics",
     description:
-      "Inspect application elements and configure automation properties.",
+      "Review automation execution results through a centralized reporting interface with execution status, progress and test metrics.",
+    label: "Report Analytics",
   },
   {
-    src: "/projects/hero-front-03.webp",
-    title: "Workflow Execution",
+    src: "/projects/deviceManager.webp",
+    title: "Device Manager",
     description:
-      "Monitor automation execution directly from the workflow interface.",
+      "Manage connected testing devices and configure the target platform used for mobile automation execution.",
+    label: "Device Manager",
   },
   {
-    src: "/projects/hero-front-04.webp",
+    src: "/projects/ReportDetail.webp",
     title: "Execution Results",
-    description: "Review execution progress, node states and testing results.",
+    description:
+      "Inspect detailed execution results, including individual test steps, execution status, logs, and overall workflow outcomes.",
+    label: "Results",
   },
 ];
 
 const AUTO_PLAY_DURATION = 5000;
-const TRANSITION_DURATION = 700;
+const TRANSITION_DURATION = 500;
 
 export default function Gallery({ project }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -44,13 +49,11 @@ export default function Gallery({ project }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((current) => {
-        return (current + 1) % screenshots.length;
-      });
+      setActiveIndex((current) => (current + 1) % screenshots.length);
     }, AUTO_PLAY_DURATION);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [activeIndex]);
 
   const activeScreenshot = screenshots[activeIndex];
 
@@ -59,9 +62,9 @@ export default function Gallery({ project }) {
   }
 
   return (
-    <section className="relative py-28">
+    <section className="relative overflow-hidden py-28">
       {/* ================================================= */}
-      {/* AMBIENT BACKGROUND */}
+      {/* AMBIENT BACKGROUND — dual warm glow, Raycast-style */}
       {/* ================================================= */}
 
       <div
@@ -69,15 +72,15 @@ export default function Gallery({ project }) {
           pointer-events-none
           absolute
           left-1/2
-          top-[45%]
+          top-[38%]
           z-0
-          h-[520px]
-          w-[900px]
+          h-[460px]
+          w-[780px]
           -translate-x-1/2
           -translate-y-1/2
           rounded-full
-          bg-[#16f2b3]/[0.025]
-          blur-[140px]
+          bg-[#16f2b3]/[0.07]
+          blur-[130px]
         "
       />
 
@@ -86,65 +89,59 @@ export default function Gallery({ project }) {
       {/* ================================================= */}
 
       <motion.div
-        initial={{
-          opacity: 0,
-          y: 25,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          duration: 0.7,
-        }}
-        className="
-          relative
-          z-10
-          mx-auto
-          mb-16
-          max-w-3xl
-          text-center
-        "
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10 mx-auto mb-14 max-w-2xl text-center"
       >
         <span
           className="
-            text-xs
-            font-semibold
+            inline-flex
+            items-center
+            gap-2
+            rounded-full
+            border
+            border-white/[0.08]
+            bg-white/[0.03]
+            px-3
+            py-1
+            text-[11px]
+            font-medium
             uppercase
-            tracking-[5px]
-            text-[#16f2b3]
+            tracking-[2.5px]
+            text-gray-400
           "
         >
-          Product Showcase
+          <span className="h-1.5 w-1.5 rounded-full bg-[#16f2b3] shadow-[0_0_8px_rgba(22,242,179,0.8)]" />
+          Product tour
         </span>
 
         <h2
           className="
             mt-5
             text-4xl
-            font-black
+            font-semibold
             tracking-tight
             text-white
             md:text-5xl
-            lg:text-6xl
           "
         >
-          Explore FlowTest Studio
+          Explore{" "}
+          <span
+            className="
+              bg-gradient-to-r
+              from-[#16f2b3]
+              to-[#16f2b3]
+              bg-clip-text
+              text-transparent
+            "
+          >
+            FlowTest Studio
+          </span>
         </h2>
 
-        <p
-          className="
-            mx-auto
-            mt-6
-            max-w-2xl
-            text-lg
-            leading-8
-            text-gray-400
-          "
-        >
+        <p className="mx-auto mt-4 max-w-lg text-base leading-7 text-gray-500">
           A closer look at the visual workflow editor, automation inspector and
           execution experience.
         </p>
@@ -155,89 +152,61 @@ export default function Gallery({ project }) {
       {/* ================================================= */}
 
       <motion.div
-        initial={{
-          opacity: 0,
-          y: 35,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          duration: 0.8,
-        }}
-        className="
-          relative
-          z-10
-          mx-auto
-          max-w-[1180px]
-        "
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10 mx-auto max-w-[980px] px-4"
       >
         {/* ============================================= */}
-        {/* OUTER GLOW */}
-        {/* ============================================= */}
-
-        <div
-          className="
-            pointer-events-none
-            absolute
-            -inset-10
-            rounded-[50px]
-            bg-black/30
-            blur-[80px]
-          "
-        />
-
-        {/* ============================================= */}
-        {/* SCREENSHOT CONTAINER */}
+        {/* WINDOW */}
         {/* ============================================= */}
 
         <div
           className="
             relative
             overflow-hidden
-            rounded-[30px]
+            rounded-2xl
             border
-            border-white/[0.10]
-            bg-[#080b12]
-            shadow-[0_45px_120px_rgba(0,0,0,0.55)]
+            border-white/[0.08]
+            bg-[#0A0A0C]
+            shadow-[0_30px_90px_rgba(0,0,0,0.6)]
           "
         >
           {/* =========================================== */}
-          {/* TOP LIGHT */}
-          {/* =========================================== */}
-
-          <div
-            className="
-              pointer-events-none
-              absolute
-              inset-x-0
-              top-0
-              z-30
-              h-px
-              bg-white/[0.12]
-            "
-          />
-
-          {/* =========================================== */}
-          {/* SCREENSHOT STAGE */}
+          {/* TITLE BAR — macOS chrome */}
           {/* =========================================== */}
 
           <div
             className="
               relative
-              aspect-[2048/1483]
-              overflow-hidden
-              bg-[#080b12]
+              flex
+              h-11
+              items-center
+              justify-center
+              border-b
+              border-white/[0.06]
+              bg-white/[0.02]
+              px-4
             "
           >
-            {/* ========================================= */}
-            {/* SCREENSHOT LAYERS */}
-            {/* ========================================= */}
+            <div className="absolute left-4 flex items-center gap-[7px]">
+              <span className="h-[11px] w-[11px] rounded-full bg-[#FF5F57]" />
+              <span className="h-[11px] w-[11px] rounded-full bg-[#FEBC2E]" />
+              <span className="h-[11px] w-[11px] rounded-full bg-[#28C840]" />
+            </div>
 
+            <span className="text-xs font-medium text-gray-500">
+              flowtest-studio
+              <span className="text-gray-600"> — {activeScreenshot.label}</span>
+            </span>
+          </div>
+
+          {/* =========================================== */}
+          {/* SCREENSHOT STAGE */}
+          {/* =========================================== */}
+
+          <div className="relative aspect-[2048/1483] overflow-hidden bg-[#0A0A0C]">
             {screenshots.map((screenshot, index) => (
               <div
                 key={screenshot.src}
@@ -262,19 +231,12 @@ export default function Gallery({ project }) {
                   fill
                   priority={index === 0}
                   loading="eager"
-                  sizes="(max-width: 768px) 100vw, 1180px"
+                  sizes="(max-width: 768px) 100vw, 980px"
                   draggable={false}
-                  className="
-                    select-none
-                    object-cover
-                  "
+                  className="select-none object-cover"
                 />
               </div>
             ))}
-
-            {/* ========================================= */}
-            {/* CINEMATIC GRADIENT */}
-            {/* ========================================= */}
 
             <div
               className="
@@ -285,96 +247,77 @@ export default function Gallery({ project }) {
                 bg-gradient-to-b
                 from-transparent
                 via-transparent
-                to-black/20
+                to-black/25
               "
             />
+          </div>
+        </div>
 
-            {/* ========================================= */}
-            {/* SOFT EDGE */}
-            {/* ========================================= */}
+        {/* ================================================= */}
+        {/* SEGMENTED PILL SWITCHER — Raycast signature */}
+        {/* ================================================= */}
 
-            <div
-              className="
-                pointer-events-none
-                absolute
-                inset-0
-                z-20
-                rounded-[30px]
-                border
-                border-white/[0.04]
-              "
-            />
-
-            {/* ========================================= */}
-            {/* FLOATING CONTROLS */}
-            {/* ========================================= */}
-
-            {/* <div
-              className="
-                absolute
-                bottom-7
-                left-1/2
-                z-40
-                flex
-                -translate-x-1/2
-                items-center
-                gap-1.5
-                rounded-full
-                border
-                border-white/[0.10]
-                bg-[#11151f]/90
-                p-1.5
-                shadow-[0_15px_40px_rgba(0,0,0,0.45)]
-                backdrop-blur-xl
-              "
-            >
-              {screenshots.map((screenshot, index) => (
+        <div className="mt-8 flex justify-center">
+          <div
+            className="
+              inline-flex
+              items-center
+              gap-1
+              rounded-full
+              border
+              border-white/[0.08]
+              bg-white/[0.03]
+              p-1
+              backdrop-blur-xl
+            "
+          >
+            {screenshots.map((screenshot, index) => {
+              const isActive = activeIndex === index;
+              return (
                 <button
                   key={screenshot.src}
                   type="button"
                   onClick={() => setActiveIndex(index)}
                   aria-label={`Show ${screenshot.title}`}
-                  className={`
+                  className="
                     relative
-                    flex
-                    h-9
-                    items-center
-                    justify-center
                     rounded-full
                     px-4
-                    text-xs
+                    py-2
+                    text-[13px]
                     font-medium
-                    transition-all
-                    duration-300
-
-                    ${
-                      activeIndex === index
-                        ? "bg-white/[0.10] text-white"
-                        : "text-gray-500 hover:bg-white/[0.05] hover:text-gray-300"
-                    }
-                  `}
+                    transition-colors
+                    duration-200
+                  "
                 >
+                  {isActive && (
+                    <motion.span
+                      layoutId="raycast-pill"
+                      transition={{
+                        type: "spring",
+                        stiffness: 500,
+                        damping: 35,
+                      }}
+                      className="
+                        absolute
+                        inset-0
+                        rounded-full
+                        bg-[#16f2b3]
+                      "
+                    />
+                  )}
                   <span
-                    className={`
-                      mr-2
-                      h-1.5
-                      w-1.5
-                      rounded-full
-                      transition-all
-                      duration-300
-
-                      ${
-                        activeIndex === index
-                          ? "bg-[#16f2b3] shadow-[0_0_8px_rgba(22,242,179,0.8)]"
-                          : "bg-white/20"
-                      }
-                    `}
-                  />
-
-                  <span className="hidden sm:block">{index + 1}</span>
+                    className={`relative z-10 ${
+                      isActive
+                        ? "text-white"
+                        : "text-gray-500 hover:text-gray-300"
+                    }`}
+                  >
+                    {screenshot.label}
+                  </span>
                 </button>
-              ))}
-            </div> */}
+              );
+            })}
           </div>
         </div>
 
@@ -382,76 +325,19 @@ export default function Gallery({ project }) {
         {/* CAPTION */}
         {/* ================================================= */}
 
-        <div className="mt-8 text-center">
-          <motion.div
-            key={activeScreenshot.title}
-            initial={{
-              opacity: 0,
-              y: 8,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 0.35,
-            }}
-          >
-            <h3
-              className="
-                text-2xl
-                font-bold
-                tracking-tight
-                text-white
-                md:text-3xl
-              "
-            >
-              {activeScreenshot.title}
-            </h3>
-
-            <p
-              className="
-                mx-auto
-                mt-3
-                max-w-xl
-                text-sm
-                leading-7
-                text-gray-500
-                md:text-base
-              "
+        <div className="mx-auto mt-6 max-w-md text-center">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={activeScreenshot.title}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.25 }}
+              className="text-sm leading-6 text-gray-500"
             >
               {activeScreenshot.description}
-            </p>
-          </motion.div>
-        </div>
-
-        {/* ================================================= */}
-        {/* PROGRESS */}
-        {/* ================================================= */}
-
-        <div
-          className="
-            mx-auto
-            mt-7
-            h-px
-            max-w-[260px]
-            overflow-hidden
-            rounded-full
-            bg-white/[0.06]
-          "
-        >
-          <div
-            className="
-              h-full
-              rounded-full
-              bg-[#16f2b3]/70
-              transition-all
-              duration-500
-            "
-            style={{
-              width: `${((activeIndex + 1) / screenshots.length) * 100}%`,
-            }}
-          />
+            </motion.p>
+          </AnimatePresence>
         </div>
       </motion.div>
     </section>
