@@ -5,13 +5,23 @@ import { motion } from "framer-motion";
 import {
   FiArrowUpRight,
   FiGithub,
+  FiExternalLink,
   FiMail,
 } from "react-icons/fi";
 
 export default function CTA({ project }) {
-  if (project.slug !== "flowtest-studio") {
+  if (!project) {
     return null;
   }
+
+  const isFlowTest =
+    project.slug === "flowtest-studio";
+
+  const hasGithub =
+    Boolean(project.github);
+
+  const hasLive =
+    Boolean(project.live);
 
   return (
     <section
@@ -65,7 +75,9 @@ export default function CTA({ project }) {
             lg:pt-12
           "
         >
-          {/* Context */}
+          {/* =========================
+              CONTEXT
+          ========================= */}
 
           <div>
             <div className="flex items-center gap-4">
@@ -78,7 +90,7 @@ export default function CTA({ project }) {
                   text-[#16f2b3]
                 "
               >
-                11
+                09
               </span>
 
               <span
@@ -103,83 +115,152 @@ export default function CTA({ project }) {
                 text-gray-400
               "
             >
-              FlowTest Studio is an active engineering project.
-              The implementation is still evolving, but the
-              repository and interactive build are available to
-              inspect.
+              {isFlowTest
+                ? "FlowTest Studio is an active engineering project. The implementation is still evolving, but the repository and interactive build are available to inspect."
+                : `${project.name} is part of my QA and automation work. The project source or supporting material is available below.`}
             </p>
           </div>
 
-          {/* Main */}
+          {/* =========================
+              MAIN
+          ========================= */}
 
           <div>
             <h2
               className="
                 max-w-4xl
-                text-[clamp(48px,6.5vw,92px)]
+                text-[clamp(46px,6.5vw,92px)]
                 font-semibold
                 leading-[0.92]
                 tracking-[-0.07em]
                 text-white
               "
             >
-              See the implementation.
-              <br />
-              <span className="text-gray-400">
-                Then talk to me about QA.
-              </span>
+              {isFlowTest ? (
+                <>
+                  See the implementation.
+                  <br />
+                  <span className="text-gray-400">
+                    Then talk to me about QA.
+                  </span>
+                </>
+              ) : (
+                <>
+                  Take a closer look.
+                  <br />
+                  <span className="text-gray-400">
+                    Then explore the rest.
+                  </span>
+                </>
+              )}
             </h2>
 
             <div className="mt-9 flex flex-wrap items-center gap-4">
-              <Link
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="
-                  inline-flex
-                  min-h-11
-                  items-center
-                  gap-3
-                  rounded-full
-                  bg-white
-                  px-5
-                  text-sm
-                  font-medium
-                  text-black
-                  transition-colors
-                  duration-200
-                  hover:bg-gray-200
-                "
-              >
-                <FiGithub size={14} />
-                View repository
-                <FiArrowUpRight size={13} />
-              </Link>
+              {/* GitHub */}
 
-              <Link
-                href="/contact"
-                className="
-                  inline-flex
-                  min-h-11
-                  items-center
-                  gap-3
-                  rounded-full
-                  border
-                  border-white/[0.1]
-                  px-5
-                  text-sm
-                  font-medium
-                  text-white
-                  transition-colors
-                  duration-200
-                  hover:border-white/[0.2]
-                  hover:bg-white/[0.02]
-                "
-              >
-                <FiMail size={14} />
-                Discuss QA tooling
-                <FiArrowUpRight size={13} />
-              </Link>
+              {hasGithub && (
+                <Link
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    inline-flex
+                    min-h-11
+                    items-center
+                    gap-3
+                    rounded-full
+                    bg-white
+                    px-5
+                    text-sm
+                    font-medium
+                    text-black
+                    transition-colors
+                    duration-200
+                    hover:bg-gray-200
+                  "
+                >
+                  <FiGithub size={14} />
+
+                  {isFlowTest
+                    ? "View repository"
+                    : "View GitHub"}
+
+                  <FiArrowUpRight size={13} />
+                </Link>
+              )}
+
+              {/* Live / Documentation */}
+
+              {hasLive && (
+                <Link
+                  href={project.live}
+                  target={
+                    project.live.startsWith("/")
+                      ? undefined
+                      : "_blank"
+                  }
+                  rel={
+                    project.live.startsWith("/")
+                      ? undefined
+                      : "noopener noreferrer"
+                  }
+                  className="
+                    inline-flex
+                    min-h-11
+                    items-center
+                    gap-3
+                    rounded-full
+                    border
+                    border-white/[0.1]
+                    px-5
+                    text-sm
+                    font-medium
+                    text-white
+                    transition-colors
+                    duration-200
+                    hover:border-white/[0.2]
+                    hover:bg-white/[0.02]
+                  "
+                >
+                  <FiExternalLink size={14} />
+
+                  {project.liveLabel ||
+                    "View project"}
+
+                  <FiArrowUpRight size={13} />
+                </Link>
+              )}
+
+              {/* Contact */}
+
+              {isFlowTest && (
+                <Link
+                  href="/contact"
+                  className="
+                    inline-flex
+                    min-h-11
+                    items-center
+                    gap-3
+                    rounded-full
+                    border
+                    border-white/[0.1]
+                    px-5
+                    text-sm
+                    font-medium
+                    text-white
+                    transition-colors
+                    duration-200
+                    hover:border-white/[0.2]
+                    hover:bg-white/[0.02]
+                  "
+                >
+                  <FiMail size={14} />
+                  Discuss QA tooling
+                  <FiArrowUpRight size={13} />
+                </Link>
+              )}
+
+              {/* Other projects */}
 
               <Link
                 href="/projects"

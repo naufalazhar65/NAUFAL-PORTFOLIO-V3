@@ -6,9 +6,10 @@ import {
   FiCpu,
   FiDatabase,
   FiGitBranch,
+  FiLayers,
 } from "react-icons/fi";
 
-const decisions = [
+const flowtestDecisions = [
   {
     number: "01",
     icon: FiGitBranch,
@@ -55,8 +56,296 @@ const decisions = [
   },
 ];
 
+const genericIcons = [
+  FiCode,
+  FiLayers,
+  FiGitBranch,
+  FiCpu,
+];
+
+const genericDescriptions = {
+  "automation-testing":
+    "The framework is centered around reusable browser automation, Page Object Model structure, reporting, and CI execution.",
+
+  "mobile-app-testing":
+    "The framework separates platform configuration, driver creation, page objects, test suites, reporting, and CI execution for Android and iOS.",
+
+  "api-testing":
+    "The work combines documented API scenarios with repeatable validation and automated execution across service behavior.",
+
+  "performance-testing":
+    "The testing setup focuses on scenario-based load, stress, spike, and endurance checks using dedicated performance tooling.",
+
+  "qa-documentation":
+    "The work is organized around structured test scenarios, planning artifacts, boundary analysis, and defect reporting.",
+};
+
+function getGenericDescription(project) {
+  return (
+    genericDescriptions[project.slug] ??
+    "The project combines the tools and practices listed below around a specific QA workflow."
+  );
+}
+
 export default function TechStack({ project }) {
-  if (project.slug !== "flowtest-studio") {
+  if (!project) {
+    return null;
+  }
+
+  const isFlowTest =
+    project.slug === "flowtest-studio";
+
+  if (isFlowTest) {
+    return (
+      <section
+        id="tech-stack"
+        className="
+          relative
+          border-b
+          border-white/[0.08]
+          py-20
+          sm:py-24
+          lg:py-28
+        "
+      >
+        <div
+          className="
+            mx-auto
+            w-full
+            max-w-[1280px]
+            px-4
+            sm:px-6
+            lg:px-0
+          "
+        >
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.15,
+            }}
+            transition={{
+              duration: 0.6,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="
+              grid
+              gap-8
+              border-b
+              border-white/[0.08]
+              pb-8
+              lg:grid-cols-[1fr_0.55fr]
+              lg:items-end
+            "
+          >
+            <div>
+              <div className="flex items-center gap-4">
+                <span
+                  className="
+                    text-[10px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.14em]
+                    text-[#16f2b3]
+                  "
+                >
+                  06
+                </span>
+
+                <span
+                  className="
+                    text-[10px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.14em]
+                    text-gray-400
+                  "
+                >
+                  Technical Decisions
+                </span>
+              </div>
+
+              <h2
+                className="
+                  mt-7
+                  max-w-4xl
+                  text-[clamp(44px,6vw,76px)]
+                  font-semibold
+                  leading-[0.94]
+                  tracking-[-0.07em]
+                  text-white
+                "
+              >
+                Why the system
+                <br />
+                <span className="text-gray-400">
+                  is built this way.
+                </span>
+              </h2>
+            </div>
+
+            <p
+              className="
+                max-w-md
+                text-[14px]
+                leading-7
+                text-gray-300
+              "
+            >
+              The important choices are not the number of tools in
+              the stack. They are the boundaries between the editor,
+              the device runtime, execution evidence, and AI-assisted
+              work.
+            </p>
+          </motion.div>
+
+          <div>
+            {flowtestDecisions.map(
+              (decision, index) => {
+                const Icon = decision.icon;
+
+                return (
+                  <motion.article
+                    key={decision.number}
+                    initial={{
+                      opacity: 0,
+                      y: 18,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    viewport={{
+                      once: true,
+                      amount: 0.12,
+                    }}
+                    transition={{
+                      duration: 0.55,
+                      delay: Math.min(
+                        index * 0.04,
+                        0.12,
+                      ),
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    className="
+                      grid
+                      gap-8
+                      border-b
+                      border-white/[0.08]
+                      py-9
+                      lg:grid-cols-[34px_0.65fr_1.35fr]
+                      lg:gap-10
+                      lg:py-11
+                    "
+                  >
+                    <div className="flex items-start">
+                      <Icon
+                        size={15}
+                        className="text-[#16f2b3]"
+                      />
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-3">
+                        <span
+                          className="
+                            font-mono
+                            text-[10px]
+                            tabular-nums
+                            text-gray-500
+                          "
+                        >
+                          {decision.number}
+                        </span>
+
+                        <span
+                          className="
+                            text-[9px]
+                            font-semibold
+                            uppercase
+                            tracking-[0.12em]
+                            text-gray-400
+                          "
+                        >
+                          Decision
+                        </span>
+                      </div>
+
+                      <h3
+                        className="
+                          mt-4
+                          max-w-md
+                          text-[clamp(23px,2.5vw,34px)]
+                          font-medium
+                          leading-[1]
+                          tracking-[-0.045em]
+                          text-white
+                        "
+                      >
+                        {decision.title}
+                      </h3>
+
+                      <p
+                        className="
+                          mt-4
+                          max-w-md
+                          text-[10px]
+                          font-semibold
+                          uppercase
+                          tracking-[0.08em]
+                          text-gray-400
+                        "
+                      >
+                        {decision.technology}
+                      </p>
+                    </div>
+
+                    <div className="max-w-2xl lg:pt-8">
+                      <p
+                        className="
+                          text-[14px]
+                          leading-7
+                          text-gray-300
+                        "
+                      >
+                        {decision.decision}
+                      </p>
+
+                      <p
+                        className="
+                          mt-5
+                          text-[12px]
+                          leading-7
+                          text-gray-500
+                        "
+                      >
+                        <span className="text-gray-400">
+                          Trade-off:
+                        </span>{" "}
+                        {decision.tradeoff}
+                      </p>
+                    </div>
+                  </motion.article>
+                );
+              },
+            )}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const tools = project.tools ?? [];
+  const features = project.features ?? [];
+
+  if (!tools.length && !features.length) {
     return null;
   }
 
@@ -67,9 +356,9 @@ export default function TechStack({ project }) {
         relative
         border-b
         border-white/[0.08]
-        py-20
-        sm:py-24
-        lg:py-32
+        py-16
+        sm:py-20
+        lg:py-24
       "
     >
       <div
@@ -82,14 +371,10 @@ export default function TechStack({ project }) {
           lg:px-0
         "
       >
-        {/* =========================
-            HEADER
-        ========================= */}
-
         <motion.div
           initial={{
             opacity: 0,
-            y: 24,
+            y: 20,
           }}
           whileInView={{
             opacity: 1,
@@ -100,7 +385,7 @@ export default function TechStack({ project }) {
             amount: 0.15,
           }}
           transition={{
-            duration: 0.7,
+            duration: 0.6,
             ease: [0.16, 1, 0.3, 1],
           }}
           className="
@@ -108,8 +393,9 @@ export default function TechStack({ project }) {
             gap-8
             border-b
             border-white/[0.08]
-            pb-10
-            lg:grid-cols-[1fr_0.55fr]
+            pb-8
+            lg:grid-cols-[0.7fr_1.3fr]
+            lg:gap-20
             lg:items-end
           "
         >
@@ -136,25 +422,25 @@ export default function TechStack({ project }) {
                   text-gray-400
                 "
               >
-                Technical Decisions
+                Technical Stack
               </span>
             </div>
 
             <h2
               className="
-                mt-8
-                max-w-4xl
-                text-[clamp(48px,7vw,88px)]
+                mt-7
+                max-w-3xl
+                text-[clamp(44px,6vw,76px)]
                 font-semibold
                 leading-[0.94]
                 tracking-[-0.07em]
                 text-white
               "
             >
-              Why the system
+              The tools behind
               <br />
               <span className="text-gray-400">
-                is built this way.
+                the work.
               </span>
             </h2>
           </div>
@@ -162,157 +448,136 @@ export default function TechStack({ project }) {
           <p
             className="
               max-w-md
-              text-[15px]
+              text-[14px]
               leading-7
               text-gray-300
             "
           >
-            The important choices are not the number of tools in
-            the stack. They are the boundaries between the editor,
-            the device runtime, execution evidence, and AI-assisted
-            work.
+            {getGenericDescription(project)}
           </p>
         </motion.div>
 
-        {/* =========================
-            DECISIONS
-        ========================= */}
+        <div
+          className="
+            grid
+            gap-10
+            border-b
+            border-white/[0.08]
+            py-10
+            lg:grid-cols-[0.7fr_1.3fr]
+            lg:gap-20
+          "
+        >
+          <div>
+            <span
+              className="
+                text-[10px]
+                font-semibold
+                uppercase
+                tracking-[0.14em]
+                text-gray-400
+              "
+            >
+              Tools
+            </span>
+          </div>
 
-        <div>
-          {decisions.map((decision, index) => {
-            const Icon = decision.icon;
+          <div className="flex flex-wrap gap-x-7 gap-y-4">
+            {tools.map((tool, index) => {
+              const Icon =
+                genericIcons[
+                  index % genericIcons.length
+                ];
 
-            return (
-              <motion.article
-                key={decision.number}
-                initial={{
-                  opacity: 0,
-                  y: 20,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.12,
-                }}
-                transition={{
-                  duration: 0.6,
-                  delay: Math.min(
-                    index * 0.04,
-                    0.16,
-                  ),
-                  ease: [0.16, 1, 0.3, 1],
-                }}
+              return (
+                <motion.span
+                  key={tool.name}
+                  whileHover={{
+                    y: -1,
+                  }}
+                  transition={{
+                    duration: 0.18,
+                  }}
+                  className="
+                    inline-flex
+                    items-center
+                    gap-2
+                    text-[18px]
+                    font-medium
+                    tracking-[-0.03em]
+                    text-white
+                    transition-colors
+                    duration-200
+                    hover:text-[#16f2b3]
+                  "
+                >
+                  <Icon
+                    size={13}
+                    className="text-gray-500"
+                  />
+
+                  {tool.name}
+                </motion.span>
+              );
+            })}
+          </div>
+        </div>
+
+        {features.length > 0 && (
+          <div
+            className="
+              grid
+              gap-8
+              pt-10
+              lg:grid-cols-[0.7fr_1.3fr]
+              lg:gap-20
+            "
+          >
+            <div>
+              <span
                 className="
-                  grid
-                  gap-8
-                  border-b
-                  border-white/[0.08]
-                  py-10
-                  lg:grid-cols-[34px_0.65fr_1.35fr]
-                  lg:gap-10
-                  lg:py-12
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-gray-400
                 "
               >
-                {/* Marker */}
+                What it covers
+              </span>
+            </div>
 
-                <div className="flex items-start">
-                  <Icon
-                    size={15}
-                    className="text-[#16f2b3]"
-                  />
-                </div>
+            <div className="grid sm:grid-cols-2">
+              {features.map(
+                (feature, index) => (
+                  <div
+                    key={feature}
+                    className="
+                      border-b
+                      border-white/[0.08]
+                      py-4
+                      sm:pr-8
+                      sm:[&:nth-child(odd)]:border-r
+                      sm:[&:nth-child(odd)]:pr-8
+                      sm:[&:nth-child(even)]:pl-8
+                    "
+                  >
+                    <span className="flex items-start gap-3 text-[13px] leading-6 text-gray-300">
+                      <span className="mt-1 text-[#16f2b3]">
+                        {String(index + 1).padStart(
+                          2,
+                          "0",
+                        )}
+                      </span>
 
-                {/* Decision */}
-
-                <div>
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="
-                        font-mono
-                        text-[10px]
-                        tabular-nums
-                        text-gray-500
-                      "
-                    >
-                      {decision.number}
-                    </span>
-
-                    <span
-                      className="
-                        text-[9px]
-                        font-semibold
-                        uppercase
-                        tracking-[0.12em]
-                        text-gray-400
-                      "
-                    >
-                      Decision
+                      {feature}
                     </span>
                   </div>
-
-                  <h3
-                    className="
-                      mt-4
-                      max-w-md
-                      text-[clamp(23px,2.5vw,34px)]
-                      font-medium
-                      leading-[1]
-                      tracking-[-0.045em]
-                      text-white
-                    "
-                  >
-                    {decision.title}
-                  </h3>
-
-                  <p
-                    className="
-                      mt-4
-                      max-w-md
-                      text-[10px]
-                      font-semibold
-                      uppercase
-                      tracking-[0.08em]
-                      text-gray-400
-                    "
-                  >
-                    {decision.technology}
-                  </p>
-                </div>
-
-                {/* Reasoning */}
-
-                <div className="max-w-2xl lg:pt-8">
-                  <p
-                    className="
-                      text-[14px]
-                      leading-7
-                      text-gray-300
-                    "
-                  >
-                    {decision.decision}
-                  </p>
-
-                  <p
-                    className="
-                      mt-5
-                      text-[12px]
-                      leading-7
-                      text-gray-500
-                    "
-                  >
-                    <span className="text-gray-400">
-                      Trade-off:
-                    </span>{" "}
-                    {decision.tradeoff}
-                  </p>
-                </div>
-              </motion.article>
-            );
-          })}
-        </div>
+                ),
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

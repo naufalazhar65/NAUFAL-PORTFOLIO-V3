@@ -1,7 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { FiGithub, FiGitBranch, FiArrowUpRight } from "react-icons/fi";
+import {
+  FiArrowUpRight,
+  FiGithub,
+  FiGitBranch,
+} from "react-icons/fi";
 import { motion } from "framer-motion";
 
 import RepositoryTree from "./RepositoryTree";
@@ -10,13 +14,20 @@ import RepositoryPreview from "./RepositoryPreview";
 export default function Repository({ project }) {
   const [selectedFile, setSelectedFile] = useState(null);
 
-  if (!project.repository) {
+  if (!project?.repository) {
     return null;
   }
 
+  const repository = project.repository;
+
   const totalItems =
-    project.repository.folders.length +
-    project.repository.files.length;
+    (repository.folders?.length ?? 0) +
+    (repository.files?.length ?? 0);
+
+  const hasGithub = Boolean(project.github);
+
+  const isFlowTest =
+    project.slug === "flowtest-studio";
 
   return (
     <section
@@ -25,9 +36,9 @@ export default function Repository({ project }) {
         relative
         border-b
         border-white/[0.08]
-        py-20
-        sm:py-24
-        lg:py-28
+        py-16
+        sm:py-20
+        lg:py-24
       "
     >
       <div
@@ -82,7 +93,7 @@ export default function Repository({ project }) {
                   text-[#16f2b3]
                 "
               >
-                10
+                {isFlowTest ? "10" : "07"}
               </span>
 
               <span
@@ -109,10 +120,10 @@ export default function Repository({ project }) {
                 text-white
               "
             >
-              See how the
+              See how the work
               <br />
               <span className="text-gray-400">
-                code is organized.
+                is organized.
               </span>
             </h2>
           </div>
@@ -125,9 +136,9 @@ export default function Repository({ project }) {
               text-gray-300
             "
           >
-            A simplified view of the source structure. The full
-            implementation remains in the repository; this view
-            highlights the boundaries that matter to the product.
+            A simplified view of the project structure.
+            The explorer highlights the files and boundaries
+            most relevant to the work.
           </p>
         </motion.div>
 
@@ -163,7 +174,7 @@ export default function Repository({ project }) {
               bg-[#050505]
             "
           >
-            {/* Browser header */}
+            {/* Browser Header */}
 
             <div
               className="
@@ -193,7 +204,7 @@ export default function Repository({ project }) {
                   text-gray-500
                 "
               >
-                {project.repository.root}
+                {repository.root}
               </span>
 
               <div
@@ -219,7 +230,7 @@ export default function Repository({ project }) {
                     text-gray-500
                   "
                 >
-                  {project.repository.branch}
+                  {repository.branch}
                 </span>
               </div>
             </div>
@@ -249,16 +260,25 @@ export default function Repository({ project }) {
 
                 <div className="min-w-0">
                   <p className="truncate text-sm font-medium text-white">
-                    {project.repository.root}
+                    {repository.root}
                   </p>
 
                   <p className="mt-1 text-[10px] uppercase tracking-[0.1em] text-gray-500">
-                    {project.repository.branch}
+                    {repository.branch}
                   </p>
                 </div>
               </div>
 
-              <span className="shrink-0 text-[10px] font-semibold uppercase tracking-[0.12em] text-gray-500">
+              <span
+                className="
+                  shrink-0
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.12em]
+                  text-gray-500
+                "
+              >
                 {totalItems} top-level items
               </span>
             </div>
@@ -287,13 +307,21 @@ export default function Repository({ project }) {
                 "
               >
                 <div className="border-b border-white/[0.06] px-4 py-3">
-                  <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-gray-500">
+                  <span
+                    className="
+                      text-[9px]
+                      font-semibold
+                      uppercase
+                      tracking-[0.14em]
+                      text-gray-500
+                    "
+                  >
                     Explorer
                   </span>
                 </div>
 
                 <div>
-                  {project.repository.folders.map(
+                  {(repository.folders ?? []).map(
                     (folder) => (
                       <RepositoryTree
                         key={folder.name}
@@ -304,7 +332,7 @@ export default function Repository({ project }) {
                     ),
                   )}
 
-                  {project.repository.files.map(
+                  {(repository.files ?? []).map(
                     (file) => (
                       <RepositoryTree
                         key={file.name}
@@ -352,31 +380,41 @@ export default function Repository({ project }) {
             sm:justify-between
           "
         >
-          <p className="max-w-lg text-[12px] leading-6 text-gray-500">
-            The explorer above is intentionally simplified for the
-            case study. Use GitHub for the complete source and history.
-          </p>
-
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
+          <p
             className="
-              inline-flex
-              shrink-0
-              items-center
-              gap-2
-              text-[11px]
-              font-medium
-              text-gray-300
-              transition-colors
-              duration-200
-              hover:text-white
+              max-w-lg
+              text-[12px]
+              leading-6
+              text-gray-500
             "
           >
-            Open repository on GitHub
-            <FiArrowUpRight size={14} />
-          </a>
+            The explorer above is intentionally simplified
+            for the case study. The complete project structure
+            and history remain in the source repository.
+          </p>
+
+          {hasGithub && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="
+                inline-flex
+                shrink-0
+                items-center
+                gap-2
+                text-[11px]
+                font-medium
+                text-gray-300
+                transition-colors
+                duration-200
+                hover:text-white
+              "
+            >
+              Open repository on GitHub
+              <FiArrowUpRight size={14} />
+            </a>
+          )}
         </div>
       </div>
     </section>

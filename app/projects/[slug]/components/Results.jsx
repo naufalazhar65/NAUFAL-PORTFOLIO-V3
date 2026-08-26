@@ -3,12 +3,13 @@
 import { motion } from "framer-motion";
 import {
   FiCheckCircle,
+  FiClock,
   FiCpu,
   FiGitBranch,
-  FiClock,
+  FiLayers,
 } from "react-icons/fi";
 
-const currentState = [
+const flowtestState = [
   {
     number: "01",
     icon: FiGitBranch,
@@ -47,8 +48,59 @@ const currentState = [
   },
 ];
 
+const projectIcons = [
+  FiCheckCircle,
+  FiClock,
+  FiLayers,
+];
+
+function getProjectStatus(project) {
+  if (!project.status) {
+    return "Implemented";
+  }
+
+  if (
+    project.status.toLowerCase().includes("progress") ||
+    project.status.toLowerCase().includes("development")
+  ) {
+    return "In Progress";
+  }
+
+  return "Completed";
+}
+
 export default function Results({ project }) {
-  if (project.slug !== "flowtest-studio") {
+  if (!project) {
+    return null;
+  }
+
+  const isFlowTest =
+    project.slug === "flowtest-studio";
+
+  const stats = isFlowTest
+    ? flowtestState
+    : (project.stats ?? []).map(
+        (item, index) => ({
+          number: String(index + 1).padStart(
+            2,
+            "0",
+          ),
+          icon:
+            projectIcons[
+              index % projectIcons.length
+            ],
+          value:
+            item.value ?? "—",
+          label:
+            item.label ?? "Result",
+          status: getProjectStatus(project),
+          description:
+            item.description ??
+            `A reported result from the ${project.name} project.`,
+        }),
+      );
+
+  if (!stats.length) {
     return null;
   }
 
@@ -60,44 +112,13 @@ export default function Results({ project }) {
         overflow-hidden
         border-b
         border-white/[0.08]
-        py-20
-        sm:py-24
-        lg:py-32
+        py-16
+        sm:py-20
+        lg:py-24
       "
     >
-      {/* Ambient Background */}
-
       <div
         className="
-          pointer-events-none
-          absolute
-          left-[8%]
-          top-[18%]
-          h-[360px]
-          w-[360px]
-          rounded-full
-          bg-white/[0.018]
-          blur-[140px]
-        "
-      />
-
-      <div
-        className="
-          pointer-events-none
-          absolute
-          bottom-[10%]
-          right-[10%]
-          h-[280px]
-          w-[280px]
-          rounded-full
-          bg-[#16f2b3]/[0.01]
-          blur-[120px]
-        "
-      />
-
-      <div
-        className="
-          relative
           mx-auto
           w-full
           max-w-[1280px]
@@ -106,12 +127,14 @@ export default function Results({ project }) {
           lg:px-0
         "
       >
-        {/* Header */}
+        {/* =========================
+            HEADER
+        ========================= */}
 
         <motion.div
           initial={{
             opacity: 0,
-            y: 24,
+            y: 20,
           }}
           whileInView={{
             opacity: 1,
@@ -122,7 +145,7 @@ export default function Results({ project }) {
             amount: 0.15,
           }}
           transition={{
-            duration: 0.7,
+            duration: 0.6,
             ease: [0.16, 1, 0.3, 1],
           }}
           className="
@@ -130,7 +153,7 @@ export default function Results({ project }) {
             gap-8
             border-b
             border-white/[0.08]
-            pb-10
+            pb-8
             lg:grid-cols-[1fr_0.55fr]
             lg:items-end
           "
@@ -146,7 +169,7 @@ export default function Results({ project }) {
                   text-[#16f2b3]
                 "
               >
-                13
+                08
               </span>
 
               <span
@@ -158,25 +181,25 @@ export default function Results({ project }) {
                   text-gray-400
                 "
               >
-                Current State
+                Current Results
               </span>
             </div>
 
             <h2
               className="
-                mt-8
+                mt-7
                 max-w-4xl
-                text-[clamp(48px,7vw,88px)]
+                text-[clamp(44px,6vw,76px)]
                 font-semibold
                 leading-[0.94]
                 tracking-[-0.07em]
                 text-white
               "
             >
-              What is
+              What the project
               <br />
               <span className="text-gray-400">
-                actually there.
+                has actually produced.
               </span>
             </h2>
           </div>
@@ -184,29 +207,32 @@ export default function Results({ project }) {
           <p
             className="
               max-w-md
-              text-[15px]
+              text-[14px]
               leading-7
               text-gray-300
             "
           >
-            A snapshot of the current implementation: what has
-            been built, what has been validated, and what is still
-            being worked on.
+            These are the measurable or explicitly reported
+            results attached to this project. They are shown
+            separately from planned work so the current state
+            stays clear.
           </p>
         </motion.div>
 
-        {/* Current State */}
+        {/* =========================
+            RESULTS
+        ========================= */}
 
         <div className="grid md:grid-cols-2">
-          {currentState.map((item, index) => {
+          {stats.map((item, index) => {
             const Icon = item.icon;
 
             return (
               <motion.article
-                key={item.number}
+                key={`${item.label}-${index}`}
                 initial={{
                   opacity: 0,
-                  y: 20,
+                  y: 18,
                 }}
                 whileInView={{
                   opacity: 1,
@@ -217,7 +243,7 @@ export default function Results({ project }) {
                   amount: 0.12,
                 }}
                 transition={{
-                  duration: 0.55,
+                  duration: 0.5,
                   delay: Math.min(
                     index * 0.04,
                     0.12,
@@ -225,120 +251,114 @@ export default function Results({ project }) {
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 className="
-                  group
-                  relative
-                  min-h-[260px]
-                  overflow-hidden
                   border-b
                   border-white/[0.08]
-                  bg-white/[0.004]
                   px-0
-                  py-10
-                  transition-colors
-                  duration-300
-                  hover:border-white/[0.13]
-                  hover:bg-white/[0.01]
+                  py-8
                   md:px-8
-                  md:py-12
+                  md:py-10
                   md:[&:nth-child(odd)]:border-r
-                  lg:min-h-[280px]
                   first:md:pl-0
                   last:md:pr-0
                 "
               >
-                <div className="relative z-10">
-                  <div className="flex items-start justify-between">
-                    <span
+                <div className="flex items-start justify-between">
+                  <span
+                    className="
+                      font-mono
+                      text-[10px]
+                      tabular-nums
+                      text-gray-500
+                    "
+                  >
+                    {item.number}
+                  </span>
+
+                  <Icon
+                    size={15}
+                    className="
+                      text-[#16f2b3]
+                    "
+                  />
+                </div>
+
+                <div className="mt-9">
+                  <div
+                    className="
+                      flex
+                      flex-wrap
+                      items-baseline
+                      gap-x-4
+                      gap-y-2
+                    "
+                  >
+                    <strong
                       className="
-                        font-mono
-                        text-[10px]
-                        tabular-nums
-                        text-gray-500
+                        text-[clamp(30px,4vw,48px)]
+                        font-medium
+                        leading-none
+                        tracking-[-0.05em]
+                        text-white
                       "
                     >
-                      {item.number}
-                    </span>
-
-                    <Icon
-                      size={16}
-                      className="
-                        text-[#16f2b3]
-                        transition-colors
-                        duration-200
-                        group-hover:text-white
-                      "
-                    />
-                  </div>
-
-                  <div className="mt-10">
-                    <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
-                      <strong
-                        className="
-                          text-[clamp(30px,4vw,48px)]
-                          font-medium
-                          leading-none
-                          tracking-[-0.05em]
-                          text-white
-                        "
-                      >
-                        {item.value}
-                      </strong>
-
-                      <span
-                        className="
-                          text-[10px]
-                          font-semibold
-                          uppercase
-                          tracking-[0.12em]
-                          text-gray-400
-                        "
-                      >
-                        {item.label}
-                      </span>
-                    </div>
+                      {item.value}
+                    </strong>
 
                     <span
-                      className={`
-                        mt-4
-                        inline-block
-                        text-[9px]
+                      className="
+                        text-[10px]
                         font-semibold
                         uppercase
                         tracking-[0.12em]
-                        ${
-                          item.status === "Validated"
-                            ? "text-[#16f2b3]"
-                            : item.status === "Implemented"
-                              ? "text-gray-300"
-                              : "text-gray-500"
-                        }
-                      `}
-                    >
-                      {item.status}
-                    </span>
-
-                    <p
-                      className="
-                        mt-4
-                        max-w-lg
-                        text-[13px]
-                        leading-7
                         text-gray-400
-                        transition-colors
-                        duration-200
-                        group-hover:text-gray-300
                       "
                     >
-                      {item.description}
-                    </p>
+                      {item.label}
+                    </span>
                   </div>
+
+                  <span
+                    className={`
+                      mt-4
+                      inline-block
+                      text-[9px]
+                      font-semibold
+                      uppercase
+                      tracking-[0.12em]
+                      ${
+                        item.status ===
+                        "Validated"
+                          ? "text-[#16f2b3]"
+                          : item.status ===
+                              "In Progress"
+                            ? "text-gray-500"
+                            : "text-gray-300"
+                      }
+                    `}
+                  >
+                    {item.status}
+                  </span>
+
+                  <p
+                    className="
+                      mt-4
+                      max-w-lg
+                      text-[13px]
+                      leading-7
+                      text-gray-400
+                    "
+                  >
+                    {item.description}
+                  </p>
                 </div>
               </motion.article>
             );
           })}
         </div>
 
-        {/* Source Note */}
+        {/* =========================
+            NOTE
+        ========================= */}
 
         <motion.div
           initial={{
@@ -352,12 +372,12 @@ export default function Results({ project }) {
             amount: 0.2,
           }}
           transition={{
-            duration: 0.6,
+            duration: 0.5,
           }}
           className="
             border-t
             border-white/[0.08]
-            pt-8
+            pt-7
           "
         >
           <p
@@ -368,9 +388,10 @@ export default function Results({ project }) {
               text-gray-500
             "
           >
-            Status labels reflect the current project roadmap:
-            implemented is not the same as validated, and work
-            marked in progress should not be read as complete.
+            Results reflect the data currently defined for this
+            project. Metrics without additional context should be
+            read as project-level reported figures, not universal
+            benchmarks.
           </p>
         </motion.div>
       </div>

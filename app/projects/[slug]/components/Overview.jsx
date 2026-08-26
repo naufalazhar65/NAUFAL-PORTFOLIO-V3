@@ -3,12 +3,15 @@
 import { motion } from "framer-motion";
 import {
   FiCheckCircle,
+  FiCode,
   FiCpu,
+  FiGitBranch,
   FiLayers,
   FiSmartphone,
+  FiZap,
 } from "react-icons/fi";
 
-const facts = [
+const flowtestFacts = [
   {
     icon: FiSmartphone,
     label: "Target",
@@ -30,21 +33,203 @@ const facts = [
     value: "Active build",
   },
   {
-    icon: null,
+    icon: FiCode,
     label: "Language",
     value: "TypeScript",
   },
   {
-    icon: null,
+    icon: FiGitBranch,
     label: "CI",
     value: "Headless + JUnit",
   },
 ];
 
+function getProjectFacts(project) {
+  switch (project.slug) {
+    case "automation-testing":
+      return [
+        {
+          icon: FiCode,
+          label: "Stack",
+          value: "Selenium · Cypress · WebdriverIO",
+        },
+        {
+          icon: FiLayers,
+          label: "Architecture",
+          value: "Page Object Model",
+        },
+        {
+          icon: FiSmartphone,
+          label: "Automation",
+          value: "Browser / E2E",
+        },
+        {
+          icon: FiGitBranch,
+          label: "CI",
+          value: "GitHub Actions",
+        },
+        {
+          icon: FiCheckCircle,
+          label: "Test Cases",
+          value: "120+",
+        },
+        {
+          icon: FiZap,
+          label: "Execution",
+          value: "4 min",
+        },
+      ];
+
+    case "mobile-app-testing":
+      return [
+        {
+          icon: FiSmartphone,
+          label: "Platforms",
+          value: "Android + iOS",
+        },
+        {
+          icon: FiCpu,
+          label: "Runtime",
+          value: "Appium",
+        },
+        {
+          icon: FiCode,
+          label: "Language",
+          value: "Python",
+        },
+        {
+          icon: FiLayers,
+          label: "Framework",
+          value: "Pytest",
+        },
+        {
+          icon: FiGitBranch,
+          label: "CI",
+          value: "GitHub Actions",
+        },
+        {
+          icon: FiCheckCircle,
+          label: "Test Cases",
+          value: "32+",
+        },
+      ];
+
+    case "api-testing":
+      return [
+        {
+          icon: FiCode,
+          label: "Tools",
+          value: "Postman · Newman",
+        },
+        {
+          icon: FiLayers,
+          label: "Validation",
+          value: "REST · Functional",
+        },
+        {
+          icon: FiGitBranch,
+          label: "Automation",
+          value: "Jest · REST Assured",
+        },
+        {
+          icon: FiCheckCircle,
+          label: "Endpoints",
+          value: "45+",
+        },
+        {
+          icon: FiZap,
+          label: "Execution",
+          value: "3 min",
+        },
+        {
+          icon: FiCode,
+          label: "Docs",
+          value: "Postman",
+        },
+      ];
+
+    case "performance-testing":
+      return [
+        {
+          icon: FiZap,
+          label: "Tools",
+          value: "k6 · JMeter",
+        },
+        {
+          icon: FiLayers,
+          label: "Scenarios",
+          value: "Load · Stress",
+        },
+        {
+          icon: FiCpu,
+          label: "Coverage",
+          value: "Spike · Endurance",
+        },
+        {
+          icon: FiCheckCircle,
+          label: "Virtual Users",
+          value: "1000",
+        },
+        {
+          icon: FiZap,
+          label: "Response",
+          value: "<300ms",
+        },
+        {
+          icon: FiGitBranch,
+          label: "Execution",
+          value: "5 min",
+        },
+      ];
+
+    case "qa-documentation":
+      return [
+        {
+          icon: FiLayers,
+          label: "Documents",
+          value: "70+",
+        },
+        {
+          icon: FiCheckCircle,
+          label: "Scenarios",
+          value: "250+",
+        },
+        {
+          icon: FiCode,
+          label: "Artifacts",
+          value: "Test Cases",
+        },
+        {
+          icon: FiGitBranch,
+          label: "Analysis",
+          value: "BVA",
+        },
+        {
+          icon: FiCpu,
+          label: "Defects",
+          value: "100+",
+        },
+        {
+          icon: FiLayers,
+          label: "Output",
+          value: "Bug Reports",
+        },
+      ];
+
+    default:
+      return [];
+  }
+}
+
 export default function Overview({ project }) {
   if (!project) {
     return null;
   }
+
+  const facts =
+    project.slug === "flowtest-studio"
+      ? flowtestFacts
+      : getProjectFacts(project);
 
   return (
     <section
@@ -110,7 +295,10 @@ export default function Overview({ project }) {
                   text-[#16f2b3]
                 "
               >
-                03
+                {project.slug ===
+                "flowtest-studio"
+                  ? "03"
+                  : "02"}
               </span>
 
               <span
@@ -159,104 +347,106 @@ export default function Overview({ project }) {
             FACTS
         ========================= */}
 
-        <div
-          className="
-            mt-8
-            grid
-            border-l
-            border-t
-            border-white/[0.08]
-            sm:grid-cols-2
-            lg:grid-cols-3
-          "
-        >
-          {facts.map((item, index) => {
-            const Icon = item.icon;
+        {facts.length > 0 && (
+          <div
+            className="
+              mt-8
+              grid
+              border-l
+              border-t
+              border-white/[0.08]
+              sm:grid-cols-2
+              lg:grid-cols-3
+            "
+          >
+            {facts.map((item, index) => {
+              const Icon = item.icon;
 
-            return (
-              <motion.div
-                key={item.label}
-                initial={{
-                  opacity: 0,
-                  y: 16,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.12,
-                }}
-                transition={{
-                  duration: 0.45,
-                  delay: index * 0.03,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="
-                  min-h-[130px]
-                  border-b
-                  border-r
-                  border-white/[0.08]
-                  px-5
-                  py-5
-                  sm:min-h-[140px]
-                "
-              >
-                <div className="flex items-center justify-between">
-                  <span
-                    className="
-                      font-mono
-                      text-[10px]
-                      tabular-nums
-                      text-gray-600
-                    "
-                  >
-                    {String(index + 1).padStart(
-                      2,
-                      "0",
+              return (
+                <motion.div
+                  key={item.label}
+                  initial={{
+                    opacity: 0,
+                    y: 16,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  viewport={{
+                    once: true,
+                    amount: 0.12,
+                  }}
+                  transition={{
+                    duration: 0.45,
+                    delay: index * 0.03,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="
+                    min-h-[130px]
+                    border-b
+                    border-r
+                    border-white/[0.08]
+                    px-5
+                    py-5
+                    sm:min-h-[140px]
+                  "
+                >
+                  <div className="flex items-center justify-between">
+                    <span
+                      className="
+                        font-mono
+                        text-[10px]
+                        tabular-nums
+                        text-gray-600
+                      "
+                    >
+                      {String(index + 1).padStart(
+                        2,
+                        "0",
+                      )}
+                    </span>
+
+                    {Icon && (
+                      <Icon
+                        size={14}
+                        className="text-gray-500"
+                      />
                     )}
-                  </span>
+                  </div>
 
-                  {Icon && (
-                    <Icon
-                      size={14}
-                      className="text-gray-500"
-                    />
-                  )}
-                </div>
+                  <div className="mt-8">
+                    <span
+                      className="
+                        block
+                        text-[9px]
+                        font-semibold
+                        uppercase
+                        tracking-[0.12em]
+                        text-gray-500
+                      "
+                    >
+                      {item.label}
+                    </span>
 
-                <div className="mt-8">
-                  <span
-                    className="
-                      block
-                      text-[9px]
-                      font-semibold
-                      uppercase
-                      tracking-[0.12em]
-                      text-gray-500
-                    "
-                  >
-                    {item.label}
-                  </span>
-
-                  <strong
-                    className="
-                      mt-2
-                      block
-                      text-base
-                      font-medium
-                      tracking-[-0.025em]
-                      text-white
-                    "
-                  >
-                    {item.value}
-                  </strong>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+                    <strong
+                      className="
+                        mt-2
+                        block
+                        text-base
+                        font-medium
+                        tracking-[-0.025em]
+                        text-white
+                      "
+                    >
+                      {item.value}
+                    </strong>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

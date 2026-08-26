@@ -3,63 +3,112 @@
 import NavigationItem from "./NavigationItem";
 import useActiveSection from "./useActiveSection";
 
-const sections = [
-  {
-    id: "live-demo",
-    label: "Live Demo",
-    number: "02",
-  },
-  {
-    id: "overview",
-    label: "Project Snapshot",
-    number: "03",
-  },
-  {
-    id: "problem-decision",
-    label: "Problem → Decision",
-    number: "04",
-  },
-  {
-    id: "gallery",
-    label: "Visual Evidence",
-    number: "05",
-  },
-  {
-    id: "tech-stack",
-    label: "Technical Decisions",
-    number: "06",
-  },
-  {
-    id: "workflow",
-    label: "How It Works",
-    number: "07",
-  },
-  {
-    id: "results",
-    label: "Current State",
-    number: "08",
-  },
-  {
-    id: "roadmap",
-    label: "Now / Next / Later",
-    number: "09",
-  },
-  {
-    id: "repository",
-    label: "Repository",
-    number: "10",
-  },
-  {
-    id: "cta",
-    label: "Continue",
-    number: "11",
-  },
-];
+export default function ProjectNavigation({
+  project,
+}) {
+  const isFlowTest =
+    project?.slug === "flowtest-studio";
 
-export default function ProjectNavigation() {
+  const hasWorkflow =
+    Array.isArray(project?.workflow) &&
+    project.workflow.length > 0;
+
+  const hasRepository =
+    Boolean(project?.repository);
+
+  const sections = (
+    project
+      ? [
+          ...(isFlowTest
+            ? [
+                {
+                  id: "live-demo",
+                  label: "Live Demo",
+                },
+              ]
+            : []),
+
+          {
+            id: "overview",
+            label: "Project Snapshot",
+          },
+
+          {
+            id: "problem-decision",
+            label: "Problem → Decision",
+          },
+
+          ...(isFlowTest
+            ? [
+                {
+                  id: "gallery",
+                  label: "Visual Evidence",
+                },
+              ]
+            : []),
+
+          {
+            id: "tech-stack",
+            label: isFlowTest
+              ? "Technical Decisions"
+              : "Technical Stack",
+          },
+
+          ...(hasWorkflow
+            ? [
+                {
+                  id: "workflow",
+                  label: "How It Works",
+                },
+              ]
+            : []),
+
+          {
+            id: "results",
+            label: isFlowTest
+              ? "Current State"
+              : "Current Results",
+          },
+
+          ...(isFlowTest
+            ? [
+                {
+                  id: "roadmap",
+                  label: "Now / Next / Later",
+                },
+              ]
+            : []),
+
+          ...(hasRepository
+            ? [
+                {
+                  id: "repository",
+                  label: "Repository",
+                },
+              ]
+            : []),
+
+          {
+            id: "cta",
+            label: "Continue",
+          },
+        ].map((section, index) => ({
+          ...section,
+          number: String(index + 2).padStart(
+            2,
+            "0",
+          ),
+        }))
+      : []
+  );
+
   const active = useActiveSection(
     sections.map((section) => section.id),
   );
+
+  if (!project) {
+    return null;
+  }
 
   return (
     <aside
@@ -121,7 +170,9 @@ export default function ProjectNavigation() {
                 id={section.id}
                 label={section.label}
                 number={section.number}
-                active={active === section.id}
+                active={
+                  active === section.id
+                }
               />
             </div>
           ))}

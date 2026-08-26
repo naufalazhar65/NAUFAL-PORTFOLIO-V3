@@ -32,7 +32,7 @@ export default function ProjectPage({ params }) {
 
   return (
     <>
-      <ProjectNavigation />
+      <ProjectNavigation project={project} />
 
       <div className="xl:pl-64">
         {/* 01 — What is it? */}

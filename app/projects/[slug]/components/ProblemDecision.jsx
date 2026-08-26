@@ -8,7 +8,7 @@ import {
   FiShield,
 } from "react-icons/fi";
 
-const decisions = [
+const flowtestDecisions = [
   {
     number: "01",
     icon: FiCode,
@@ -33,9 +33,12 @@ const decisions = [
 ];
 
 export default function ProblemDecision({ project }) {
-  if (project.slug !== "flowtest-studio") {
+  if (!project) {
     return null;
   }
+
+  const isFlowTest =
+    project.slug === "flowtest-studio";
 
   return (
     <section
@@ -45,27 +48,11 @@ export default function ProblemDecision({ project }) {
         overflow-hidden
         border-b
         border-white/[0.08]
-        py-20
-        sm:py-24
-        lg:py-32
+        py-16
+        sm:py-20
+        lg:py-24
       "
     >
-      {/* Ambient Background */}
-
-      <div
-        className="
-          pointer-events-none
-          absolute
-          left-[8%]
-          top-[20%]
-          h-[360px]
-          w-[360px]
-          rounded-full
-          bg-white/[0.015]
-          blur-[140px]
-        "
-      />
-
       <div
         className="
           relative
@@ -77,14 +64,12 @@ export default function ProblemDecision({ project }) {
           lg:px-0
         "
       >
-        {/* =========================
-            HEADER
-        ========================= */}
+        {/* Header */}
 
         <motion.div
           initial={{
             opacity: 0,
-            y: 24,
+            y: 20,
           }}
           whileInView={{
             opacity: 1,
@@ -95,102 +80,7 @@ export default function ProblemDecision({ project }) {
             amount: 0.15,
           }}
           transition={{
-            duration: 0.7,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="
-            border-b
-            border-white/[0.08]
-            pb-10
-          "
-        >
-          <div className="flex items-center gap-4">
-            <span
-              className="
-                text-[10px]
-                font-semibold
-                uppercase
-                tracking-[0.14em]
-                text-[#16f2b3]
-              "
-            >
-              04
-            </span>
-
-            <span
-              className="
-                text-[10px]
-                font-semibold
-                uppercase
-                tracking-[0.14em]
-                text-gray-400
-              "
-            >
-              Problem → Decision
-            </span>
-          </div>
-
-          <div
-            className="
-              mt-8
-              grid
-              gap-8
-              lg:grid-cols-[1fr_0.55fr]
-              lg:items-end
-            "
-          >
-            <h2
-              className="
-                max-w-4xl
-                text-[clamp(48px,7vw,88px)]
-                font-semibold
-                leading-[0.94]
-                tracking-[-0.07em]
-                text-white
-              "
-            >
-              Mobile automation
-              <br />
-              <span className="text-gray-400">
-                was too fragmented.
-              </span>
-            </h2>
-
-            <p
-              className="
-                max-w-md
-                text-[15px]
-                leading-7
-                text-gray-300
-              "
-            >
-              The problem was not simply writing more tests. It
-              was keeping authoring, device interaction, inspection,
-              execution, and failure evidence understandable as
-              the workflow grew.
-            </p>
-          </div>
-        </motion.div>
-
-        {/* =========================
-            PROBLEM
-        ========================= */}
-
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 24,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.15,
-          }}
-          transition={{
-            duration: 0.7,
+            duration: 0.6,
             ease: [0.16, 1, 0.3, 1],
           }}
           className="
@@ -198,10 +88,97 @@ export default function ProblemDecision({ project }) {
             gap-8
             border-b
             border-white/[0.08]
-            py-12
+            pb-8
+            lg:grid-cols-[1fr_0.55fr]
+            lg:items-end
+          "
+        >
+          <div>
+            <div className="flex items-center gap-4">
+              <span
+                className="
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-[#16f2b3]
+                "
+              >
+                04
+              </span>
+
+              <span
+                className="
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-gray-400
+                "
+              >
+                Problem → Decision
+              </span>
+            </div>
+
+            <h2
+              className="
+                mt-7
+                max-w-4xl
+                text-[clamp(44px,6vw,76px)]
+                font-semibold
+                leading-[0.94]
+                tracking-[-0.07em]
+                text-white
+              "
+            >
+              {isFlowTest
+                ? "Mobile automation was too fragmented."
+                : project.challenge}
+            </h2>
+          </div>
+
+          <p
+            className="
+              max-w-md
+              text-[14px]
+              leading-7
+              text-gray-300
+            "
+          >
+            {isFlowTest
+              ? "The problem was not simply writing more tests. It was keeping authoring, device interaction, inspection, execution, and failure evidence understandable as the workflow grew."
+              : "The project started from a concrete testing problem, then focused on a practical way to make the workflow more repeatable."}
+          </p>
+        </motion.div>
+
+        {/* Problem */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.15,
+          }}
+          transition={{
+            duration: 0.6,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="
+            grid
+            gap-8
+            border-b
+            border-white/[0.08]
+            py-10
             lg:grid-cols-[0.7fr_1.3fr]
             lg:gap-20
-            lg:py-16
+            lg:py-12
           "
         >
           <div>
@@ -226,15 +203,15 @@ export default function ProblemDecision({ project }) {
                 text-gray-500
               "
             >
-              The workflow became harder to reason about as more
-              steps moved into separate tools and scripts.
+              What made the existing workflow harder to repeat,
+              maintain, or investigate?
             </p>
           </div>
 
           <div className="max-w-4xl">
             <p
               className="
-                text-[clamp(25px,3vw,42px)]
+                text-[clamp(23px,3vw,38px)]
                 font-medium
                 leading-[1.2]
                 tracking-[-0.04em]
@@ -246,149 +223,143 @@ export default function ProblemDecision({ project }) {
           </div>
         </motion.div>
 
-        {/* =========================
-            TRANSITION
-        ========================= */}
+        {/* FlowTest-specific decisions */}
 
-        <div
-          className="
-            flex
-            items-center
-            justify-center
-            py-8
-            text-[#16f2b3]
-          "
-        >
-          <div
-            className="
-              flex
-              h-9
-              w-9
-              items-center
-              justify-center
-              rounded-full
-              border
-              border-white/[0.08]
-              bg-white/[0.02]
-            "
-          >
-            <FiArrowDown size={14} />
-          </div>
-        </div>
-
-        {/* =========================
-            DECISIONS
-        ========================= */}
-
-        <div>
-          <div className="mb-8">
-            <span
+        {isFlowTest && (
+          <>
+            <div
               className="
-                text-[10px]
-                font-semibold
-                uppercase
-                tracking-[0.14em]
+                flex
+                items-center
+                justify-center
+                py-7
                 text-[#16f2b3]
               "
             >
-              The decisions
-            </span>
-          </div>
+              <div
+                className="
+                  flex
+                  h-8
+                  w-8
+                  items-center
+                  justify-center
+                  border
+                  border-white/[0.08]
+                  bg-white/[0.02]
+                "
+              >
+                <FiArrowDown size={13} />
+              </div>
+            </div>
 
-          <div className="grid lg:grid-cols-3">
-            {decisions.map((decision, index) => {
-              const Icon = decision.icon;
-
-              return (
-                <motion.article
-                  key={decision.number}
-                  initial={{
-                    opacity: 0,
-                    y: 20,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  viewport={{
-                    once: true,
-                    amount: 0.15,
-                  }}
-                  transition={{
-                    duration: 0.55,
-                    delay: index * 0.05,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
+            <div>
+              <div className="mb-7">
+                <span
                   className="
-                    relative
-                    border-b
-                    border-white/[0.08]
-                    py-10
-                    lg:border-r
-                    lg:px-8
-                    lg:py-12
-                    first:lg:pl-0
-                    last:lg:border-r-0
-                    last:lg:pr-0
+                    text-[10px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.14em]
+                    text-[#16f2b3]
                   "
                 >
-                  <div className="flex items-center justify-between">
-                    <span
-                      className="
-                        font-mono
-                        text-[10px]
-                        tabular-nums
-                        text-gray-500
-                      "
-                    >
-                      {decision.number}
-                    </span>
+                  The decisions
+                </span>
+              </div>
 
-                    <Icon
-                      size={15}
-                      className="text-[#16f2b3]"
-                    />
-                  </div>
+              <div className="grid lg:grid-cols-3">
+                {flowtestDecisions.map(
+                  (decision) => {
+                    const Icon = decision.icon;
 
-                  <h3
-                    className="
-                      mt-12
-                      max-w-xs
-                      text-[25px]
-                      font-medium
-                      leading-[1.05]
-                      tracking-[-0.04em]
-                      text-white
-                    "
-                  >
-                    {decision.title}
-                  </h3>
+                    return (
+                      <motion.article
+                        key={decision.number}
+                        initial={{
+                          opacity: 0,
+                          y: 18,
+                        }}
+                        whileInView={{
+                          opacity: 1,
+                          y: 0,
+                        }}
+                        viewport={{
+                          once: true,
+                          amount: 0.12,
+                        }}
+                        transition={{
+                          duration: 0.5,
+                          ease: [0.16, 1, 0.3, 1],
+                        }}
+                        className="
+                          border-b
+                          border-white/[0.08]
+                          py-8
+                          lg:border-r
+                          lg:px-8
+                          lg:py-10
+                          first:lg:pl-0
+                          last:lg:border-r-0
+                          last:lg:pr-0
+                        "
+                      >
+                        <div className="flex items-center justify-between">
+                          <span
+                            className="
+                              font-mono
+                              text-[10px]
+                              text-gray-500
+                            "
+                          >
+                            {decision.number}
+                          </span>
 
-                  <p
-                    className="
-                      mt-5
-                      max-w-sm
-                      text-[13px]
-                      leading-7
-                      text-gray-400
-                    "
-                  >
-                    {decision.description}
-                  </p>
-                </motion.article>
-              );
-            })}
-          </div>
-        </div>
+                          <Icon
+                            size={15}
+                            className="text-[#16f2b3]"
+                          />
+                        </div>
 
-        {/* =========================
-            SOLUTION
-        ========================= */}
+                        <h3
+                          className="
+                            mt-10
+                            max-w-xs
+                            text-[23px]
+                            font-medium
+                            leading-[1.05]
+                            tracking-[-0.04em]
+                            text-white
+                          "
+                        >
+                          {decision.title}
+                        </h3>
+
+                        <p
+                          className="
+                            mt-4
+                            max-w-sm
+                            text-[13px]
+                            leading-7
+                            text-gray-400
+                          "
+                        >
+                          {decision.description}
+                        </p>
+                      </motion.article>
+                    );
+                  },
+                )}
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Solution */}
 
         <motion.div
           initial={{
             opacity: 0,
-            y: 24,
+            y: 20,
           }}
           whileInView={{
             opacity: 1,
@@ -399,17 +370,17 @@ export default function ProblemDecision({ project }) {
             amount: 0.15,
           }}
           transition={{
-            duration: 0.7,
+            duration: 0.6,
           }}
           className="
             grid
             gap-8
             border-t
             border-white/[0.08]
-            pt-12
+            pt-10
             lg:grid-cols-[0.7fr_1.3fr]
             lg:gap-20
-            lg:pt-16
+            lg:pt-12
           "
         >
           <div>
@@ -422,7 +393,7 @@ export default function ProblemDecision({ project }) {
                 text-gray-400
               "
             >
-              The result we were aiming for
+              The approach
             </span>
           </div>
 
@@ -430,7 +401,7 @@ export default function ProblemDecision({ project }) {
             <p
               className="
                 max-w-4xl
-                text-[clamp(25px,3vw,42px)]
+                text-[clamp(23px,3vw,38px)]
                 font-medium
                 leading-[1.2]
                 tracking-[-0.04em]
@@ -440,20 +411,23 @@ export default function ProblemDecision({ project }) {
               {project.solution}
             </p>
 
-            <p
-              className="
-                mt-7
-                max-w-3xl
-                text-[14px]
-                leading-7
-                text-gray-400
-              "
-            >
-              The goal is not to hide complexity. It is to keep
-              the important parts of the automation workflow close
-              enough together that a test can be authored, run,
-              inspected, and investigated without losing context.
-            </p>
+            {isFlowTest && (
+              <p
+                className="
+                  mt-6
+                  max-w-3xl
+                  text-[14px]
+                  leading-7
+                  text-gray-400
+                "
+              >
+                The goal is not to hide complexity. It is to
+                keep the important parts of the automation
+                workflow close enough together that a test can
+                be authored, run, inspected, and investigated
+                without losing context.
+              </p>
+            )}
           </div>
         </motion.div>
       </div>

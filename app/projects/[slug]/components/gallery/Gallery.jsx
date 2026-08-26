@@ -3,25 +3,19 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const evidence = [
-  {
-    src: "/projects/builder.webp",
-    title: "Visual Workflow Builder",
-    label: "01 · Builder",
-    description:
-      "The flow stays visible as connected nodes, making the test sequence easier to inspect and change before execution.",
-  },
-  {
-    src: "/projects/ReportDetail.webp",
-    title: "Execution Evidence",
-    label: "02 · Evidence",
-    description:
-      "A run keeps its execution state, logs, errors, screenshots, and page-source evidence together so failures can be investigated.",
-  },
-];
-
 export default function Gallery({ project }) {
-  if (project.slug !== "flowtest-studio") {
+  if (
+    !project ||
+    project.slug !== "flowtest-studio"
+  ) {
+    return null;
+  }
+
+  const images = (project.gallery ?? []).filter(
+    Boolean,
+  );
+
+  if (!images.length) {
     return null;
   }
 
@@ -32,14 +26,13 @@ export default function Gallery({ project }) {
         relative
         border-b
         border-white/[0.08]
-        py-20
-        sm:py-24
-        lg:py-28
+        py-16
+        sm:py-20
+        lg:py-24
       "
     >
       <div
         className="
-          relative
           mx-auto
           w-full
           max-w-[1280px]
@@ -117,10 +110,10 @@ export default function Gallery({ project }) {
                 text-white
               "
             >
-              Two views of
+              See the system,
               <br />
               <span className="text-gray-400">
-                the same system.
+                not just the idea.
               </span>
             </h2>
           </div>
@@ -133,8 +126,9 @@ export default function Gallery({ project }) {
               text-gray-400
             "
           >
-            The builder shows how a test is authored. The second
-            view shows what remains after that test actually runs.
+            Two views of FlowTest Studio: the workflow
+            builder and the evidence left behind after
+            execution.
           </p>
         </motion.div>
 
@@ -142,13 +136,22 @@ export default function Gallery({ project }) {
             EVIDENCE
         ========================= */}
 
-        <div className="grid lg:grid-cols-2">
-          {evidence.map((item, index) => (
+        <div
+          className={`
+            grid
+            ${
+              images.length > 1
+                ? "lg:grid-cols-2"
+                : "grid-cols-1"
+            }
+          `}
+        >
+          {images.map((image, index) => (
             <motion.figure
-              key={item.src}
+              key={`${project.slug}-${index}`}
               initial={{
                 opacity: 0,
-                y: 20,
+                y: 18,
               }}
               whileInView={{
                 opacity: 1,
@@ -159,8 +162,8 @@ export default function Gallery({ project }) {
                 amount: 0.12,
               }}
               transition={{
-                duration: 0.6,
-                delay: index * 0.05,
+                duration: 0.55,
+                delay: index * 0.04,
                 ease: [0.16, 1, 0.3, 1],
               }}
               className="
@@ -169,9 +172,9 @@ export default function Gallery({ project }) {
                 py-8
                 lg:px-8
                 lg:py-10
-                first:lg:border-r
                 first:lg:pl-0
                 last:lg:pr-0
+                lg:first:border-r
               "
             >
               <div
@@ -183,8 +186,8 @@ export default function Gallery({ project }) {
                 "
               >
                 <Image
-                  src={item.src}
-                  alt={item.title}
+                  src={image}
+                  alt={`FlowTest Studio evidence ${index + 1}`}
                   width={2048}
                   height={1483}
                   sizes="
@@ -200,54 +203,22 @@ export default function Gallery({ project }) {
                 />
               </div>
 
-              <figcaption className="mt-5">
-                <div className="flex items-center justify-between gap-4">
-                  <span
-                    className="
-                      text-[9px]
-                      font-semibold
-                      uppercase
-                      tracking-[0.14em]
-                      text-[#16f2b3]
-                    "
-                  >
-                    {item.label}
-                  </span>
-
-                  <span
-                    className="
-                      font-mono
-                      text-[9px]
-                      text-gray-600
-                    "
-                  >
-                    0{index + 1}
-                  </span>
-                </div>
-
-                <h3
+              <figcaption className="mt-4">
+                <span
                   className="
-                    mt-3
-                    text-xl
-                    font-medium
-                    tracking-[-0.03em]
-                    text-white
+                    text-[9px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.14em]
+                    text-gray-500
                   "
                 >
-                  {item.title}
-                </h3>
-
-                <p
-                  className="
-                    mt-3
-                    max-w-lg
-                    text-[13px]
-                    leading-7
-                    text-gray-400
-                  "
-                >
-                  {item.description}
-                </p>
+                  {String(index + 1).padStart(
+                    2,
+                    "0",
+                  )}{" "}
+                  · FlowTest Studio
+                </span>
               </figcaption>
             </motion.figure>
           ))}

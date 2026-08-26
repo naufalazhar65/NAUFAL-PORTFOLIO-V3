@@ -1105,6 +1105,8 @@ a {
   border-top: 1px solid var(--border);
 }
 
+
+
 .project-featured-content {
   max-width: 500px;
 }
@@ -1954,7 +1956,27 @@ a {
   position: relative;
   width: 100%;
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
+}
+
+.preview-product-shell::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -35px;
+  height: 140px;
+  z-index: -1;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.10),
+    rgba(255, 255, 255, 0.035) 38%,
+    transparent 72%
+  );
+
+  filter: blur(35px);
+  pointer-events: none;
 }
 
 .project-preview-flowtest {
