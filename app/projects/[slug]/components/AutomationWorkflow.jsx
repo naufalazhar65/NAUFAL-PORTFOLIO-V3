@@ -1,416 +1,580 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import WorkflowMobileModal from "./WorkflowMobileModal";
-import Section from "@/app/components/ui/section/Section";
-import SectionHeader from "@/app/components/ui/section/SectionHeader";
-import Panel from "@/app/components/ui/panel/Panel";
+import { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import {
   FiArrowRight,
-  FiArrowDown,
-  FiFileText,
-  FiCpu,
   FiCheckCircle,
-  FiBox,
+  FiPlay,
+  FiSearch,
 } from "react-icons/fi";
-import { FaApple, FaAndroid, FaTelegram, FaHtml5 } from "react-icons/fa";
-import { SiAppium, SiPytest } from "react-icons/si";
-import { motion } from "framer-motion";
 
+import WorkflowMobileModal from "./WorkflowMobileModal";
 
-const iconMap = {
-  test: FiCheckCircle,
-  pytest: SiPytest,
-  page: FiFileText,
-  driver: FiCpu,
-  appium: SiAppium,
-  android: FaAndroid,
-  ios: FaApple,
-  report: FaHtml5,
-  telegram: FaTelegram,
-};
+const workflowStages = [
+  {
+    id: "author",
+    number: "01",
+    icon: FiPlay,
+    title: "Author",
+    subtitle: "Build the flow",
+    description:
+      "Create the test as connected actions instead of burying the sequence inside a script.",
+    command:
+      "Tap → Fill → Wait → Assert → Continue",
+    output: [
+      "Visible execution order",
+      "Reusable nodes",
+    ],
+  },
+  {
+    id: "inspect",
+    number: "02",
+    icon: FiSearch,
+    title: "Inspect",
+    subtitle: "Check the device",
+    description:
+      "Inspect the active mobile session, verify the page state, and check locators before the flow depends on them.",
+    command:
+      "Session → Page source → Locator",
+    output: [
+      "Element context",
+      "Validated selectors",
+    ],
+  },
+  {
+    id: "execute",
+    number: "03",
+    icon: FiPlay,
+    title: "Execute",
+    subtitle: "Run on the target",
+    description:
+      "Send the flow through the Appium runtime and keep execution state visible while the device session runs.",
+    command:
+      "Flow → Appium → Android / iOS",
+    output: [
+      "Node execution state",
+      "Timing and status",
+    ],
+  },
+  {
+    id: "evidence",
+    number: "04",
+    icon: FiCheckCircle,
+    title: "Evidence",
+    subtitle: "Keep what happened",
+    description:
+      "A completed or failed run leaves behind the context needed to understand the result.",
+    command:
+      "Run → Logs → Screenshot → Report",
+    output: [
+      "Failure evidence",
+      "Machine-readable results",
+    ],
+  },
+];
 
 export default function AutomationWorkflow({ project }) {
-  if (!project?.workflow?.length) return null;
+  const workflow = useMemo(
+    () => project?.workflow ?? [],
+    [project?.workflow],
+  );
 
-  const [activeStep, setActiveStep] = useState(project.workflow[0]);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [mobileStep, setMobileStep] = useState(null);
-  const [runningStep, setRunningStep] = useState(0);
 
   useEffect(() => {
+    if (!workflow.length) {
+      return undefined;
+    }
+
     const interval = setInterval(() => {
-      setRunningStep((current) => {
-        const next = (current + 1) % project.workflow.length;
-
-        setActiveStep(project.workflow[next]);
-
-        return next;
+      setActiveIndex((current) => {
+        return (current + 1) % workflowStages.length;
       });
-    }, 1800);
+    }, 2200);
 
     return () => clearInterval(interval);
-  }, [project.workflow]);
+  }, [workflow.length]);
+
+  const activeStage =
+    workflowStages[
+      activeIndex % workflowStages.length
+    ];
+
+  const activeWorkflowStep = useMemo(() => {
+    if (!workflow.length) {
+      return null;
+    }
+
+    return (
+      workflow.find((step) =>
+        step.title
+          ?.toLowerCase()
+          .includes(
+            activeStage.title.toLowerCase(),
+          ),
+      ) ??
+      workflow[
+        activeIndex % workflow.length
+      ]
+    );
+  }, [
+    workflow,
+    activeIndex,
+    activeStage.title,
+  ]);
+
+  if (project.slug !== "flowtest-studio") {
+    return null;
+  }
+
+  if (!workflow.length) {
+    return null;
+  }
 
   return (
-    <Section width="xl">
-      <SectionHeader
-        eyebrow="Automation"
-        title="Execution Pipeline"
-        description="End-to-end automation workflow executed during every test run."
+    <section
+      id="workflow"
+      className="
+        relative
+        overflow-hidden
+        border-b
+        border-white/[0.08]
+        py-20
+        sm:py-24
+        lg:py-28
+      "
+    >
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-[8%]
+          top-[20%]
+          h-[360px]
+          w-[360px]
+          rounded-full
+          bg-white/[0.015]
+          blur-[140px]
+        "
       />
-      {/* Heading */}
 
-      {/* ================= DESKTOP ================= */}
-
-      <Panel animated padding="none" className="overflow-hidden bg-[#0b1120]">
-        {/* ================= DESKTOP ================= */}
-
-        <div className="hidden overflow-x-auto scrollbar-hide pb-6 lg:block">
-          <div className="flex min-w-max items-center">
-            {project.workflow.map((item, index) => {
-              const Icon = iconMap[item.icon] || FiBox;
-
-              return (
-                <div key={item.title} className="flex items-center">
-                  <div
-                    onClick={() => setActiveStep(item)}
-                    className={`
-                      w-64
-                      cursor-pointer
-                      rounded-2xl
-                      border
-                      p-6
-                      transition-all
-                      duration-300
-
-                      hover:border-[#16f2b3]
-                      hover:-translate-y-1
-hover:border-[#16f2b3]
-hover:shadow-[0_0_30px_rgba(22,242,179,.18)]
-
-                      ${
-                        activeStep.title === item.title
-                          ? "border-[#16f2b3] bg-[#162031]"
-                          : "border-white/10 bg-[#111827]"
-                      }
-                    `}
-                  >
-                    {/* Step */}
-
-                    <div className="mb-6 flex items-center justify-between">
-                      <span className="rounded-full bg-[#16f2b3]/10 px-3 py-1 text-xs font-semibold text-[#16f2b3]">
-                        STEP {index + 1}
-                      </span>
-
-                      <div className="flex items-center gap-2">
-                        <div
-                          className={`
-    h-2
-    w-2
-    rounded-full
-    transition-all
-
-    ${
-      index < runningStep
-        ? "bg-emerald-400"
-        : index === runningStep
-          ? "animate-pulse bg-[#16f2b3]"
-          : "bg-gray-500"
-    }
-  `}
-                        />
-
-                        <span
-                          className={`
-    text-xs
-    font-medium
-
-    ${
-      index < runningStep
-        ? "text-emerald-400"
-        : index === runningStep
-          ? "text-[#16f2b3]"
-          : "text-gray-500"
-    }
-  `}
-                        >
-                          {index < runningStep
-                            ? "Completed"
-                            : index === runningStep
-                              ? "Running"
-                              : "Pending"}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Icon */}
-
-                    <div className="mb-5 inline-flex rounded-xl bg-[#16f2b3]/10 p-3">
-                      <Icon
-                        className={`
-    text-2xl
-    transition-all
-
-    ${
-      index === runningStep
-        ? "scale-110 text-[#16f2b3]"
-        : index < runningStep
-          ? "text-emerald-400"
-          : "text-gray-400"
-    }
-  `}
-                      />
-                    </div>
-
-                    {/* Title */}
-
-                    <h3 className="text-lg font-bold text-white">
-                      {item.title}
-                    </h3>
-
-                    <p className="mt-2 text-sm text-gray-400">
-                      {item.subtitle}
-                    </p>
-
-                    {/* Progress */}
-
-                    <div className="mt-6 h-1 rounded-full bg-white/10 overflow-hidden">
-                      <div
-                        className={`
-      h-full
-      rounded-full
-      transition-all
-      duration-700
-
-      ${
-        index < runningStep
-          ? "w-full bg-emerald-400"
-          : index === runningStep
-            ? "w-2/3 bg-[#16f2b3]"
-            : "w-0"
-      }
-    `}
-                      />
-                    </div>
-                  </div>
-
-                  {index !== project.workflow.length - 1 && (
-                    <div className="mx-4 flex w-16 items-center">
-                      <div
-                        className={`
-      h-[2px]
-      flex-1
-      transition-all
-      duration-700
-
-      ${
-        index < runningStep
-          ? "bg-emerald-400"
-          : index === runningStep
-            ? "bg-[#16f2b3]"
-            : "bg-white/10"
-      }
-    `}
-                      />
-
-                      <FiArrowRight
-                        className={`
-      -ml-1
-      text-xl
-      transition-all
-      duration-700
-
-      ${
-        index < runningStep
-          ? "text-emerald-400"
-          : index === runningStep
-            ? "animate-pulse text-[#16f2b3]"
-            : "text-gray-600"
-      }
-    `}
-                      />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ================= MOBILE ================= */}
-
-        <div className="flex flex-col items-center lg:hidden">
-          {project.workflow.map((item, index) => {
-            const Icon = iconMap[item.icon] || FiBox;
-
-            return (
-              <div key={item.title} className="flex flex-col items-center">
-                <div
-                  onClick={() => {}}
-                  className={`
-                    w-full
-                    max-w-sm
-                    cursor-pointer
-                    rounded-2xl
-                    border
-                    p-6
-                    transition-all
-
-                    ${
-                      activeStep.title === item.title
-                        ? "border-[#16f2b3] bg-[#162031]"
-                        : "border-white/10 bg-[#111827]"
-                    }
-                  `}
-                >
-                  <div className="mb-5 flex items-center justify-between">
-                    <span className="rounded-full bg-[#16f2b3]/10 px-3 py-1 text-xs font-semibold text-[#16f2b3]">
-                      STEP {index + 1}
-                    </span>
-
-                    <Icon className="text-2xl text-[#16f2b3]" />
-                  </div>
-
-                  <h3 className="text-lg font-bold text-white">{item.title}</h3>
-
-                  <p className="mt-2 text-sm text-gray-400">{item.subtitle}</p>
-                </div>
-
-                {index !== project.workflow.length - 1 && (
-                  <div className="my-4 flex flex-col items-center">
-                    <div
-                      className={`
-      w-[2px]
-      h-8
-      transition-all
-
-      ${
-        index < runningStep
-          ? "bg-emerald-400"
-          : index === runningStep
-            ? "bg-[#16f2b3]"
-            : "bg-white/10"
-      }
-    `}
-                    />
-
-                    <FiArrowDown
-                      className={`
-      mt-1
-      transition-all
-
-      ${
-        index < runningStep
-          ? "text-emerald-400"
-          : index === runningStep
-            ? "animate-pulse text-[#16f2b3]"
-            : "text-gray-600"
-      }
-    `}
-                    />
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* ================= DETAIL (Desktop Only) ================= */}
+      <div
+        className="
+          relative
+          mx-auto
+          w-full
+          max-w-[1280px]
+          px-4
+          sm:px-6
+          lg:px-0
+        "
+      >
+        {/* =========================
+            HEADER
+        ========================= */}
 
         <motion.div
-          key={activeStep.title}
           initial={{
             opacity: 0,
             y: 20,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.15,
+          }}
+          transition={{
+            duration: 0.6,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="
+            grid
+            gap-8
+            border-b
+            border-white/[0.08]
+            pb-8
+            lg:grid-cols-[1fr_0.55fr]
+            lg:items-end
+          "
+        >
+          <div>
+            <div className="flex items-center gap-4">
+              <span
+                className="
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-[#16f2b3]
+                "
+              >
+                07
+              </span>
+
+              <span
+                className="
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-gray-400
+                "
+              >
+                How It Works
+              </span>
+            </div>
+
+            <h2
+              className="
+                mt-7
+                max-w-4xl
+                text-[clamp(44px,6vw,76px)]
+                font-semibold
+                leading-[0.94]
+                tracking-[-0.07em]
+                text-white
+              "
+            >
+              One flow,
+              <br />
+              <span className="text-gray-400">
+                four important moments.
+              </span>
+            </h2>
+          </div>
+
+          <p
+            className="
+              max-w-md
+              text-[14px]
+              leading-7
+              text-gray-300
+            "
+          >
+            FlowTest is built around a simple loop: author the
+            workflow, inspect the target, execute it, and keep
+            enough evidence to understand what happened.
+          </p>
+        </motion.div>
+
+        {/* =========================
+            PIPELINE
+        ========================= */}
+
+        <div className="mt-10 overflow-x-auto pb-5 scrollbar-hide">
+          <div className="flex min-w-max items-center">
+            {workflowStages.map(
+              (stage, index) => {
+                const Icon = stage.icon;
+
+                const isActive =
+                  index === activeIndex;
+
+                const isComplete =
+                  index < activeIndex;
+
+                return (
+                  <div
+                    key={stage.id}
+                    className="flex items-center"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveIndex(index);
+
+                        setMobileStep(
+                          activeWorkflowStep ??
+                            stage,
+                        );
+                      }}
+                      className="group w-[220px] text-left"
+                    >
+                      <div
+                        className={`
+                          min-h-[150px]
+                          border
+                          px-5
+                          py-5
+                          transition-colors
+                          duration-300
+                          ${
+                            isActive
+                              ? "border-[#16f2b3]/40 bg-white/[0.025]"
+                              : "border-white/[0.08] bg-white/[0.004] hover:border-white/[0.14] hover:bg-white/[0.01]"
+                          }
+                        `}
+                      >
+                        <div className="flex items-start justify-between">
+                          <span
+                            className={`
+                              font-mono
+                              text-[9px]
+                              ${
+                                isActive
+                                  ? "text-[#16f2b3]"
+                                  : "text-gray-500"
+                              }
+                            `}
+                          >
+                            {stage.number}
+                          </span>
+
+                          <Icon
+                            size={15}
+                            className={`
+                              ${
+                                isActive ||
+                                isComplete
+                                  ? "text-[#16f2b3]"
+                                  : "text-gray-500"
+                              }
+                            `}
+                          />
+                        </div>
+
+                        <div className="mt-9">
+                          <h3
+                            className={`
+                              text-lg
+                              font-medium
+                              tracking-[-0.03em]
+                              ${
+                                isActive
+                                  ? "text-white"
+                                  : "text-gray-300"
+                              }
+                            `}
+                          >
+                            {stage.title}
+                          </h3>
+
+                          <p className="mt-2 text-[11px] text-gray-500">
+                            {stage.subtitle}
+                          </p>
+                        </div>
+
+                        <div className="mt-5 h-px bg-white/[0.06]">
+                          <div
+                            className={`
+                              h-full
+                              bg-[#16f2b3]
+                              transition-all
+                              duration-500
+                              ${
+                                isComplete
+                                  ? "w-full"
+                                  : isActive
+                                    ? "w-2/3"
+                                    : "w-0"
+                              }
+                            `}
+                          />
+                        </div>
+                      </div>
+                    </button>
+
+                    {index <
+                      workflowStages.length -
+                        1 && (
+                      <div className="mx-3 flex w-8 items-center">
+                        <div
+                          className={`
+                            h-px
+                            flex-1
+                            ${
+                              index < activeIndex
+                                ? "bg-[#16f2b3]/40"
+                                : "bg-white/[0.08]"
+                            }
+                          `}
+                        />
+
+                        <FiArrowRight
+                          size={13}
+                          className={
+                            index < activeIndex
+                              ? "text-[#16f2b3]"
+                              : "text-gray-600"
+                          }
+                        />
+                      </div>
+                    )}
+                  </div>
+                );
+              },
+            )}
+          </div>
+        </div>
+
+        {/* =========================
+            ACTIVE DETAIL
+        ========================= */}
+
+        <motion.div
+          key={activeStage.id}
+          initial={{
+            opacity: 0,
+            y: 10,
           }}
           animate={{
             opacity: 1,
             y: 0,
           }}
           transition={{
-            duration: 0.3,
+            duration: 0.25,
           }}
-          className="hidden border-t border-white/10 p-8 lg:block"
+          className="
+            grid
+            gap-8
+            border-t
+            border-white/[0.08]
+            pt-8
+            lg:grid-cols-[0.7fr_1.3fr]
+            lg:gap-20
+          "
         >
-          <div className="flex items-center gap-4">
-            <div className="rounded-xl bg-[#16f2b3]/10 p-3">
-              {(iconMap[activeStep.icon] || FiBox)({
-                className: "text-2xl text-[#16f2b3]",
-              })}
+          <div>
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-[10px] text-[#16f2b3]">
+                {activeStage.number}
+              </span>
+
+              <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-gray-400">
+                Active stage
+              </span>
             </div>
 
-            <div>
-              <h3 className="text-2xl font-bold text-white">
-                {activeStep.title}
-              </h3>
+            <h3 className="mt-5 text-xl font-medium tracking-[-0.03em] text-white">
+              {activeStage.title}
+            </h3>
 
-              <p className="text-gray-400">{activeStep.subtitle}</p>
-            </div>
+            <p className="mt-2 text-[11px] text-gray-500">
+              {activeStage.subtitle}
+            </p>
           </div>
 
-          <p className="mt-8 leading-8 text-gray-300">
-            {activeStep.description || "No description available."}
-          </p>
+          <div>
+            <p className="max-w-3xl text-[14px] leading-7 text-gray-300">
+              {activeWorkflowStep?.description ??
+                activeStage.description}
+            </p>
 
-          {activeStep.command && (
-            <div className="mt-8">
-              <p className="mb-3 text-sm uppercase tracking-[3px] text-gray-500">
-                Command
-              </p>
+            <div className="mt-6">
+              <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-gray-500">
+                Example
+              </span>
 
               <pre
                 className="
-overflow-auto
-rounded-2xl
-border
-border-white/10
-bg-[#0d1117]
-p-5
-font-mono
-text-sm
-text-[#16f2b3]
-"
+                  mt-3
+                  overflow-x-auto
+                  border
+                  border-white/[0.08]
+                  bg-[#050505]
+                  px-4
+                  py-4
+                  font-mono
+                  text-[11px]
+                  leading-6
+                  text-[#16f2b3]
+                "
               >
-                {activeStep.command}
+                {activeWorkflowStep?.command ??
+                  activeStage.command}
               </pre>
             </div>
-          )}
 
-          {activeStep.output?.length > 0 && (
-            <div className="mt-8">
-              <p className="mb-3 text-sm uppercase tracking-[3px] text-gray-500">
-                Output
-              </p>
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+              {(
+                activeWorkflowStep?.output ??
+                activeStage.output
+              ).map((item) => (
+                <span
+                  key={item}
+                  className="
+                    flex
+                    items-center
+                    gap-2
+                    text-[11px]
+                    text-gray-400
+                  "
+                >
+                  <FiCheckCircle
+                    size={12}
+                    className="text-[#16f2b3]"
+                  />
 
-              <div className="space-y-3">
-                {activeStep.output.map((item) => (
-                  <motion.div
-                    key={item}
-                    initial={{
-                      opacity: 0,
-                      x: -10,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      x: 0,
-                    }}
-                    transition={{
-                      duration: 0.25,
-                    }}
-                    className="rounded-xl border border-white/5 bg-white/5 px-4 py-3 text-gray-300"
-                  >
-                    ✅ {item}
-                  </motion.div>
-                ))}
-              </div>
+                  {item}
+                </span>
+              ))}
             </div>
-          )}
+          </div>
         </motion.div>
-      </Panel>
+
+        {/* =========================
+            MOBILE
+        ========================= */}
+
+        <div className="mt-8 lg:hidden">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-gray-500">
+            Tap a stage for details
+          </p>
+
+          <div className="mt-4">
+            {workflowStages.map((stage) => {
+              const Icon = stage.icon;
+
+              return (
+                <button
+                  key={`${stage.id}-mobile`}
+                  type="button"
+                  onClick={() =>
+                    setMobileStep(stage)
+                  }
+                  className="
+                    flex
+                    w-full
+                    items-center
+                    justify-between
+                    border-t
+                    border-white/[0.08]
+                    py-4
+                    text-left
+                  "
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="font-mono text-[10px] text-gray-600">
+                      {stage.number}
+                    </span>
+
+                    <span className="text-sm text-gray-300">
+                      {stage.title}
+                    </span>
+                  </div>
+
+                  <Icon
+                    size={14}
+                    className="text-gray-500"
+                  />
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
       <WorkflowMobileModal
         step={mobileStep}
-        onClose={() => setMobileStep(null)}
+        onClose={() =>
+          setMobileStep(null)
+        }
       />
-    </Section>
+    </section>
   );
 }

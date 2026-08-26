@@ -1,7 +1,5 @@
 "use client";
 
-import Panel from "@/app/components/ui/panel/Panel";
-
 import NavigationItem from "./NavigationItem";
 import useActiveSection from "./useActiveSection";
 
@@ -9,57 +7,65 @@ const sections = [
   {
     id: "live-demo",
     label: "Live Demo",
+    number: "02",
   },
   {
     id: "overview",
-    label: "Overview",
+    label: "Project Snapshot",
+    number: "03",
   },
   {
-    id: "why-built",
-    label: "Why I Built It",
+    id: "problem-decision",
+    label: "Problem → Decision",
+    number: "04",
   },
   {
-    id: "challenge",
-    label: "Challenge",
+    id: "gallery",
+    label: "Visual Evidence",
+    number: "05",
   },
   {
     id: "tech-stack",
-    label: "Tech Stack",
+    label: "Technical Decisions",
+    number: "06",
+  },
+  {
+    id: "workflow",
+    label: "How It Works",
+    number: "07",
+  },
+  {
+    id: "results",
+    label: "Current State",
+    number: "08",
   },
   {
     id: "roadmap",
-    label: "Roadmap",
+    label: "Now / Next / Later",
+    number: "09",
   },
   {
     id: "repository",
     label: "Repository",
+    number: "10",
   },
   {
-    id: "features",
-    label: "Features",
-  },
-  {
-    id: "workflow",
-    label: "Workflow",
-  },
-  {
-    id: "development",
-    label: "Development",
-  },
-  {
-    id: "results",
-    label: "Results",
+    id: "cta",
+    label: "Continue",
+    number: "11",
   },
 ];
 
 export default function ProjectNavigation() {
-  const active = useActiveSection(sections.map((section) => section.id));
+  const active = useActiveSection(
+    sections.map((section) => section.id),
+  );
 
   return (
-    <div
+    <aside
       className="
         fixed
-        left-6
+        left-8
         top-1/2
         z-50
         hidden
@@ -67,42 +73,60 @@ export default function ProjectNavigation() {
         xl:block
       "
     >
-      <Panel
-        variant="glass"
-        padding="sm"
+      <nav
+        aria-label="Project sections"
         className="
-          w-56
-          border
-          border-white/5
-          backdrop-blur-xl
+          w-48
+          border-l
+          border-white/[0.08]
+          pl-4
         "
       >
-        <p
-          className="
-            px-5
-            py-3
-            text-[13px]
-            font-semibold
-            uppercase
-            tracking-[4px]
-            text-gray-500
-          "
-        >
-          Project Contents
-        </p>
-
-        <div className="my-0.5 h-px bg-white/5" />
+        <div className="mb-5">
+          <span
+            className="
+              text-[9px]
+              font-semibold
+              uppercase
+              tracking-[0.16em]
+              text-gray-600
+            "
+          >
+            Project Contents
+          </span>
+        </div>
 
         <div className="space-y-1">
           {sections.map((section) => (
-            <NavigationItem
+            <div
               key={section.id}
-              {...section}
-              active={active === section.id}
-            />
+              className="relative"
+            >
+              {active === section.id && (
+                <span
+                  className="
+                    absolute
+                    -left-[17px]
+                    top-1/2
+                    h-5
+                    w-px
+                    -translate-y-1/2
+                    bg-[#16f2b3]
+                    shadow-[0_0_12px_rgba(22,242,179,.3)]
+                  "
+                />
+              )}
+
+              <NavigationItem
+                id={section.id}
+                label={section.label}
+                number={section.number}
+                active={active === section.id}
+              />
+            </div>
           ))}
         </div>
-      </Panel>
-    </div>
+      </nav>
+    </aside>
   );
 }

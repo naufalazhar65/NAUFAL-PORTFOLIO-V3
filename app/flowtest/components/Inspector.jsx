@@ -12,19 +12,19 @@ import { useExecutionStore } from "../store/executionStore";
 
 export default function Inspector() {
   const selectedNode = useFlowStore(
-    (state) => state.selectedNode
+    (state) => state.selectedNode,
   );
 
   const nodeStatus = useExecutionStore((state) =>
     selectedNode
       ? state.nodeStatus[selectedNode.id]
-      : null
+      : null,
   );
 
   const timing = useExecutionStore((state) =>
     selectedNode
       ? state.nodeTiming[selectedNode.id]
-      : null
+      : null,
   );
 
   return (
@@ -37,170 +37,434 @@ export default function Inspector() {
         flex-col
         overflow-hidden
         border-l
-        border-white/10
-        bg-[#111827]
+        border-white/[0.08]
+        bg-[#0f141b]
       "
     >
-      {/* Header */}
+      {/* =========================
+          HEADER
+      ========================= */}
 
-      <div className="border-b border-white/10 px-6 py-5">
-        <h2 className="text-sm font-semibold uppercase tracking-[3px] text-gray-400">
-          Inspector
-        </h2>
+      <div
+        className="
+          flex
+          h-[52px]
+          shrink-0
+          items-center
+          justify-between
+          border-b
+          border-white/[0.08]
+          px-4
+        "
+      >
+        <div>
+          <p
+            className="
+              text-[10px]
+              font-semibold
+              uppercase
+              tracking-[0.14em]
+              text-gray-400
+            "
+          >
+            Inspector
+          </p>
+
+          <p
+            className="
+              mt-0.5
+              text-[9px]
+              text-gray-600
+            "
+          >
+            Selected node properties
+          </p>
+        </div>
+
+        <span
+          className="
+            rounded-md
+            border
+            border-white/[0.08]
+            bg-white/[0.02]
+            px-2
+            py-1
+            text-[8px]
+            font-semibold
+            uppercase
+            tracking-[0.1em]
+            text-gray-500
+          "
+        >
+          Panel
+        </span>
       </div>
 
-      {/* Scrollable Content */}
+      {/* =========================
+          CONTENT
+      ========================= */}
 
-      <div className="flex-1 overflow-y-auto p-6 scrollbar-hide">
+      <div
+        className="
+          flex-1
+          overflow-y-auto
+          p-3
+          scrollbar-hide
+        "
+      >
         {!selectedNode ? (
-          <div className="flex h-full flex-col items-center justify-center text-center">
-            <FiMousePointer
-              size={44}
-              className="mb-5 text-gray-600"
-            />
-
-            <h3 className="font-semibold text-white">
-              No node selected
-            </h3>
-
-            <p className="mt-3 text-sm leading-7 text-gray-500">
-              Click a node from the workflow
-              <br />
-              to inspect its properties.
-            </p>
-          </div>
+          <EmptyState />
         ) : (
-          <>
-            {/* Header */}
-
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-              <div className="flex items-center gap-4">
-                <div
-                  className="flex h-14 w-14 items-center justify-center rounded-2xl text-2xl"
-                  style={{
-                    background: `${selectedNode.data.color}20`,
-                  }}
-                >
-                  {selectedNode.data.icon}
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-bold text-white">
-                    {selectedNode.data.title}
-                  </h3>
-
-                  <p className="text-sm text-gray-400">
-                    {selectedNode.data.type}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Execution */}
-
-            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
-              <div className="mb-5 flex items-center gap-2">
-                <FiCpu className="text-[#16f2b3]" />
-
-                <h3 className="font-semibold text-white">
-                  Execution
-                </h3>
-              </div>
-
-              <div className="space-y-4">
-                <Row
-                  label="Status"
-                  value={
-                    <span
-                      className={clsx(
-                        "rounded-full px-2 py-1 text-xs font-semibold uppercase",
-                        {
-                          "bg-blue-500/20 text-blue-300":
-                            nodeStatus === "running",
-
-                          "bg-[#16f2b3]/20 text-[#16f2b3]":
-                            nodeStatus === "passed",
-
-                          "bg-red-500/20 text-red-300":
-                            nodeStatus === "failed",
-
-                          "bg-white/10 text-gray-300":
-                            !nodeStatus,
-                        }
-                      )}
-                    >
-                      {nodeStatus || "Idle"}
-                    </span>
-                  }
-                />
-
-                <Row
-                  label="Duration"
-                  value={
-                    timing?.duration
-                      ? `${timing.duration} ms`
-                      : "-"
-                  }
-                />
-              </div>
-            </div>
-
-            {/* Properties */}
-
-            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
-              <div className="mb-5 flex items-center gap-2">
-                <FiClock className="text-[#16f2b3]" />
-
-                <h3 className="font-semibold text-white">
-                  Properties
-                </h3>
-              </div>
-
-              <div className="space-y-5">
-                {selectedNode.data.fields?.map((field) => (
-                  <div key={field.label}>
-                    <label className="mb-2 block text-xs uppercase tracking-wider text-gray-500">
-                      {field.label}
-                    </label>
-
-                    <input
-                      readOnly
-                      value={field.value}
-                      className="
-                        w-full
-                        rounded-xl
-                        border
-                        border-white/10
-                        bg-[#0d1117]
-                        px-4
-                        py-3
-                        text-white
-                      "
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </>
+          <SelectedNodePanel
+            selectedNode={selectedNode}
+            nodeStatus={nodeStatus}
+            timing={timing}
+          />
         )}
       </div>
     </aside>
   );
 }
 
-function Row({
-  label,
-  value,
+function EmptyState() {
+  return (
+    <div
+      className="
+        flex
+        h-full
+        min-h-[280px]
+        flex-col
+        items-center
+        justify-center
+        px-6
+        text-center
+      "
+    >
+      <div
+        className="
+          flex
+          h-11
+          w-11
+          items-center
+          justify-center
+          rounded-xl
+          border
+          border-white/[0.08]
+          bg-white/[0.02]
+          text-gray-500
+        "
+      >
+        <FiMousePointer size={18} />
+      </div>
+
+      <h3
+        className="
+          mt-4
+          text-[12px]
+          font-medium
+          text-gray-300
+        "
+      >
+        No node selected
+      </h3>
+
+      <p
+        className="
+          mt-2
+          max-w-[220px]
+          text-[10px]
+          leading-5
+          text-gray-600
+        "
+      >
+        Select a node from the workflow
+        canvas to inspect its properties.
+      </p>
+    </div>
+  );
+}
+
+function SelectedNodePanel({
+  selectedNode,
+  nodeStatus,
+  timing,
 }) {
   return (
-    <div className="flex items-center justify-between">
-      <span className="text-sm text-gray-400">
+    <>
+      {/* =========================
+          NODE HEADER
+      ========================= */}
+
+      <div
+        className="
+          relative
+          overflow-hidden
+          rounded-xl
+          border
+          border-white/[0.08]
+          bg-white/[0.015]
+          p-3
+        "
+      >
+        <div
+          className="
+            pointer-events-none
+            absolute
+            -right-10
+            -top-10
+            h-20
+            w-20
+            rounded-full
+            bg-white/[0.035]
+            blur-2xl
+          "
+        />
+
+        <div className="relative z-10 flex items-center gap-3">
+          <div
+            className="
+              flex
+              h-10
+              w-10
+              shrink-0
+              items-center
+              justify-center
+              rounded-lg
+              border
+              border-white/[0.08]
+            "
+            style={{
+              background: `${selectedNode.data.color}18`,
+              color: selectedNode.data.color,
+            }}
+          >
+            <span className="text-lg">
+              {selectedNode.data.icon}
+            </span>
+          </div>
+
+          <div className="min-w-0">
+            <h3
+              className="
+                truncate
+                text-[12px]
+                font-semibold
+                text-white
+              "
+            >
+              {selectedNode.data.title}
+            </h3>
+
+            <p
+              className="
+                mt-0.5
+                truncate
+                text-[9px]
+                uppercase
+                tracking-[0.08em]
+                text-gray-500
+              "
+            >
+              {selectedNode.data.type}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* =========================
+          EXECUTION
+      ========================= */}
+
+      <PanelSection
+        icon={<FiCpu size={13} />}
+        title="Execution"
+      >
+        <div className="space-y-3">
+          <Row
+            label="Status"
+            value={
+              <StatusBadge
+                status={nodeStatus}
+              />
+            }
+          />
+
+          <Row
+            label="Duration"
+            value={
+              timing?.duration
+                ? `${timing.duration} ms`
+                : "-"
+            }
+          />
+        </div>
+      </PanelSection>
+
+      {/* =========================
+          PROPERTIES
+      ========================= */}
+
+      <PanelSection
+        icon={<FiClock size={13} />}
+        title="Properties"
+      >
+        <div className="space-y-4">
+          {selectedNode.data.fields?.map(
+            (field) => (
+              <div key={field.label}>
+                <label
+                  className="
+                    mb-1.5
+                    block
+                    text-[8px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.1em]
+                    text-gray-600
+                  "
+                >
+                  {field.label}
+                </label>
+
+                <input
+                  readOnly
+                  value={field.value || ""}
+                  className="
+                    h-8
+                    w-full
+                    rounded-lg
+                    border
+                    border-white/[0.08]
+                    bg-[#0b1016]
+                    px-3
+                    text-[10px]
+                    text-gray-300
+                    outline-none
+                  "
+                />
+              </div>
+            ),
+          )}
+        </div>
+      </PanelSection>
+    </>
+  );
+}
+
+function PanelSection({
+  icon,
+  title,
+  children,
+}) {
+  return (
+    <section
+      className="
+        mt-3
+        rounded-xl
+        border
+        border-white/[0.07]
+        bg-white/[0.008]
+        p-3
+      "
+    >
+      <div
+        className="
+          mb-4
+          flex
+          items-center
+          gap-2
+          border-b
+          border-white/[0.06]
+          pb-3
+        "
+      >
+        <span className="text-[#16f2b3]">
+          {icon}
+        </span>
+
+        <h3
+          className="
+            text-[9px]
+            font-semibold
+            uppercase
+            tracking-[0.12em]
+            text-gray-400
+          "
+        >
+          {title}
+        </h3>
+      </div>
+
+      {children}
+    </section>
+  );
+}
+
+function Row({ label, value }) {
+  return (
+    <div
+      className="
+        flex
+        items-center
+        justify-between
+        gap-4
+      "
+    >
+      <span
+        className="
+          text-[10px]
+          text-gray-500
+        "
+      >
         {label}
       </span>
 
-      <div className="text-sm font-medium text-white">
+      <div
+        className="
+          text-right
+          text-[10px]
+          font-medium
+          text-gray-300
+        "
+      >
         {value}
       </div>
     </div>
+  );
+}
+
+function StatusBadge({ status }) {
+  return (
+    <span
+      className={clsx(
+        `
+          inline-flex
+          items-center
+          rounded-full
+          border
+          px-2
+          py-1
+          text-[8px]
+          font-semibold
+          uppercase
+          tracking-[0.08em]
+        `,
+        {
+          "border-blue-400/20 bg-blue-400/10 text-blue-300":
+            status === "running",
+
+          "border-[#16f2b3]/20 bg-[#16f2b3]/10 text-[#16f2b3]":
+            status === "passed",
+
+          "border-red-400/20 bg-red-400/10 text-red-300":
+            status === "failed",
+
+          "border-white/[0.06] bg-white/[0.03] text-gray-500":
+            !status,
+        },
+      )}
+    >
+      {status || "Idle"}
+    </span>
   );
 }

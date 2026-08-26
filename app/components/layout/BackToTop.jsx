@@ -4,7 +4,13 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiArrowUp } from "react-icons/fi";
 
+import { usePathname } from "next/navigation";
+
 export default function BackToTop() {
+
+  const pathname = usePathname();
+
+
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {

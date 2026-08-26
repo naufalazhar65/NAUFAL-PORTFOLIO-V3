@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FiArrowRight, FiGithub, FiPlay } from "react-icons/fi";
-
-import Section from "@/app/components/ui/section/Section";
+import {
+  FiArrowUpRight,
+  FiGithub,
+  FiMail,
+} from "react-icons/fi";
 
 export default function CTA({ project }) {
   if (project.slug !== "flowtest-studio") {
@@ -12,124 +14,195 @@ export default function CTA({ project }) {
   }
 
   return (
-    <Section id="cta" width="md" className="pb-32">
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 40,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          duration: 0.7,
-        }}
+    <section
+      id="cta"
+      className="
+        relative
+        overflow-hidden
+        border-b
+        border-white/[0.08]
+        py-20
+        sm:py-24
+        lg:py-28
+      "
+    >
+      <div
         className="
-          overflow-hidden
-          rounded-[36px]
-          border
-          border-[#16f2b3]/20
-          bg-gradient-to-br
-          from-[#16f2b3]/10
-          via-[#111827]
-          to-[#111827]
-          p-12
-          text-center
+          relative
+          mx-auto
+          w-full
+          max-w-[1280px]
+          px-4
+          sm:px-6
+          lg:px-0
         "
       >
-        <span className="text-sm uppercase tracking-[5px] text-[#16f2b3]">
-          Thank You
-        </span>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 0.65,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="
+            grid
+            gap-10
+            border-t
+            border-white/[0.08]
+            pt-10
+            lg:grid-cols-[0.7fr_1.3fr]
+            lg:gap-20
+            lg:pt-12
+          "
+        >
+          {/* Context */}
 
-        <h2 className="mt-5 text-5xl font-black text-white">
-          Ready to Explore
-          <br />
-          FlowTest Studio?
-        </h2>
+          <div>
+            <div className="flex items-center gap-4">
+              <span
+                className="
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-[#16f2b3]
+                "
+              >
+                11
+              </span>
 
-        <p className="mx-auto mt-6 max-w-3xl leading-8 text-gray-400">
-          Experience the interactive demo, explore the project source code, or
-          continue discovering more Software QA engineering projects from my
-          portfolio.
-        </p>
+              <span
+                className="
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-gray-400
+                "
+              >
+                Continue
+              </span>
+            </div>
 
-        <div className="mt-12 flex flex-wrap justify-center gap-5">
-          <Link
-            href="/flowtest"
-            target="_blank"
-            className="
-              inline-flex
-              items-center
-              gap-3
-              rounded-2xl
-              bg-[#16f2b3]
-              px-7
-              py-4
-              font-semibold
-              text-black
-              transition-all
-              duration-300
-              hover:scale-105
-            "
-          >
-            <FiPlay />
-            Launch Live Demo
-          </Link>
+            <p
+              className="
+                mt-7
+                max-w-sm
+                text-[13px]
+                leading-7
+                text-gray-400
+              "
+            >
+              FlowTest Studio is an active engineering project.
+              The implementation is still evolving, but the
+              repository and interactive build are available to
+              inspect.
+            </p>
+          </div>
 
-          <Link
-            href={project.github}
-            target="_blank"
-            className="
-              inline-flex
-              items-center
-              gap-3
-              rounded-2xl
-              border
-              border-white/10
-              bg-white/5
-              px-7
-              py-4
-              font-semibold
-              text-white
-              transition-all
-              duration-300
-              hover:border-[#16f2b3]/40
-              hover:bg-[#16f2b3]/10
-            "
-          >
-            <FiGithub />
-            View Source Code
-          </Link>
+          {/* Main */}
 
-          <Link
-            href="/projects"
-            className="
-              inline-flex
-              items-center
-              gap-3
-              rounded-2xl
-              border
-              border-white/10
-              bg-white/5
-              px-7
-              py-4
-              font-semibold
-              text-white
-              transition-all
-              duration-300
-              hover:border-white/20
-              hover:bg-white/10
-            "
-          >
-            More Projects
-            <FiArrowRight />
-          </Link>
-        </div>
-      </motion.div>
-    </Section>
+          <div>
+            <h2
+              className="
+                max-w-4xl
+                text-[clamp(48px,6.5vw,92px)]
+                font-semibold
+                leading-[0.92]
+                tracking-[-0.07em]
+                text-white
+              "
+            >
+              See the implementation.
+              <br />
+              <span className="text-gray-400">
+                Then talk to me about QA.
+              </span>
+            </h2>
+
+            <div className="mt-9 flex flex-wrap items-center gap-4">
+              <Link
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="
+                  inline-flex
+                  min-h-11
+                  items-center
+                  gap-3
+                  rounded-full
+                  bg-white
+                  px-5
+                  text-sm
+                  font-medium
+                  text-black
+                  transition-colors
+                  duration-200
+                  hover:bg-gray-200
+                "
+              >
+                <FiGithub size={14} />
+                View repository
+                <FiArrowUpRight size={13} />
+              </Link>
+
+              <Link
+                href="/contact"
+                className="
+                  inline-flex
+                  min-h-11
+                  items-center
+                  gap-3
+                  rounded-full
+                  border
+                  border-white/[0.1]
+                  px-5
+                  text-sm
+                  font-medium
+                  text-white
+                  transition-colors
+                  duration-200
+                  hover:border-white/[0.2]
+                  hover:bg-white/[0.02]
+                "
+              >
+                <FiMail size={14} />
+                Discuss QA tooling
+                <FiArrowUpRight size={13} />
+              </Link>
+
+              <Link
+                href="/projects"
+                className="
+                  inline-flex
+                  items-center
+                  gap-2
+                  px-1
+                  text-sm
+                  font-medium
+                  text-gray-500
+                  transition-colors
+                  duration-200
+                  hover:text-white
+                "
+              >
+                Other projects
+                <FiArrowUpRight size={13} />
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }

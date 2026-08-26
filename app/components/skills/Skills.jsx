@@ -10,58 +10,49 @@ import SkillGroup from "./components/SkillGroup";
 
 export default function Skills() {
   return (
-    <motion.section
+    <section
       id="skills"
-      variants={stagger}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{
-        once: true,
-        amount: 0.2,
-      }}
       className="
         relative
-        my-24
-
-        lg:my-28
+        border-b
+        border-white/[0.08]
+        py-20
+        sm:py-24
+        lg:py-32
       "
     >
-      {/* Background Glow */}
-
       <div
         className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-20
-
-          h-80
-          w-80
-
-          -translate-x-1/2
-
-          rounded-full
-
-          bg-[#16f2b3]/10
-
-          blur-[120px]
+          mx-auto
+          w-full
+          max-w-[1280px]
+          px-4
+          sm:px-6
+          lg:px-0
         "
-      />
+      >
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{
+            once: true,
+            amount: 0.15,
+          }}
+        >
+          <SkillsHeader />
 
-      {/* Header */}
-
-      <SkillsHeader />
-
-      {/* Skill Groups */}
-
-      <div className="relative mt-12 space-y-12">
-        {skillGroups.map((group) => (
-          <SkillGroup
-            key={group.title}
-            group={group}
-          />
-        ))}
+          <div className="mt-12 lg:mt-16">
+            {skillGroups.map((group, index) => (
+              <SkillGroup
+                key={group.title}
+                group={group}
+                index={index}
+              />
+            ))}
+          </div>
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }

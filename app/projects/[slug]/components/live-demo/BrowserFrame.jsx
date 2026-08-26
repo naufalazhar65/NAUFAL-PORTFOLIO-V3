@@ -7,7 +7,7 @@ export default function BrowserFrame({ children }) {
     <motion.div
       initial={{
         opacity: 0,
-        y: 40,
+        y: 32,
       }}
       whileInView={{
         opacity: 1,
@@ -15,83 +15,84 @@ export default function BrowserFrame({ children }) {
       }}
       viewport={{
         once: true,
-        amount: 0.15,
+        amount: 0.12,
       }}
       transition={{
-        duration: 0.8,
+        duration: 0.75,
         ease: [0.16, 1, 0.3, 1],
       }}
       className="
         relative
         overflow-hidden
-        rounded-[20px]
         border
-        border-white/10
-        bg-[#111827]
-        shadow-[0_30px_70px_rgba(0,0,0,.4)]
-        sm:rounded-[28px]
-        sm:shadow-[0_40px_80px_rgba(0,0,0,.45)]
+        border-white/[0.08]
+        bg-[#050505]
+        shadow-[0_35px_100px_rgba(0,0,0,.45)]
       "
     >
-      {/* Browser Header */}
+      {/* =========================
+          BROWSER HEADER
+      ========================= */}
 
       <div
         className="
-          flex
+          grid
+          h-12
+          grid-cols-[1fr_auto_1fr]
           items-center
-          justify-between
           border-b
-          border-white/10
-          bg-[#161b22]
+          border-white/[0.08]
+          bg-[#080808]
           px-4
-          py-3
-          sm:px-6
-          sm:py-4
+          sm:px-5
         "
       >
         {/* Traffic Lights */}
 
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-          <span className="h-2.5 w-2.5 rounded-full bg-red-500 sm:h-3 sm:w-3" />
-
-          <span className="h-2.5 w-2.5 rounded-full bg-yellow-400 sm:h-3 sm:w-3" />
-
-          <span className="h-2.5 w-2.5 rounded-full bg-green-500 sm:h-3 sm:w-3" />
+        <div className="flex items-center gap-[6px]">
+          <span className="h-[7px] w-[7px] rounded-full bg-[#ff5f57]" />
+          <span className="h-[7px] w-[7px] rounded-full bg-[#febc2e]" />
+          <span className="h-[7px] w-[7px] rounded-full bg-[#28c840]" />
         </div>
 
-        {/* Address Bar */}
+        {/* Address */}
 
-        <div
+        <span
           className="
-            mx-3
-            min-w-0
             max-w-[220px]
             truncate
-            rounded-full
-            border
-            border-white/10
-            bg-white/5
-            px-3
-            py-1.5
-            text-center
-            text-xs
-            text-gray-400
-            sm:mx-6
+            text-[10px]
+            font-medium
+            tracking-[0.02em]
+            text-gray-600
             sm:max-w-none
-            sm:px-5
-            sm:py-2
-            sm:text-sm
           "
         >
           flowtest-studio.demo
+        </span>
+
+        {/* Right */}
+
+        <div className="justify-self-end">
+          <span
+            className="
+              hidden
+              text-[9px]
+              font-semibold
+              uppercase
+              tracking-[0.12em]
+              text-gray-700
+              sm:block
+            "
+          >
+            Live Preview
+          </span>
         </div>
-
-        {/* Spacer */}
-
-        <div className="w-6 shrink-0 sm:w-20" />
       </div>
 
-      {/* Browser Content */}
+      {/* =========================
+          BROWSER CONTENT
+      ========================= */}
 
       <div className="bg-[#0d1117]">
         {children}

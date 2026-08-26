@@ -5,17 +5,16 @@ import "react-toastify/dist/ReactToastify.css";
 import "./css/card.scss";
 import "./css/globals.scss";
 
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
-import BackToTop from "./components/layout/BackToTop";
-import PageTransition from "./components/layout/PageTransition";
+import SiteChrome from "./components/layout/SiteChrome";
 
 const inter = Inter({
   subsets: ["latin"],
 });
 
 export const metadata = {
-  metadataBase: new URL("https://naufalv3.netlify.app/"),
+  metadataBase: new URL(
+    "https://naufalv3.netlify.app/",
+  ),
 
   title: {
     default: "Naufal Azhar | Portfolio",
@@ -49,17 +48,24 @@ export const metadata = {
   creator: "Naufal Azhar",
 
   openGraph: {
-    title: "Naufal Azhar | Software Quality Assurance Engineer",
+    title:
+      "Naufal Azhar | Software Quality Assurance Engineer",
+
     description:
       "Software QA Engineer specialized in automation, API, performance, and mobile testing.",
+
     type: "website",
+
     locale: "en_US",
   },
 
   twitter: {
     card: "summary_large_image",
+
     title: "Naufal Azhar",
-    description: "Software Quality Assurance Engineer Portfolio",
+
+    description:
+      "Software Quality Assurance Engineer Portfolio",
   },
 };
 
@@ -67,34 +73,32 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <ToastContainer /> */}
+  {/* =========================
+      GLOBAL NAVIGATION
+  ========================= */}
 
-        {/* <AnimatedGrid /> */}
+  <SiteChrome position="top" />
 
-        <Navbar />
+  {/* =========================
+      PAGE CONTENT
+  ========================= */}
 
-        <main
-          id="main-content"
-          className="
-    relative
-    mx-auto
-    w-full
-    max-w-[1400px]
-    px-5
-    pt-24
-    sm:px-8
-    lg:px-10
-  "
-        >
-          {children}
-        </main>
+  {children}
 
-        <Footer />
+  {/* =========================
+      GLOBAL FOOTER
+  ========================= */}
 
-        <BackToTop />
-      </body>
+  <SiteChrome position="bottom" />
 
-      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM} />
+  {/* =========================
+      GOOGLE TAG MANAGER
+  ========================= */}
+
+  <GoogleTagManager
+    gtmId={process.env.NEXT_PUBLIC_GTM}
+  />
+</body>
     </html>
   );
 }

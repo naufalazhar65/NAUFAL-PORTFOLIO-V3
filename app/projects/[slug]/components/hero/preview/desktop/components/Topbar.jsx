@@ -16,88 +16,56 @@ export default function Topbar() {
   const completed = topbar.status === "Completed";
 
   return (
-    <div
-      className="
-        flex
-        h-full
-        items-center
-        justify-between
+    <div className="flex h-full items-center justify-between px-6">
+      {/* Device */}
 
-        px-6
-      "
-    >
-      {/* Left */}
-
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <div
           className="
             flex
-            h-10
-            w-10
+            h-9
+            w-9
             items-center
             justify-center
-
             rounded-xl
-
-            bg-[#16f2b3]/10
+            border
+            border-[#16f2b3]/15
+            bg-[#16f2b3]/[0.08]
             text-[#16f2b3]
           "
         >
-          <Smartphone size={18} />
+          <Smartphone size={17} />
         </div>
 
         <div>
-          <h3
-            className="
-              text-sm
-              font-semibold
-              text-white
-            "
-          >
+          <h3 className="text-sm font-medium tracking-[-0.01em] text-white">
             {topbar.device}
           </h3>
 
-          <p
-            className="
-              text-xs
-              text-gray-500
-            "
-          >
+          <p className="text-[11px] text-gray-500">
             {topbar.platform}
           </p>
         </div>
       </div>
 
-      {/* Center */}
+      {/* Progress */}
 
-      <div
-        className="
-          hidden
-          md:flex
-          items-center
-          gap-4
-        "
-      >
+      <div className="hidden items-center gap-3 md:flex">
         <div
           className="
-            h-2
+            h-1.5
             w-52
-
             overflow-hidden
-
             rounded-full
-
-            bg-white/5
+            bg-white/[0.06]
           "
         >
           <div
             className="
               h-full
-
               rounded-full
-
               bg-[#16f2b3]
-
+              shadow-[0_0_12px_rgba(22,242,179,.25)]
               transition-all
               duration-700
             "
@@ -107,68 +75,53 @@ export default function Topbar() {
           />
         </div>
 
-        <span
-          className="
-            text-xs
-            font-semibold
-
-            text-gray-400
-          "
-        >
+        <span className="min-w-[34px] text-right text-[11px] font-medium text-gray-500">
           {Math.round(progress)}%
         </span>
       </div>
 
-      {/* Right */}
+      {/* Status */}
 
       <div
         className="
           flex
           items-center
-          gap-3
-
+          gap-2
           rounded-full
-
           border
-          border-white/5
-
-          bg-white/[0.03]
-
-          px-4
-          py-2
+          border-white/[0.06]
+          bg-white/[0.025]
+          px-3
+          py-1.5
         "
       >
         {running ? (
           <Loader2
-            size={15}
-            className="
-              animate-spin
-              text-sky-400
-            "
+            size={13}
+            className="animate-spin text-[#16f2b3]"
           />
         ) : completed ? (
           <CheckCircle2
-            size={15}
-            className="text-emerald-400"
+            size={13}
+            className="text-[#16f2b3]"
           />
         ) : (
           <Play
-            size={14}
+            size={12}
             className="text-gray-500"
           />
         )}
 
         <span
           className={`
-            text-xs
+            text-[10px]
             font-semibold
-
+            uppercase
+            tracking-[0.08em]
             ${
-              running
-                ? "text-sky-400"
-                : completed
-                ? "text-emerald-400"
-                : "text-gray-400"
+              running || completed
+                ? "text-[#16f2b3]"
+                : "text-gray-500"
             }
           `}
         >

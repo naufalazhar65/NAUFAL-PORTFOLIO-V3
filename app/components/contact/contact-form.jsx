@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
@@ -46,7 +47,8 @@ export default function ContactForm() {
 
   const validate = () => {
     const emailInvalid =
-      input.email.length > 0 && !isValidEmail(input.email);
+      input.email.length > 0 &&
+      !isValidEmail(input.email);
 
     const requiredMissing =
       !input.name.trim() ||
@@ -95,14 +97,17 @@ export default function ContactForm() {
       );
 
       if (response.status === 200) {
-        toast.success("Message sent successfully!");
+        toast.success(
+          "Message sent successfully!",
+        );
 
         setInput(initialInput);
         setError(initialError);
       }
     } catch (sendError) {
       toast.error(
-        sendError?.text || "Failed to send message.",
+        sendError?.text ||
+          "Failed to send message.",
       );
     } finally {
       setSending(false);
@@ -112,314 +117,417 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSendMail}
-      className="space-y-6"
+      className="w-full"
     >
-      {/* ========================= */}
-      {/* HEADER */}
-      {/* ========================= */}
+      {/* =========================
+          FORM HEADER
+      ========================= */}
 
-      <div>
-        <p
-          className="
-            text-xs
-            font-semibold
-            uppercase
-            tracking-[4px]
-            text-[#16f2b3]
-          "
-        >
-          Get In Touch
-        </p>
+      <div
+        className="
+          border-b
+          border-white/[0.08]
+          pb-6
+        "
+      >
+        <div className="flex items-center justify-between gap-4">
+          <span
+            className="
+              text-[9px]
+              font-semibold
+              uppercase
+              tracking-[0.14em]
+              text-[#16f2b3]
+            "
+          >
+            Get In Touch
+          </span>
+
+          <span
+            className="
+              rounded-full
+              border
+              border-white/[0.08]
+              bg-white/[0.02]
+              px-3
+              py-1
+              text-[9px]
+              font-semibold
+              uppercase
+              tracking-[0.14em]
+              text-gray-400
+            "
+          >
+            Open
+          </span>
+        </div>
 
         <h3
           className="
-            mt-3
-            text-2xl
-            font-bold
+            mt-4
+            text-[clamp(28px,4vw,42px)]
+            font-medium
+            leading-[0.98]
+            tracking-[-0.05em]
             text-white
-            md:text-3xl
           "
         >
-          Contact with me
+          Tell me what
+          <br />
+          you&apos;re building.
         </h3>
 
         <p
           className="
             mt-4
+            max-w-xl
+            text-[13px]
             leading-7
-            text-gray-400
+            text-gray-300
           "
         >
-          If you have any questions or concerns, please
-          don't hesitate to contact me. I am open to work
-          opportunities that align with my skills and
-          interests.
+          Share an opportunity, project idea, or
+          collaboration. I&apos;ll get back to you as soon
+          as possible.
         </p>
       </div>
 
-      {/* ========================= */}
-      {/* NAME */}
-      {/* ========================= */}
+      {/* =========================
+          FIELDS
+      ========================= */}
 
-      <div className="flex flex-col gap-2">
-        <label
-          htmlFor="contact-name"
+      <div className="pt-8">
+        {/* Name */}
+
+        <div
           className="
-            text-sm
-            font-medium
-            text-gray-300
-          "
-        >
-          Your Name
-        </label>
-
-        <input
-          id="contact-name"
-          type="text"
-          name="name"
-          maxLength={100}
-          autoComplete="name"
-          required
-          value={input.name}
-          onChange={(event) =>
-            handleChange("name", event.target.value)
-          }
-          className="
-            w-full
-
-            rounded-xl
-
-            border
+            group
+            border-b
             border-white/[0.08]
-
-            bg-white/[0.03]
-
-            px-4
-            py-3
-
-            text-sm
-            text-white
-
-            outline-none
-
-            placeholder:text-gray-600
-
-            transition-all
+            py-5
+            transition-colors
             duration-300
-
-            focus:border-[#16f2b3]/50
-            focus:bg-white/[0.04]
-            focus:ring-1
-            focus:ring-[#16f2b3]/20
-          "
-          placeholder="Your name"
-        />
-      </div>
-
-      {/* ========================= */}
-      {/* EMAIL */}
-      {/* ========================= */}
-
-      <div className="flex flex-col gap-2">
-        <label
-          htmlFor="contact-email"
-          className="
-            text-sm
-            font-medium
-            text-gray-300
+            focus-within:border-white/[0.2]
           "
         >
-          Your Email
-        </label>
+          <label
+            htmlFor="contact-name"
+            className="
+              block
+              text-[9px]
+              font-semibold
+              uppercase
+              tracking-[0.14em]
+              text-gray-400
+              transition-colors
+              duration-200
+              group-focus-within:text-white
+            "
+          >
+            Your Name
+          </label>
 
-        <input
-          id="contact-email"
-          type="email"
-          name="email"
-          maxLength={100}
-          autoComplete="email"
-          required
-          value={input.email}
-          onChange={(event) =>
-            handleChange("email", event.target.value)
-          }
-          onBlur={() => {
-            if (!input.email.trim()) {
-              return;
+          <input
+            id="contact-name"
+            type="text"
+            name="name"
+            maxLength={100}
+            autoComplete="name"
+            required
+            value={input.name}
+            onChange={(event) =>
+              handleChange(
+                "name",
+                event.target.value,
+              )
             }
+            className="
+              mt-3
+              w-full
+              border-0
+              bg-transparent
+              px-0
+              py-1
+              text-sm
+              text-white
+              outline-none
+              placeholder:text-gray-500
+              focus:ring-0
+            "
+            placeholder="Your name"
+          />
+        </div>
 
-            setError((previous) => ({
-              ...previous,
-              email: !isValidEmail(input.email),
-            }));
-          }}
+        {/* Email */}
+
+        <div
           className={`
-            w-full
-
-            rounded-xl
-
-            border
-
-            bg-white/[0.03]
-
-            px-4
-            py-3
-
-            text-sm
-            text-white
-
-            outline-none
-
-            placeholder:text-gray-600
-
-            transition-all
+            group
+            border-b
+            py-5
+            transition-colors
             duration-300
-
-            focus:bg-white/[0.04]
-            focus:ring-1
+            focus-within:border-white/[0.2]
 
             ${
               error.email
-                ? "border-red-400/50 focus:border-red-400/60 focus:ring-red-400/20"
-                : "border-white/[0.08] focus:border-[#16f2b3]/50 focus:ring-[#16f2b3]/20"
+                ? "border-red-400/40"
+                : "border-white/[0.08]"
             }
           `}
-          placeholder="you@example.com"
-        />
+        >
+          <label
+            htmlFor="contact-email"
+            className={`
+              block
+              text-[9px]
+              font-semibold
+              uppercase
+              tracking-[0.14em]
+              transition-colors
+              duration-200
 
-        {error.email && (
-          <p className="text-xs text-red-400">
-            Please provide a valid email address.
-          </p>
-        )}
-      </div>
+              ${
+                error.email
+                  ? "text-red-400"
+                  : "text-gray-400 group-focus-within:text-white"
+              }
+            `}
+          >
+            Your Email
+          </label>
 
-      {/* ========================= */}
-      {/* MESSAGE */}
-      {/* ========================= */}
+          <input
+            id="contact-email"
+            type="email"
+            name="email"
+            maxLength={100}
+            autoComplete="email"
+            required
+            value={input.email}
+            onChange={(event) =>
+              handleChange(
+                "email",
+                event.target.value,
+              )
+            }
+            onBlur={() => {
+              if (!input.email.trim()) {
+                return;
+              }
 
-      <div className="flex flex-col gap-2">
-        <label
-          htmlFor="contact-message"
+              setError((previous) => ({
+                ...previous,
+                email: !isValidEmail(
+                  input.email,
+                ),
+              }));
+            }}
+            className={`
+              mt-3
+              w-full
+              border-0
+              bg-transparent
+              px-0
+              py-1
+              text-sm
+              outline-none
+              placeholder:text-gray-500
+              focus:ring-0
+
+              ${
+                error.email
+                  ? "text-red-300"
+                  : "text-white"
+              }
+            `}
+            placeholder="you@example.com"
+          />
+
+          {error.email && (
+            <p
+              className="
+                mt-2
+                text-[11px]
+                leading-5
+                text-red-400
+              "
+            >
+              Please provide a valid email
+              address.
+            </p>
+          )}
+        </div>
+
+        {/* Message */}
+
+        <div
           className="
-            text-sm
-            font-medium
-            text-gray-300
+            group
+            border-b
+            border-white/[0.08]
+            py-5
+            transition-colors
+            duration-300
+            focus-within:border-white/[0.2]
           "
         >
-          Your Message
-        </label>
+          <label
+            htmlFor="contact-message"
+            className="
+              block
+              text-[9px]
+              font-semibold
+              uppercase
+              tracking-[0.14em]
+              text-gray-400
+              transition-colors
+              duration-200
+              group-focus-within:text-white
+            "
+          >
+            Your Message
+          </label>
 
-        <textarea
-          id="contact-message"
-          name="message"
-          maxLength={500}
-          required
-          rows={5}
-          value={input.message}
-          onChange={(event) =>
-            handleChange("message", event.target.value)
-          }
-          className="
-            w-full
-            resize-none
-
-            rounded-xl
-
-            border
-            border-white/[0.08]
-
-            bg-white/[0.03]
-
-            px-4
-            py-3
-
-            text-sm
-            leading-7
-            text-white
-
-            outline-none
-
-            placeholder:text-gray-600
-
-            transition-all
-            duration-300
-
-            focus:border-[#16f2b3]/50
-            focus:bg-white/[0.04]
-            focus:ring-1
-            focus:ring-[#16f2b3]/20
-          "
-          placeholder="Tell me about your project or opportunity..."
-        />
+          <textarea
+            id="contact-message"
+            name="message"
+            maxLength={500}
+            required
+            rows={6}
+            value={input.message}
+            onChange={(event) =>
+              handleChange(
+                "message",
+                event.target.value,
+              )
+            }
+            className="
+              mt-3
+              w-full
+              resize-none
+              border-0
+              bg-transparent
+              px-0
+              py-1
+              text-sm
+              leading-7
+              text-white
+              outline-none
+              placeholder:text-gray-500
+              focus:ring-0
+            "
+            placeholder="Tell me about your project or opportunity..."
+          />
+        </div>
       </div>
 
-      {/* ========================= */}
-      {/* REQUIRED ERROR */}
-      {/* ========================= */}
+      {/* =========================
+          REQUIRED ERROR
+      ========================= */}
 
       {error.required && (
-        <p
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: -6,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
           className="
-            rounded-xl
-            border
-            border-red-400/20
-            bg-red-400/5
-            px-4
-            py-3
-            text-sm
-            text-red-400
+            mt-6
+            border-l
+            border-red-400/50
+            bg-red-400/[0.02]
+            py-2
+            pl-4
           "
         >
-          Please complete all required fields.
-        </p>
+          <p
+            className="
+              text-[11px]
+              leading-6
+              text-red-400
+            "
+          >
+            Please complete all required
+            fields.
+          </p>
+        </motion.div>
       )}
 
-      {/* ========================= */}
-      {/* SUBMIT */}
-      {/* ========================= */}
+      {/* =========================
+          ACTION
+      ========================= */}
 
-      <div className="flex justify-end">
+      <div
+        className="
+          flex
+          flex-col
+          gap-5
+          pt-7
+          sm:flex-row
+          sm:items-center
+          sm:justify-between
+        "
+      >
+        <p
+          className="
+            max-w-xs
+            text-[10px]
+            leading-5
+            text-gray-400
+          "
+        >
+          Your message is sent securely through
+          the configured email service.
+        </p>
+
         <button
           type="submit"
           disabled={sending}
           className="
+            group
             inline-flex
+            min-h-11
+            w-full
             items-center
             justify-center
             gap-2
-
-            rounded-xl
-
-            bg-[#16f2b3]
-
-            px-6
-            py-3
-
+            rounded-full
+            bg-white
+            px-5
             text-sm
-            font-semibold
-
+            font-medium
             text-black
-
+            shadow-[0_12px_35px_rgba(0,0,0,.25)]
             transition-all
             duration-300
-
             hover:-translate-y-0.5
-            hover:shadow-[0_10px_35px_rgba(22,242,179,.20)]
-
+            hover:bg-gray-200
+            hover:shadow-[0_16px_45px_rgba(255,255,255,.08)]
             disabled:cursor-not-allowed
-            disabled:opacity-60
+            disabled:opacity-50
             disabled:hover:translate-y-0
-            disabled:hover:shadow-none
+            sm:w-auto
           "
         >
           <span>
-            {sending ? "Sending..." : "Send Message"}
+            {sending
+              ? "Sending..."
+              : "Send Message"}
           </span>
 
           {!sending && (
             <TbMailForward
-              size={19}
+              size={18}
+              className="
+                transition-transform
+                duration-300
+                group-hover:translate-x-1
+              "
             />
           )}
         </button>

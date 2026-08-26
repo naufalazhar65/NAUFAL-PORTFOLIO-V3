@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowUpRight } from "react-icons/fi";
 
 export default function NextPage({
   href,
@@ -11,12 +11,48 @@ export default function NextPage({
   description,
 }) {
   return (
-    <section className="mt-32 mb-10">
-      <div className="mx-auto max-w-7xl">
+    <section
+      className="
+        relative
+        overflow-hidden
+        border-t
+        border-white/[0.08]
+        py-16
+        sm:py-20
+        lg:py-24
+      "
+    >
+      {/* Ambient Glow */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          right-[8%]
+          top-1/2
+          h-[260px]
+          w-[420px]
+          -translate-y-1/2
+          rounded-full
+          bg-white/[0.015]
+          blur-[110px]
+        "
+      />
+
+      <div
+        className="
+          mx-auto
+          w-full
+          max-w-[1280px]
+          px-4
+          sm:px-6
+          lg:px-0
+        "
+      >
         <motion.div
           initial={{
             opacity: 0,
-            y: 40,
+            y: 20,
           }}
           whileInView={{
             opacity: 1,
@@ -24,9 +60,10 @@ export default function NextPage({
           }}
           viewport={{
             once: true,
+            amount: 0.2,
           }}
           transition={{
-            duration: 0.8,
+            duration: 0.7,
             ease: [0.16, 1, 0.3, 1],
           }}
         >
@@ -34,68 +71,169 @@ export default function NextPage({
             href={href}
             className="
               group
-              flex
-              items-center
-              justify-between
-              rounded-3xl
-              border
-              border-white/10
-              bg-white/[0.02]
-              px-8
-              py-8
-              transition-all
-              duration-500
-              hover:border-[#16f2b3]/40
-              hover:bg-white/[0.04]
+              relative
+              block
+              overflow-hidden
+              transition-colors
+              duration-300
             "
           >
-            {/* Left */}
+            {/* Hover Glow */}
 
-            <div>
-              <p className="text-sm tracking-[0.35em] text-[#16f2b3] uppercase">
-                Next Page
-              </p>
+            <div
+              className="
+                pointer-events-none
+                absolute
+                -inset-12
+                rounded-[40%]
+                bg-white/[0.02]
+                blur-[70px]
+                opacity-0
+                transition-opacity
+                duration-500
+                group-hover:opacity-100
+              "
+            />
 
-              <div className="mt-3 flex items-end gap-4">
-                <span className="text-5xl font-black text-white/15">
-                  {number}
+            <div className="relative z-10">
+              {/* Meta */}
+
+              <div
+                className="
+                  flex
+                  items-center
+                  justify-between
+                  gap-4
+                "
+              >
+                <div className="flex items-center gap-4">
+                  <span
+                    className="
+                      text-[10px]
+                      font-semibold
+                      uppercase
+                      tracking-[0.14em]
+                      text-[#16f2b3]
+                    "
+                  >
+                    {number}
+                  </span>
+
+                  <span
+                    className="
+                      text-[10px]
+                      font-semibold
+                      uppercase
+                      tracking-[0.14em]
+                      text-gray-400
+                    "
+                  >
+                    Next Page
+                  </span>
+                </div>
+
+                <span
+                  className="
+                    text-[10px]
+                    font-medium
+                    uppercase
+                    tracking-[0.12em]
+                    text-gray-500
+                    transition-colors
+                    duration-200
+                    group-hover:text-gray-300
+                  "
+                >
+                  Continue
                 </span>
+              </div>
 
-                <div>
-                  <h2 className="text-3xl font-bold text-white">
+              {/* Main */}
+
+              <div
+                className="
+                  mt-8
+                  flex
+                  items-end
+                  justify-between
+                  gap-8
+                  border-b
+                  border-white/[0.08]
+                  pb-8
+                  transition-colors
+                  duration-300
+                  group-hover:border-white/[0.14]
+                "
+              >
+                <div className="min-w-0">
+                  <h2
+                    className="
+                      max-w-4xl
+                      text-[clamp(42px,6vw,76px)]
+                      font-semibold
+                      leading-[0.94]
+                      tracking-[-0.07em]
+                      text-white
+                      transition-all
+                      duration-300
+                      group-hover:-translate-y-1
+                      group-hover:text-gray-100
+                    "
+                  >
                     {title}
                   </h2>
 
-                  <p className="mt-2 text-gray-400">
+                  <p
+                    className="
+                      mt-4
+                      max-w-xl
+                      text-[13px]
+                      leading-7
+                      text-gray-400
+                      transition-colors
+                      duration-300
+                      group-hover:text-gray-300
+                    "
+                  >
                     {description}
                   </p>
                 </div>
+
+                <motion.span
+                  whileHover={{
+                    x: 5,
+                    y: -5,
+                  }}
+                  transition={{
+                    duration: 0.2,
+                  }}
+                  className="
+                    flex
+                    h-12
+                    w-12
+                    shrink-0
+                    items-center
+                    justify-center
+                    rounded-full
+                    border
+                    border-white/[0.1]
+                    bg-white/[0.005]
+                    text-gray-400
+                    shadow-[0_10px_30px_rgba(0,0,0,.2)]
+                    transition-all
+                    duration-300
+                    group-hover:border-white/[0.2]
+                    group-hover:bg-white/[0.025]
+                    group-hover:text-white
+                    group-hover:shadow-[0_14px_40px_rgba(255,255,255,.04)]
+                    sm:h-14
+                    sm:w-14
+                  "
+                >
+                  <FiArrowUpRight size={20} />
+                </motion.span>
               </div>
             </div>
-
-            {/* Right */}
-
-            <motion.div
-              whileHover={{
-                x: 8,
-              }}
-              transition={{
-                duration: 0.25,
-              }}
-              className="
-                flex
-                h-16
-                w-16
-                items-center
-                justify-center
-                rounded-full
-                border
-                border-[#16f2b3]/30
-                text-[#16f2b3]
-              "
-            >
-              <FiArrowRight size={28} />
-            </motion.div>
           </Link>
         </motion.div>
       </div>

@@ -149,9 +149,10 @@ export default function HeroImage({ image, preview = false }) {
               <Image
                 src="/projects/hero.webp"
                 alt="FlowTest Studio Workflow Canvas"
-                width={2048}
-                height={1483}
-                priority
+                width={3420}
+                height={1870}
+                loading="lazy"
+                sizes="880px"
                 className="block h-auto w-full"
               />
 

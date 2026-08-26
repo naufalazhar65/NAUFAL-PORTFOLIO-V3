@@ -7,90 +7,215 @@ import DemoLayout from "./desktop/DemoLayout";
 import MobileLiveDemo from "./mobile/MobileLiveDemo";
 import DemoProvider from "./shared/DemoProvider";
 
-import Section from "../../../../components/ui/Section";
-import Container from "../../../../components/ui/Container";
-import SectionHeading from "../../../../components/ui/SectionHeading";
-import MagneticButton from "../../../../components/ui/MagneticButton";
-
 export default function LiveDemo({ project }) {
   if (project.slug !== "flowtest-studio") {
     return null;
   }
 
   return (
-    <Section id="live-demo">
-      <Container>
-        <SectionHeading
-          eyebrow="LIVE DEMO"
-          title="Experience FlowTest Studio"
-          description="Explore the interactive automation workflow, execution engine, and testing interface built for FlowTest Studio."
-        />
+    <section
+      id="live-demo"
+      className="
+        relative
+        border-b
+        border-white/[0.08]
+        py-20
+        sm:py-24
+        lg:py-32
+      "
+    >
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-1/3
+          h-[500px]
+          w-[700px]
+          -translate-x-1/2
+          rounded-full
+          bg-white/[0.015]
+          blur-[150px]
+        "
+      />
 
-        {/* Actions */}
+      <div
+        className="
+          relative
+          mx-auto
+          w-full
+          max-w-[1280px]
+          px-4
+          sm:px-6
+          lg:px-0
+        "
+      >
+        {/* =========================
+            HEADER
+        ========================= */}
 
-        <div className="mb-16 flex flex-wrap justify-center gap-4">
-          <MagneticButton className="inline-flex" strength={0.3}>
-            <Link
-              href="/flowtest"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Launch FlowTest Studio full demo"
+        <div
+          className="
+            border-b
+            border-white/[0.08]
+            pb-8
+            lg:pb-10
+          "
+        >
+          <div className="flex items-center gap-4">
+            <span
               className="
-                rounded-2xl
-                bg-[#16f2b3]
-                px-6
-                py-3
+                text-[10px]
                 font-semibold
-                text-black
-                transition
-                hover:scale-105
+                uppercase
+                tracking-[0.14em]
+                text-[#16f2b3]
               "
             >
-              Launch Full Demo
-            </Link>
-          </MagneticButton>
+              02
+            </span>
 
-          <MagneticButton className="inline-flex" strength={0.3}>
-            <Link
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="View FlowTest Studio source code"
+            <span
               className="
-                rounded-2xl
-                border
-                border-white/10
-                px-6
-                py-3
+                text-[10px]
                 font-semibold
-                text-white
-                transition
-                hover:bg-white/5
+                uppercase
+                tracking-[0.14em]
+                text-gray-600
               "
             >
-              View Source Code
-            </Link>
-          </MagneticButton>
+              Live Product
+            </span>
+          </div>
+
+          <div
+            className="
+              mt-8
+              grid
+              gap-8
+              lg:grid-cols-[1fr_0.55fr]
+              lg:items-end
+            "
+          >
+            <div>
+              <h2
+                className="
+                  max-w-4xl
+                  text-[clamp(48px,7vw,96px)]
+                  font-semibold
+                  leading-[0.93]
+                  tracking-[-0.07em]
+                  text-white
+                "
+              >
+                Experience
+                <br />
+                <span className="text-gray-600">
+                  FlowTest Studio.
+                </span>
+              </h2>
+            </div>
+
+            <p
+              className="
+                max-w-md
+                text-[15px]
+                leading-7
+                text-gray-500
+              "
+            >
+              Explore the workflow builder, execution
+              engine, and testing interface through the
+              interactive product demo.
+            </p>
+          </div>
         </div>
 
-        {/* Demo */}
+        {/* =========================
+            ACTIONS
+        ========================= */}
 
-        <BrowserFrame>
-          <DemoProvider>
-            {/* Desktop */}
+        <div
+          className="
+            flex
+            flex-wrap
+            gap-3
+            py-8
+          "
+        >
+          <Link
+            href="/flowtest"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Launch FlowTest Studio full demo"
+            className="
+              inline-flex
+              min-h-11
+              items-center
+              gap-3
+              rounded-full
+              bg-white
+              px-5
+              text-sm
+              font-medium
+              text-black
+              transition
+              hover:bg-gray-200
+            "
+          >
+            Launch Full Demo
+            <span>↗</span>
+          </Link>
 
-            <div className="hidden lg:block">
-              <DemoLayout />
-            </div>
+          <Link
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View FlowTest Studio source code"
+            className="
+              inline-flex
+              min-h-11
+              items-center
+              gap-3
+              rounded-full
+              border
+              border-white/[0.1]
+              px-5
+              text-sm
+              font-medium
+              text-white
+              transition
+              hover:border-white/[0.2]
+              hover:bg-white/[0.03]
+            "
+          >
+            View Source
+            <span>↗</span>
+          </Link>
+        </div>
 
-            {/* Mobile */}
+        {/* =========================
+            DEMO
+        ========================= */}
 
-            <div className="lg:hidden">
-              <MobileLiveDemo />
-            </div>
-          </DemoProvider>
-        </BrowserFrame>
-      </Container>
-    </Section>
+        <div className="mt-2">
+          <BrowserFrame>
+            <DemoProvider>
+              {/* Desktop */}
+
+              <div className="hidden lg:block">
+                <DemoLayout />
+              </div>
+
+              {/* Mobile */}
+
+              <div className="lg:hidden">
+                <MobileLiveDemo />
+              </div>
+            </DemoProvider>
+          </BrowserFrame>
+        </div>
+      </div>
+    </section>
   );
 }

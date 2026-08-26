@@ -4,8 +4,6 @@ import { motion } from "framer-motion";
 
 import { projectsData } from "@/utils/data/projects-data";
 
-import SectionHeader from "../ui/SectionHeader";
-
 import FeaturedProject from "./components/FeaturedProject";
 import ProjectsList from "./components/ProjectsList";
 
@@ -24,26 +22,27 @@ export default function Projects() {
       className="
         relative
         w-full
-        overflow-visible
-        px-6
-        py-24
-        sm:px-8
-        lg:px-12
-        lg:py-28
+        overflow-hidden
+        pb-16
+        pt-28
+        sm:pb-20
+        sm:pt-32
+        lg:pb-24
+        lg:pt-28
       "
     >
-      {/* Background Glow */}
+      {/* Ambient Background */}
 
       <div
         className="
           pointer-events-none
           absolute
-          left-10
-          top-20
-          h-72
-          w-72
+          left-[8%]
+          top-[10%]
+          h-[420px]
+          w-[420px]
           rounded-full
-          bg-[#16f2b3]/[0.06]
+          bg-white/[0.02]
           blur-[140px]
         "
       />
@@ -52,23 +51,35 @@ export default function Projects() {
         className="
           pointer-events-none
           absolute
-          bottom-20
-          right-10
-          h-72
-          w-72
+          bottom-[10%]
+          right-[5%]
+          h-[360px]
+          w-[360px]
           rounded-full
-          bg-[#16f2b3]/[0.04]
+          bg-[#16f2b3]/[0.015]
           blur-[140px]
         "
       />
 
-      <div className="relative mx-auto max-w-7xl">
-        {/* Header */}
+      <div
+        className="
+          relative
+          mx-auto
+          w-full
+          max-w-[1280px]
+          px-4
+          sm:px-6
+          lg:px-0
+        "
+      >
+        {/* =========================
+            HEADER
+        ========================= */}
 
         <motion.div
           initial={{
             opacity: 0,
-            y: 30,
+            y: 24,
           }}
           whileInView={{
             opacity: 1,
@@ -79,30 +90,244 @@ export default function Projects() {
             amount: 0.2,
           }}
           transition={{
-            duration: 0.8,
+            duration: 0.7,
             ease: [0.16, 1, 0.3, 1],
           }}
+          className="
+            border-b
+            border-white/[0.08]
+            pb-10
+            lg:pb-14
+          "
         >
-          <SectionHeader
-            eyebrow="PORTFOLIO"
-            title="Engineering Projects"
-            description="A curated collection of software quality assurance, automation engineering, API testing, performance testing, and modern testing tools built throughout my journey."
-          />
+          <div className="mb-6 flex items-center gap-4">
+            <span
+              className="
+                text-[10px]
+                font-semibold
+                uppercase
+                tracking-[0.14em]
+                text-gray-400
+              "
+            >
+              01
+            </span>
+
+            <span
+              className="
+                text-[10px]
+                font-semibold
+                uppercase
+                tracking-[0.14em]
+                text-gray-400
+              "
+            >
+              Selected Work
+            </span>
+          </div>
+
+          <h1
+            className="
+              max-w-5xl
+              text-[clamp(52px,8vw,112px)]
+              font-semibold
+              leading-[0.92]
+              tracking-[-0.07em]
+              text-white
+            "
+          >
+            Things I built
+            <br />
+            <span className="text-gray-400">
+              to solve QA problems.
+            </span>
+          </h1>
+
+          <p
+            className="
+              mt-8
+              max-w-2xl
+              text-[15px]
+              leading-7
+              text-gray-300
+              sm:text-base
+            "
+          >
+            Projects across automation, mobile testing, API
+            validation, performance testing, and the tools I
+            built while working through real QA problems.
+          </p>
         </motion.div>
 
-        {/* Featured */}
+        {/* =========================
+            FEATURED
+        ========================= */}
 
-        <FeaturedProject
-          project={featuredProject}
-        />
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.12,
+          }}
+          transition={{
+            duration: 0.7,
+            delay: 0.05,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="pt-14 lg:pt-20"
+        >
+          <div className="mb-8 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <span
+                className="
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-[#16f2b3]
+                "
+              >
+                02
+              </span>
 
-        {/* Other Projects */}
+              <span
+                className="
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-gray-400
+                "
+              >
+                The Project I&apos;m Building Now
+              </span>
+            </div>
 
-        <div className="mt-20 lg:mt-24">
-          <ProjectsList
-            projects={otherProjects}
-          />
-        </div>
+            <span
+              className="
+                hidden
+                text-[10px]
+                font-medium
+                uppercase
+                tracking-[0.12em]
+                text-gray-400
+                sm:block
+              "
+            >
+              Current Build
+            </span>
+          </div>
+
+          {/* Featured Ambient Glow */}
+
+          <div className="relative">
+            <div
+              className="
+                pointer-events-none
+                absolute
+                left-1/2
+                top-1/2
+                -z-10
+                h-[420px]
+                w-[70%]
+                -translate-x-1/2
+                -translate-y-1/2
+                rounded-full
+                bg-white/[0.018]
+                blur-[100px]
+              "
+            />
+
+            <FeaturedProject project={featuredProject} />
+          </div>
+        </motion.div>
+
+        {/* =========================
+            OTHER PROJECTS
+        ========================= */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.08,
+          }}
+          transition={{
+            duration: 0.7,
+            delay: 0.05,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="pt-20 lg:pt-28"
+        >
+          <div
+            className="
+              mb-8
+              flex
+              items-center
+              justify-between
+              border-b
+              border-white/[0.08]
+              pb-6
+            "
+          >
+            <div className="flex items-center gap-4">
+              <span
+                className="
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-gray-400
+                "
+              >
+                03
+              </span>
+
+              <span
+                className="
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-gray-400
+                "
+              >
+                Earlier Work
+              </span>
+            </div>
+
+            <span
+              className="
+                text-[10px]
+                font-medium
+                uppercase
+                tracking-[0.12em]
+                text-gray-400
+              "
+            >
+              {otherProjects.length
+                .toString()
+                .padStart(2, "0")}{" "}
+              projects
+            </span>
+          </div>
+
+          <ProjectsList projects={otherProjects} />
+        </motion.div>
       </div>
     </section>
   );

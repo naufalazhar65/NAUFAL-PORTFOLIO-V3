@@ -1,244 +1,262 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FiZap, FiCpu, FiLayers, FiSmartphone } from "react-icons/fi";
+import {
+  FiCheckCircle,
+  FiCpu,
+  FiLayers,
+  FiSmartphone,
+} from "react-icons/fi";
+
+const facts = [
+  {
+    icon: FiSmartphone,
+    label: "Target",
+    value: "Android + iOS",
+  },
+  {
+    icon: FiLayers,
+    label: "Editor",
+    value: "React Flow",
+  },
+  {
+    icon: FiCpu,
+    label: "Runtime",
+    value: "Appium",
+  },
+  {
+    icon: FiCheckCircle,
+    label: "State",
+    value: "Active build",
+  },
+  {
+    icon: null,
+    label: "Language",
+    value: "TypeScript",
+  },
+  {
+    icon: null,
+    label: "CI",
+    value: "Headless + JUnit",
+  },
+];
 
 export default function Overview({ project }) {
-  const facts = [
-    {
-      icon: <FiSmartphone />,
-      label: "Platform",
-      value: "Android",
-    },
-    {
-      icon: <FiLayers />,
-      label: "Framework",
-      value: "React Flow",
-    },
-    {
-      icon: <FiCpu />,
-      label: "Execution",
-      value: "Appium",
-    },
-    {
-      icon: <FiZap />,
-      label: "Language",
-      value: "TypeScript",
-    },
-  ];
+  if (!project) {
+    return null;
+  }
 
   return (
     <section
       id="overview"
-      className="relative py-24"
+      className="
+        relative
+        border-b
+        border-white/[0.08]
+        py-16
+        sm:py-20
+        lg:py-24
+      "
     >
-      <div className="mx-auto max-w-6xl">
-
-        {/* Heading */}
+      <div
+        className="
+          mx-auto
+          w-full
+          max-w-[1280px]
+          px-4
+          sm:px-6
+          lg:px-0
+        "
+      >
+        {/* =========================
+            HEADER
+        ========================= */}
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-14"
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.15,
+          }}
+          transition={{
+            duration: 0.6,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="
+            grid
+            gap-8
+            border-b
+            border-white/[0.08]
+            pb-8
+            lg:grid-cols-[0.7fr_1.3fr]
+            lg:gap-20
+          "
         >
-          <span
-            className="
-              text-sm
-              font-semibold
-              uppercase
-              tracking-[6px]
-              text-primary
-            "
-          >
-            Overview
-          </span>
-
-          <h2
-            className="
-              mt-4
-              text-4xl
-              font-black
-              text-white
-              md:text-5xl
-            "
-          >
-            Understand the Project
-          </h2>
-
-          <p
-            className="
-              mt-4
-              max-w-2xl
-              text-lg
-              leading-8
-              text-gray-400
-            "
-          >
-            A quick overview of the purpose, architecture,
-            and technologies behind FlowTest Studio.
-          </p>
-        </motion.div>
-
-        {/* Top Grid */}
-
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_.8fr]">
-
-          {/* Highlight */}
-
-          <motion.div
-            initial={{ opacity: 0, x: -25 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="
-              rounded-3xl
-              border
-              border-white/10
-              bg-white/[0.03]
-              p-8
-            "
-          >
-            <div className="flex items-center gap-3">
-              <div
+          <div>
+            <div className="flex items-center gap-4">
+              <span
                 className="
-                  rounded-xl
-                  bg-primary/10
-                  p-3
-                  text-primary
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-[#16f2b3]
                 "
               >
-                ✨
-              </div>
+                03
+              </span>
 
-              <h3
+              <span
                 className="
-                  text-xl
-                  font-bold
-                  text-white
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-gray-400
                 "
               >
-                Highlight
-              </h3>
+                Project Snapshot
+              </span>
             </div>
+          </div>
 
+          <div>
             <p
               className="
-                mt-8
-                text-3xl
-                font-bold
-                leading-relaxed
-                text-primary
+                max-w-3xl
+                text-[clamp(24px,3vw,40px)]
+                font-medium
+                leading-[1.2]
+                tracking-[-0.04em]
+                text-white
               "
             >
               {project.highlight}
             </p>
-          </motion.div>
 
-          {/* Quick Facts */}
-
-          <motion.div
-            initial={{ opacity: 0, x: 25 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="
-              rounded-3xl
-              border
-              border-white/10
-              bg-white/[0.03]
-              p-8
-            "
-          >
-            <h3
+            <p
               className="
-                mb-6
-                text-xl
-                font-bold
-                text-white
+                mt-6
+                max-w-3xl
+                text-[14px]
+                leading-7
+                text-gray-400
               "
             >
-              Quick Facts
-            </h3>
+              {project.description}
+            </p>
+          </div>
+        </motion.div>
 
-            <div className="space-y-5">
-              {facts.map((item) => (
-                <div
-                  key={item.label}
-                  className="
-                    flex
-                    items-center
-                    justify-between
-                    border-b
-                    border-white/5
-                    pb-4
-                    last:border-none
-                    last:pb-0
-                  "
-                >
-                  <div className="flex items-center gap-3 text-gray-400">
-                    <span className="text-primary">
-                      {item.icon}
-                    </span>
+        {/* =========================
+            FACTS
+        ========================= */}
 
-                    {item.label}
-                  </div>
+        <div
+          className="
+            mt-8
+            grid
+            border-l
+            border-t
+            border-white/[0.08]
+            sm:grid-cols-2
+            lg:grid-cols-3
+          "
+        >
+          {facts.map((item, index) => {
+            const Icon = item.icon;
 
+            return (
+              <motion.div
+                key={item.label}
+                initial={{
+                  opacity: 0,
+                  y: 16,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.12,
+                }}
+                transition={{
+                  duration: 0.45,
+                  delay: index * 0.03,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="
+                  min-h-[130px]
+                  border-b
+                  border-r
+                  border-white/[0.08]
+                  px-5
+                  py-5
+                  sm:min-h-[140px]
+                "
+              >
+                <div className="flex items-center justify-between">
                   <span
                     className="
+                      font-mono
+                      text-[10px]
+                      tabular-nums
+                      text-gray-600
+                    "
+                  >
+                    {String(index + 1).padStart(
+                      2,
+                      "0",
+                    )}
+                  </span>
+
+                  {Icon && (
+                    <Icon
+                      size={14}
+                      className="text-gray-500"
+                    />
+                  )}
+                </div>
+
+                <div className="mt-8">
+                  <span
+                    className="
+                      block
+                      text-[9px]
                       font-semibold
+                      uppercase
+                      tracking-[0.12em]
+                      text-gray-500
+                    "
+                  >
+                    {item.label}
+                  </span>
+
+                  <strong
+                    className="
+                      mt-2
+                      block
+                      text-base
+                      font-medium
+                      tracking-[-0.025em]
                       text-white
                     "
                   >
                     {item.value}
-                  </span>
+                  </strong>
                 </div>
-              ))}
-            </div>
-          </motion.div>
-
+              </motion.div>
+            );
+          })}
         </div>
-
-        {/* Description */}
-
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="
-            mt-10
-            rounded-3xl
-            border
-            border-white/10
-            bg-white/[0.03]
-            p-8
-          "
-        >
-          <h3
-            className="
-              text-xl
-              font-bold
-              text-white
-            "
-          >
-            Description
-          </h3>
-
-          <p
-            className="
-              mt-6
-              max-w-4xl
-              text-lg
-              leading-9
-              text-gray-400
-            "
-          >
-            {project.description}
-          </p>
-        </motion.div>
-
       </div>
     </section>
   );

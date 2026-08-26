@@ -1,11 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FiChevronRight } from "react-icons/fi";
 
-export default function NavigationItem({ id, label, active }) {
+export default function NavigationItem({
+  id,
+  label,
+  number,
+  active,
+}) {
   return (
     <button
+      type="button"
       onClick={() =>
         document.getElementById(id)?.scrollIntoView({
           behavior: "smooth",
@@ -19,78 +24,68 @@ export default function NavigationItem({ id, label, active }) {
         w-full
         items-center
         gap-3
-        overflow-hidden
-        rounded-xl
-        px-4
-        py-3 
+        py-2
         text-left
-        transition-all
-        duration-300
-
+        transition-colors
+        duration-200
         ${
           active
-            ? "bg-[#16f2b3]/10 text-[#16f2b3]"
-            : "text-gray-400 hover:bg-white/5 hover:text-white"
+            ? "text-white"
+            : "text-gray-600 hover:text-gray-300"
         }
       `}
     >
-      {/* Active Bar */}
-
-      <motion.div
+      <motion.span
+        initial={false}
         animate={{
-          scaleY: active ? 1 : 0,
+          opacity: active ? 1 : 0,
+          scaleY: active ? 1 : 0.5,
         }}
         transition={{
           duration: 0.2,
+          ease: "easeOut",
         }}
         className="
           absolute
-          left-0
-          top-2
-          bottom-2
-          w-1
-          rounded-full
+          -left-[17px]
+          top-1/2
+          h-4
+          w-px
+          -translate-y-1/2
+          origin-center
           bg-[#16f2b3]
         "
       />
 
-      {/* Bullet */}
-
-      <div
+      <span
         className={`
-          h-2.5
-          w-2.5
-          rounded-full
-          transition-all
-          duration-300
-
+          w-6
+          shrink-0
+          font-mono
+          text-[9px]
+          tabular-nums
+          tracking-[0.04em]
           ${
             active
-              ? "bg-[#16f2b3] shadow-[0_0_10px_rgba(22,242,179,.7)]"
-              : "bg-white/20 group-hover:bg-white/40"
+              ? "text-[#16f2b3]"
+              : "text-gray-700 group-hover:text-gray-500"
           }
         `}
-      />
+      >
+        {number}
+      </span>
 
-      {/* Label */}
-
-      <span className="flex-1 font-medium">{label}</span>
-
-      {/* Arrow */}
-
-      <FiChevronRight
-        className={`
-          text-sm
-          transition-all
-          duration-300
-
-          ${
-            active
-              ? "translate-x-0 opacity-100 text-[#16f2b3]"
-              : "translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
-          }
-        `}
-      />
+      <span
+        className="
+          min-w-0
+          truncate
+          text-[11px]
+          font-medium
+          tracking-[-0.01em]
+        "
+      >
+        {label}
+      </span>
     </button>
   );
 }

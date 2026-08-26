@@ -1,22 +1,24 @@
 "use client";
 
 import {
-  FiFolder,
+  FiChevronDown,
+  FiFileText,
   FiLoader,
   FiPlay,
+  FiRefreshCw,
   FiSave,
-  FiSettings,
-  FiSquare,
 } from "react-icons/fi";
 
 import { runWorkflow } from "../execution/runWorkflow";
 import { useExecutionStore } from "../store/executionStore";
 
 export default function TopBar() {
-  const { running, progress } = useExecutionStore((state) => ({
-    running: state.running,
-    progress: state.progress,
-  }));
+  const { running, progress } = useExecutionStore(
+    (state) => ({
+      running: state.running,
+      progress: state.progress,
+    }),
+  );
 
   const workflowStatus = running
     ? `Running ${progress}%`
@@ -28,26 +30,39 @@ export default function TopBar() {
     <header
       className="
         relative
+        z-50
         flex
-        h-16
-        flex-shrink-0
+        h-[62px]
+        shrink-0
         items-center
         justify-between
-        overflow-hidden
         border-b
-        border-white/10
-        bg-[#161b22]
-        px-6
+        border-white/[0.08]
+        bg-[#11161d]
+        px-4
+        shadow-[0_4px_24px_rgba(0,0,0,.18)]
       "
     >
       {/* Progress */}
 
       <div
         className="
+          pointer-events-none
+          absolute
+          inset-x-0
+          bottom-0
+          h-px
+          bg-white/[0.04]
+        "
+      />
+
+      <div
+        className="
+          pointer-events-none
           absolute
           bottom-0
           left-0
-          h-[2px]
+          h-px
           bg-[#16f2b3]
           transition-all
           duration-500
@@ -57,36 +72,71 @@ export default function TopBar() {
         }}
       />
 
-      {/* Left */}
+      {/* =========================
+          LEFT
+      ========================= */}
 
-      <div className="flex min-w-0 flex-1 items-center gap-5 overflow-hidden">
-        {/* Logo */}
+      <div
+        className="
+          flex
+          min-w-0
+          items-center
+          gap-4
+          overflow-hidden
+        "
+      >
+        {/* Product Identity */}
 
-        <div className="flex shrink-0 items-center gap-3">
+        <div
+          className="
+            flex
+            shrink-0
+            items-center
+            gap-3
+          "
+        >
           <div
             className="
               flex
-              h-10
-              w-10
+              h-9
+              w-9
               items-center
               justify-center
-              rounded-xl
+              rounded-lg
               bg-gradient-to-br
               from-[#16f2b3]
-              to-[#0ea5e9]
+              to-[#3b82f6]
+              text-sm
               font-bold
               text-black
+              shadow-[0_8px_24px_rgba(22,242,179,.12)]
             "
           >
             F
           </div>
 
-          <div>
-            <h1 className="text-lg font-bold text-white">
+          <div className="hidden sm:block">
+            <h1
+              className="
+                text-[15px]
+                font-semibold
+                tracking-[-0.025em]
+                text-white
+              "
+            >
               FlowTest Studio
             </h1>
 
-            <p className="text-[11px] uppercase tracking-[3px] text-gray-500">
+            <p
+              className="
+                mt-0.5
+                text-[8px]
+                font-semibold
+                uppercase
+                tracking-[0.18em]
+                text-gray-500
+              "
+            >
               Visual Mobile Automation IDE
             </p>
           </div>
@@ -94,8 +144,17 @@ export default function TopBar() {
 
         {/* Status Cards */}
 
-        <div className="flex min-w-0 gap-3 overflow-x-auto scrollbar-hide">
+        <div
+          className="
+            hidden
+            min-w-0
+            items-center
+            gap-2
+            lg:flex
+          "
+        >
           <StatusCard
+            icon={<FiFileText size={13} />}
             title="Workflow"
             value="Untitled.flow"
             status={workflowStatus}
@@ -103,56 +162,70 @@ export default function TopBar() {
               running
                 ? "blue"
                 : progress === 100
-                ? "green"
-                : "yellow"
+                  ? "green"
+                  : "yellow"
             }
           />
 
           <StatusCard
-            title="Platform"
+            title="Target Platform"
             value="Android"
             status="Ready"
             color="green"
           />
 
           <StatusCard
-            title="Server"
+            title="Automation Server"
             value="Appium"
             status={running ? "Online" : "Offline"}
-            color={running ? "green" : "red"}
+            color={
+              running ? "green" : "red"
+            }
           />
         </div>
       </div>
 
-      {/* Toolbar */}
+      {/* =========================
+          RIGHT TOOLBAR
+      ========================= */}
 
-      <div className="ml-6 flex shrink-0 items-center gap-3">
+      <div className="flex shrink-0 items-center gap-2">
         <ToolbarButton
-          icon={<FiFolder />}
-          label="Open"
+          icon={<FiSave size={14} />}
+          label="Save"
         />
 
         <ToolbarButton
-          icon={<FiSave />}
-          label="Save"
+          icon={<FiRefreshCw size={13} />}
+          label="Retry"
+        />
+
+        <ToolbarButton
+          icon={<FiChevronDown size={13} />}
+          label="Dataset: None"
+          muted
         />
 
         <ToolbarButton
           icon={
             running ? (
-              <FiLoader className="animate-spin" />
+              <FiLoader
+                size={14}
+                className="animate-spin"
+              />
             ) : (
-              <FiPlay />
+              <FiPlay size={14} />
             )
           }
-          label={running ? "Running..." : "Run"}
+          label={
+            running
+              ? "Running..."
+              : "Run"
+          }
           active
           disabled={running}
           onClick={runWorkflow}
         />
-
-        
-
       </div>
     </header>
   );
@@ -162,39 +235,67 @@ function ToolbarButton({
   icon,
   label,
   active = false,
+  muted = false,
   disabled = false,
   onClick,
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
       disabled={disabled}
       className={`
         flex
+        h-8
         shrink-0
         items-center
         gap-2
-        rounded-xl
+        rounded-lg
         border
-        px-4
-        py-2
-        text-sm
+        px-3
+        text-[11px]
         font-medium
         transition-all
         duration-200
 
         ${
           active
-            ? "border-[#16f2b3] bg-[#16f2b3] text-black hover:bg-[#1af7ba]"
-            : "border-white/10 bg-white/5 text-white hover:bg-white/10"
+            ? `
+              border-[#16f2b3]/30
+              bg-[#16f2b3]
+              text-black
+              shadow-[0_8px_24px_rgba(22,242,179,.12)]
+              hover:bg-[#22f6ba]
+            `
+            : muted
+              ? `
+                border-white/[0.06]
+                bg-white/[0.015]
+                text-gray-500
+                hover:border-white/[0.1]
+                hover:bg-white/[0.03]
+                hover:text-gray-300
+              `
+              : `
+                border-white/[0.08]
+                bg-white/[0.025]
+                text-gray-300
+                hover:border-white/[0.14]
+                hover:bg-white/[0.05]
+                hover:text-white
+              `
         }
 
-        ${disabled ? "cursor-not-allowed opacity-50" : ""}
+        ${
+          disabled
+            ? "cursor-not-allowed opacity-50"
+            : ""
+        }
       `}
     >
       {icon}
 
-      {label && <span>{label}</span>}
+      <span>{label}</span>
     </button>
   );
 }
@@ -204,10 +305,11 @@ function StatusCard({
   value,
   status,
   color,
+  icon,
 }) {
   const dotColor = {
-    green: "bg-green-400",
-    yellow: "bg-yellow-400",
+    green: "bg-emerald-400",
+    yellow: "bg-amber-400",
     red: "bg-red-400",
     blue: "bg-blue-400",
   };
@@ -215,31 +317,70 @@ function StatusCard({
   return (
     <div
       className="
-        shrink-0
-        rounded-xl
+        flex
+        h-10
+        min-w-[150px]
+        items-center
+        gap-3
+        rounded-lg
         border
-        border-white/10
-        bg-[#0f141d]
-        px-4
-        py-2
+        border-white/[0.07]
+        bg-[#0d1218]
+        px-3
       "
     >
-      <p className="text-[10px] uppercase tracking-[2px] text-gray-500">
-        {title}
-      </p>
-
-      <div className="mt-1 flex items-center gap-2">
-        <span className="font-semibold text-white">
-          {value}
+      {icon && (
+        <span className="text-gray-500">
+          {icon}
         </span>
+      )}
 
-        <span
-          className={`h-2 w-2 rounded-full ${dotColor[color]}`}
-        />
+      <div className="min-w-0">
+        <p
+          className="
+            truncate
+            text-[8px]
+            font-semibold
+            uppercase
+            tracking-[0.12em]
+            text-gray-600
+          "
+        >
+          {title}
+        </p>
 
-        <span className="text-xs text-gray-400">
-          {status}
-        </span>
+        <div className="mt-0.5 flex items-center gap-2">
+          <span
+            className="
+              max-w-[92px]
+              truncate
+              text-[11px]
+              font-medium
+              text-gray-200
+            "
+          >
+            {value}
+          </span>
+
+          <span
+            className={`
+              h-1.5
+              w-1.5
+              shrink-0
+              rounded-full
+              ${dotColor[color]}
+            `}
+          />
+
+          <span
+            className="
+              text-[9px]
+              text-gray-500
+            "
+          >
+            {status}
+          </span>
+        </div>
       </div>
     </div>
   );

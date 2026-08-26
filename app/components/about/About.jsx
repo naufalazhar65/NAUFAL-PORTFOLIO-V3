@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion";
 
-import { LayoutContainer, Section } from "../layout";
-
 import { stagger } from "@/app/lib/motion";
 
 import AboutContent from "./components/AboutContent";
@@ -11,42 +9,45 @@ import AboutImage from "./components/AboutImage";
 
 export default function About() {
   return (
-    <Section>
-      <LayoutContainer>
+    <section
+      id="about"
+      className="
+        relative
+        border-b
+        border-white/[0.08]
+        py-20
+        sm:py-24
+        lg:py-32
+      "
+    >
+      <div
+        className="
+          mx-auto
+          w-full
+          max-w-[1280px]
+          px-4
+          sm:px-6
+          lg:px-0
+        "
+      >
         <motion.div
           variants={stagger}
           initial="hidden"
-          whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.3,
-          }}
+          animate="visible"
           className="
             grid
-            grid-cols-1
-            items-center
+            items-start
             gap-12
-
-            lg:grid-cols-[minmax(0,1fr)_420px]
-            lg:gap-16
-
-            xl:grid-cols-[minmax(0,1fr)_460px]
-            xl:gap-24
+            lg:grid-cols-[1.05fr_0.95fr]
+            lg:gap-20
+            xl:gap-28
           "
         >
-          {/* ========================= */}
-          {/* LEFT */}
-          {/* ========================= */}
-
           <AboutContent />
-
-          {/* ========================= */}
-          {/* RIGHT */}
-          {/* ========================= */}
 
           <AboutImage />
         </motion.div>
-      </LayoutContainer>
-    </Section>
+      </div>
+    </section>
   );
 }

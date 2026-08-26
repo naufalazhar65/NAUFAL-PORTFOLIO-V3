@@ -4,111 +4,196 @@ import { motion } from "framer-motion";
 
 import { fadeUp } from "@/app/lib/motion";
 
+const focus = [
+  {
+    title: "Automation",
+    text:
+      "Building reusable test flows instead of one-off scripts.",
+  },
+  {
+    title: "Failure investigation",
+    text:
+      "Tracing selectors, device sessions, test data, and execution state.",
+  },
+  {
+    title: "QA tooling",
+    text:
+      "Turning repetitive QA workflows into tools that are easier to inspect and maintain.",
+  },
+];
+
 export default function AboutContent() {
   return (
-    <div className="max-w-2xl">
-      {/* ========================= */}
-      {/* EYEBROW */}
-      {/* ========================= */}
+    <div className="max-w-3xl">
+      {/* =========================
+          META
+      ========================= */}
 
-      <motion.span
+      <motion.div
+        variants={fadeUp}
+        className="flex items-center gap-4"
+      >
+        <span
+          className="
+            text-[10px]
+            font-semibold
+            uppercase
+            tracking-[0.14em]
+            text-[#16f2b3]
+          "
+        >
+          01
+        </span>
+
+        <span
+          className="
+            text-[10px]
+            font-semibold
+            uppercase
+            tracking-[0.14em]
+            text-gray-400
+          "
+        >
+          About
+        </span>
+      </motion.div>
+
+      {/* =========================
+          TITLE
+      ========================= */}
+
+      <motion.h1
         variants={fadeUp}
         className="
-          inline-block
-          text-sm
+          mt-8
+          max-w-3xl
+          text-[clamp(52px,7vw,96px)]
           font-semibold
-          uppercase
-          tracking-[6px]
-          text-[#16f2b3]
-        "
-      >
-        Who I Am
-      </motion.span>
-
-      {/* ========================= */}
-      {/* TITLE */}
-      {/* ========================= */}
-
-      <motion.h2
-        variants={fadeUp}
-        className="
-          mt-5
-
-          text-4xl
-          font-black
-          leading-[1.05]
-          tracking-tight
+          leading-[0.92]
+          tracking-[-0.075em]
           text-white
-
-          md:text-5xl
-
-          xl:text-6xl
         "
       >
-        Software Quality
+        I like finding out
         <br />
-        Assurance Engineer
-      </motion.h2>
+        <span className="text-gray-400">
+          why tests fail.
+        </span>
+      </motion.h1>
 
-      {/* ========================= */}
-      {/* INTRO */}
-      {/* ========================= */}
+      {/* =========================
+          INTRO
+      ========================= */}
 
       <motion.p
         variants={fadeUp}
         className="
-          mt-8
-          max-w-xl
-
-          text-lg
+          mt-10
+          max-w-2xl
+          text-[18px]
           leading-8
-
+          tracking-[-0.02em]
           text-gray-300
+          sm:text-[19px]
         "
       >
-        I'm{" "}
-        <span className="font-semibold text-white">
+        I&apos;m{" "}
+        <span className="font-medium text-white">
           Naufal Azhar
         </span>
-        , a Software Quality Assurance Engineer specializing in{" "}
-        <span className="text-[#16f2b3]">
-          Automation Testing
-        </span>
-        ,{" "}
-        <span className="text-[#16f2b3]">
-          API Testing
-        </span>
-        ,{" "}
-        <span className="text-[#16f2b3]">
-          Performance Testing
-        </span>
-        , and{" "}
-        <span className="text-[#16f2b3]">
-          CI/CD Integration
-        </span>
-        .
+        , a Software Quality Assurance Engineer working
+        across automation, mobile testing, API validation,
+        and performance testing.
       </motion.p>
 
-      {/* ========================= */}
-      {/* DESCRIPTION */}
-      {/* ========================= */}
+      {/* =========================
+          PERSONAL APPROACH
+      ========================= */}
 
       <motion.p
         variants={fadeUp}
         className="
           mt-6
-          max-w-xl
-
-          text-lg
-          leading-8
-
-          text-gray-400
+          max-w-2xl
+          text-[14px]
+          leading-7
+          text-gray-300
         "
       >
-        I enjoy building scalable automation frameworks, improving
-        software quality, and creating reliable testing solutions that
-        help teams deliver software faster with confidence.
+        Most of my work starts with a practical question:
+        when something breaks, can I reproduce it, inspect it,
+        and explain what happened? That mindset has taken me
+        from writing test automation to building the tools
+        around execution, device sessions, failure evidence,
+        and reporting.
       </motion.p>
+
+      {/* =========================
+          FOCUS
+      ========================= */}
+
+      <motion.div
+        variants={fadeUp}
+        className="
+          mt-12
+          border-t
+          border-white/[0.08]
+        "
+      >
+        <div
+          className="
+            grid
+            gap-0
+            border-b
+            border-white/[0.08]
+            sm:grid-cols-3
+          "
+        >
+          {focus.map((item, index) => (
+            <div
+              key={item.title}
+              className={`
+                py-6
+                ${
+                  index !== focus.length - 1
+                    ? "border-b border-white/[0.08] sm:border-b-0 sm:border-r"
+                    : ""
+                }
+                ${
+                  index === 0
+                    ? "sm:pr-7"
+                    : index === 1
+                      ? "sm:px-7"
+                      : "sm:pl-7"
+                }
+              `}
+            >
+              <span
+                className="
+                  text-[9px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-gray-400
+                "
+              >
+                {item.title}
+              </span>
+
+              <p
+                className="
+                  mt-3
+                  text-sm
+                  leading-6
+                  text-gray-300
+                "
+              >
+                {item.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
     </div>
   );
 }

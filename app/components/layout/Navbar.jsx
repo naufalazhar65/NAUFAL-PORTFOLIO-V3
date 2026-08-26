@@ -1,12 +1,14 @@
 "use client";
 
-// @flow strict
-
 import Link from "next/link";
-import { AnimatePresence, motion, useMotionValue } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { HiOutlineMenuAlt3, HiX } from "react-icons/hi";
-import { FiDownload } from "react-icons/fi";
+import { motion } from "framer-motion";
+import {
+  FiArrowUpRight,
+  FiDownload,
+  FiMenu,
+  FiX,
+} from "react-icons/fi";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { personalData } from "@/utils/data/personal-data";
@@ -36,431 +38,581 @@ const menus = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  
 
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [visible, setVisible] = useState(true);
-
-  const lastScrollY = useRef(0);
-
-  // Mouse position for glow
-  const mouseX = useMotionValue(-300);
-  const mouseY = useMotionValue(-300);
 
   useEffect(() => {
     const handleScroll = () => {
-      const current = window.scrollY;
-
-      setScrolled(current > 30);
-
-      if (current <= 20) {
-        setVisible(true);
-      } else {
-        if (current > lastScrollY.current) {
-          setVisible(false);
-        } else {
-          setVisible(true);
-        }
-      }
-
-      lastScrollY.current = current;
+      setScrolled(window.scrollY > 20);
     };
 
     handleScroll();
 
     window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener(
+        "scroll",
+        handleScroll,
+      );
+    };
   }, []);
 
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-
-    mouseX.set(e.clientX - rect.left);
-    mouseY.set(e.clientY - rect.top);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(-300);
-    mouseY.set(-300);
-  };
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <>
-      <AnimatePresence>
-        {visible && (
-          <motion.nav
-            initial={{
-              y: -120,
-              opacity: 0,
-            }}
-            animate={{
-              y: 0,
-              opacity: 1,
-            }}
-            exit={{
-              y: -120,
-              opacity: 0,
-            }}
-            transition={{
-              duration: 0.45,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="fixed inset-x-0 top-5 z-[9999] flex justify-center px-4"
+      {/* =========================
+          DESKTOP / MAIN NAVBAR
+      ========================= */}
+
+      <motion.header
+        initial={{
+          opacity: 0,
+          y: -14,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 0.5,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+        className="
+          fixed
+          inset-x-0
+          top-0
+          z-[9999]
+          px-4
+          sm:px-6
+        "
+      >
+        <div
+          className={`
+            group
+            relative
+            mx-auto
+            mt-3
+            flex
+            h-14
+            max-w-[1240px]
+            items-center
+            justify-between
+            overflow-hidden
+            rounded-full
+            border
+            transition-all
+            duration-500
+
+            ${
+              scrolled
+                ? `
+                  border-white/[0.13]
+                  bg-white/[0.035]
+                  backdrop-blur-[24px]
+                  backdrop-saturate-[180%]
+                  shadow-[0_10px_50px_rgba(0,0,0,.22),0_0_40px_rgba(255,255,255,.018)]
+                `
+                : `
+                  border-white/[0.07]
+                  bg-white/[0.015]
+                  backdrop-blur-[14px]
+                  backdrop-saturate-[130%]
+                `
+            }
+          `}
+        >
+          {/* Top Highlight */}
+
+          <div
+            className="
+              pointer-events-none
+              absolute
+              inset-x-0
+              top-0
+              h-px
+              bg-gradient-to-r
+              from-transparent
+              via-white/25
+              to-transparent
+              opacity-70
+            "
+          />
+
+          {/* Inner Glow */}
+
+          <div
+            className={`
+              pointer-events-none
+              absolute
+              inset-0
+              rounded-full
+              bg-gradient-to-b
+              from-white/[0.055]
+              via-transparent
+              to-transparent
+              transition-opacity
+              duration-500
+              ${
+                scrolled
+                  ? "opacity-100"
+                  : "opacity-50"
+              }
+            `}
+          />
+
+          {/* Center Glow */}
+
+          <div
+            className="
+              pointer-events-none
+              absolute
+              left-1/2
+              top-1/2
+              h-20
+              w-72
+              -translate-x-1/2
+              -translate-y-1/2
+              rounded-full
+              bg-white/[0.02]
+              blur-2xl
+            "
+          />
+
+          {/* Content */}
+
+          <div
+            className="
+              relative
+              z-10
+              flex
+              w-full
+              items-center
+              justify-between
+              px-4
+              sm:px-5
+            "
           >
-            <motion.div
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              animate={{
-                width: scrolled ? "88%" : "95%",
-                height: scrolled ? 60 : 72,
-              }}
-              transition={{
-                duration: 0.35,
-              }}
-              className={`
-                relative
+            {/* =========================
+                LOGO
+            ========================= */}
+
+            <Link
+              href="/"
+              className="
+                group/logo
                 flex
-                w-full
-                max-w-7xl
                 items-center
-                justify-between
-                overflow-hidden
-                rounded-full
-                border
-                border-white/10
-                px-7
-                transition-all
-                duration-500
-
-                ${
-                  scrolled
-                    ? `
-                      bg-[#0d1224]/35
-                      backdrop-blur-[28px]
-                      shadow-[0_15px_60px_rgba(0,0,0,.28)]
-                    `
-                    : `
-                      bg-[#0d1224]/15
-                      backdrop-blur-[18px]
-                    `
-                }
-              `}
+                gap-2
+              "
             >
-              {/* Glass Highlight */}
-
-              <div
+              <span
                 className="
-                  pointer-events-none
-                  absolute
-                  inset-0
-                  rounded-full
-                  bg-gradient-to-b
-                  from-white/10
-                  via-white/[0.03]
-                  to-transparent
-                "
-              />
-
-              {/* Glass Border */}
-
-              <div
-                className="
-                  pointer-events-none
-                  absolute
-                  inset-0
-                  rounded-full
-                  ring-1
-                  ring-white/10
-                "
-              />
-
-              {/* Mouse Glow */}
-
-              <motion.div
-                className="
-    pointer-events-none
-    absolute
-    h-48
-    w-48
-    rounded-full
-    bg-[#16f2b3]/10
-    blur-[80px]
-  "
-                style={{
-                  left: mouseX,
-                  top: mouseY,
-                  translateX: "-50%",
-                  translateY: "-50%",
-                }}
-              />
-
-              {/* Logo */}
-
-              <Link
-                href="/"
-                className="
-                  relative
-                  z-10
                   flex
+                  h-7
+                  w-7
                   items-center
-                  gap-2
-                  text-2xl
+                  justify-center
+                  rounded-full
+                  bg-white
+                  text-[11px]
                   font-bold
-                  tracking-wide
-                  text-white
+                  text-black
+                  shadow-[0_6px_20px_rgba(255,255,255,.08)]
                   transition-all
                   duration-300
-                  hover:scale-105
+                  group-hover/logo:rotate-6
+                  group-hover/logo:scale-105
                 "
               >
-                <motion.div
-                  whileHover={{
-                    rotate: 360,
-                  }}
-                  transition={{
-                    duration: 0.6,
-                  }}
-                  className="
-                    flex
-                    h-9
-                    w-9
-                    items-center
-                    justify-center
-                    rounded-full
-                    bg-gradient-to-br
-                    from-[#16f2b3]
-                    to-cyan-500
-                    font-bold
-                    text-black
-                  "
-                >
-                  N
-                </motion.div>
+                N
+              </span>
 
-                <span>
-                  Portfolio
-                  <span className="text-[#16f2b3]">.</span>
+              <span
+                className="
+                  text-sm
+                  font-semibold
+                  tracking-[-0.03em]
+                  text-white
+                "
+              >
+                Naufal
+                <span className="text-[#16f2b3]">
+                  .
                 </span>
-              </Link>
+              </span>
+            </Link>
 
-              {/* Desktop Menu */}
+            {/* =========================
+                DESKTOP MENU
+            ========================= */}
 
-              <ul className="relative z-10 hidden items-center gap-2 md:flex">
-                {menus.map((menu) => {
-                  const active = pathname === menu.href;
+            <nav className="hidden items-center gap-1 md:flex">
+              {menus.map((menu) => {
+                const active =
+                  pathname === menu.href ||
+                  (menu.href !== "/" &&
+                    pathname.startsWith(
+                      `${menu.href}/`,
+                    ));
 
-                  return (
-                    <li key={menu.name}>
-                      <Link
-                        href={menu.href}
+                return (
+                  <Link
+                    key={menu.name}
+                    href={menu.href}
+                    className="
+                      group/menu
+                      relative
+                      px-3.5
+                      py-2
+                      text-[12px]
+                      font-medium
+                    "
+                  >
+                    {/* Active */}
+
+                    {active && (
+                      <motion.span
+                        layoutId="navbar-active"
                         className="
-                          relative
-                          px-5
-                          py-2
-                          text-sm
-                          font-medium
-                          transition-all
-                          duration-300
+                          absolute
+                          inset-0
+                          rounded-full
+                          border
+                          border-white/[0.08]
+                          bg-white/[0.05]
+                          shadow-[inset_0_1px_0_rgba(255,255,255,.08),0_0_20px_rgba(255,255,255,.015)]
                         "
-                      >
-                        {active && (
-                          <motion.div
-                            layoutId="active-navbar"
-                            transition={{
-                              type: "spring",
-                              stiffness: 380,
-                              damping: 28,
-                            }}
-                            className="
-                              absolute
-                              inset-0
-                              rounded-full
-                              border
-                              border-white/10
-                              bg-white/10
-                            "
-                          />
-                        )}
+                        transition={{
+                          type: "spring",
+                          stiffness: 420,
+                          damping: 32,
+                        }}
+                      />
+                    )}
 
-                        <span
-                          className={`
-                            relative
-                            z-10
-                            transition-all
-                            duration-300
+                    {/* Hover Surface */}
 
-                            ${
-                              active
-                                ? "text-[#16f2b3]"
-                                : "text-gray-300 hover:text-white"
-                            }
-                          `}
-                        >
-                          {menu.name}
-                        </span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+                    {!active && (
+                      <span
+                        className="
+                          pointer-events-none
+                          absolute
+                          inset-0
+                          rounded-full
+                          bg-white/[0.02]
+                          opacity-0
+                          transition-opacity
+                          duration-200
+                          group-hover/menu:opacity-100
+                        "
+                      />
+                    )}
 
-              {/* Resume */}
+                    <span
+                      className={`
+                        relative
+                        z-10
+                        transition-colors
+                        duration-200
+                        ${
+                          active
+                            ? "text-white"
+                            : "text-gray-400 group-hover/menu:text-gray-100"
+                        }
+                      `}
+                    >
+                      {menu.name}
+                    </span>
+                  </Link>
+                );
+              })}
+            </nav>
 
+            {/* =========================
+                RIGHT
+            ========================= */}
+
+            <div className="flex items-center gap-3">
               <Link
                 href={personalData.resume}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="
-                  relative
-                  z-10
+                  group/resume
                   hidden
                   items-center
                   gap-2
                   rounded-full
-                  border
-                  border-[#16f2b3]/30
-                  bg-[#16f2b3]/10
-                  px-5
-                  py-2.5
-                  text-sm
-                  font-semibold
-                  text-[#16f2b3]
+                  px-2.5
+                  py-1.5
+                  text-[11px]
+                  font-medium
+                  text-gray-400
                   transition-all
-                  duration-300
-                  hover:scale-105
-                  hover:border-[#16f2b3]
-                  hover:bg-[#16f2b3]
-                  hover:text-black
-                  hover:shadow-[0_0_35px_rgba(22,242,179,.35)]
+                  duration-200
+                  hover:bg-white/[0.03]
+                  hover:text-white
                   lg:flex
                 "
               >
-                <FiDownload size={17} />
+                <FiDownload
+                  size={13}
+                  className="transition-transform duration-200 group-hover/resume:-translate-y-0.5"
+                />
+
                 Resume
+
+                <FiArrowUpRight
+                  size={11}
+                  className="
+                    text-gray-500
+                    transition-all
+                    duration-200
+                    group-hover/resume:-translate-y-0.5
+                    group-hover/resume:translate-x-0.5
+                    group-hover/resume:text-gray-300
+                  "
+                />
               </Link>
 
-              {/* Mobile Button */}
+              {/* Mobile Menu Button */}
 
               <button
-                onClick={() => setOpen(!open)}
-                aria-label="Toggle Menu"
+                type="button"
+                onClick={() =>
+                  setOpen((value) => !value)
+                }
+                aria-label={
+                  open
+                    ? "Close navigation"
+                    : "Open navigation"
+                }
+                aria-expanded={open}
                 className="
-                  relative
-                  z-10
                   flex
+                  h-8
+                  w-8
                   items-center
                   justify-center
-                  text-white
+                  rounded-full
+                  text-gray-400
+                  transition-all
+                  duration-200
+                  hover:bg-white/[0.05]
+                  hover:text-white
                   md:hidden
                 "
               >
-                {open ? <HiX size={30} /> : <HiOutlineMenuAlt3 size={30} />}
+                {open ? (
+                  <FiX size={19} />
+                ) : (
+                  <FiMenu size={19} />
+                )}
               </button>
-            </motion.div>
-          </motion.nav>
-        )}
-      </AnimatePresence>
-      {/* Mobile Menu */}
+            </div>
+          </div>
+        </div>
+      </motion.header>
 
-      <AnimatePresence>
-        {open && (
-          <>
-            {/* Background Blur */}
+      {/* =========================
+          MOBILE MENU
+      ========================= */}
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setOpen(false)}
+      {open && (
+        <>
+          {/* Overlay */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+            className="
+              fixed
+              inset-0
+              z-[9997]
+              bg-black/40
+              backdrop-blur-md
+              md:hidden
+            "
+            onClick={() => setOpen(false)}
+          />
+
+          {/* Menu */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -10,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: -10,
+            }}
+            transition={{
+              duration: 0.25,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="
+              fixed
+              left-4
+              right-4
+              top-[74px]
+              z-[9998]
+              overflow-hidden
+              rounded-3xl
+              border
+              border-white/[0.1]
+              bg-[#060606]/80
+              backdrop-blur-[24px]
+              backdrop-saturate-[180%]
+              shadow-[0_25px_80px_rgba(0,0,0,.4),0_0_50px_rgba(255,255,255,.025)]
+              md:hidden
+            "
+          >
+            {/* Mobile Glow */}
+
+            <div
               className="
-                fixed
-                inset-0
-                z-[9997]
-                bg-black/30
-                backdrop-blur-sm
-                md:hidden
+                pointer-events-none
+                absolute
+                right-[-60px]
+                top-[-60px]
+                h-40
+                w-40
+                rounded-full
+                bg-white/[0.035]
+                blur-3xl
               "
             />
 
-            {/* Floating Menu */}
+            <nav className="relative z-10 p-3">
+              {menus.map((menu) => {
+                const active =
+                  pathname === menu.href ||
+                  (menu.href !== "/" &&
+                    pathname.startsWith(
+                      `${menu.href}/`,
+                    ));
 
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: -25,
-                scale: 0.95,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                scale: 1,
-              }}
-              exit={{
-                opacity: 0,
-                y: -20,
-                scale: 0.95,
-              }}
-              transition={{
-                duration: 0.25,
-              }}
-              className="
-                fixed
-                top-24
-                left-4
-                right-4
-                z-[9998]
-                overflow-hidden
-                rounded-3xl
-                border
-                border-white/10
-                bg-[#0d1224]/70
-                backdrop-blur-2xl
-                shadow-[0_20px_80px_rgba(0,0,0,.45)]
-                md:hidden
-              "
-            >
-              {/* Glow */}
-
-              <div
-                className="
-                  absolute
-                  inset-0
-                  bg-gradient-to-br
-                    from-[#16f2b3]/10
-                    via-transparent
-                    to-[#16f2b3]/5
-                  pointer-events-none
-                "
-              />
-
-              <div className="relative flex flex-col p-4">
-                {menus.map((menu) => (
+                return (
                   <Link
                     key={menu.name}
                     href={menu.href}
-                    onClick={() => setOpen(false)}
+                    onClick={() =>
+                      setOpen(false)
+                    }
                     className={`
+                      group/mobile
+                      flex
+                      items-center
+                      justify-between
                       rounded-2xl
-                      px-5
+                      px-4
                       py-4
+                      text-sm
                       transition-all
-                      duration-300
+                      duration-200
 
                       ${
-                        pathname === menu.href
-                          ? "bg-white/10 text-[#16f2b3]"
-                          : "text-white hover:bg-white/5"
+                        active
+                          ? "bg-white/[0.07] text-white"
+                          : "text-gray-400 hover:bg-white/[0.035] hover:text-white"
                       }
                     `}
                   >
-                    {menu.name}
+                    <span>
+                      {menu.name}
+                    </span>
+
+                    {active ? (
+                      <span
+                        className="
+                          h-1.5
+                          w-1.5
+                          rounded-full
+                          bg-[#16f2b3]
+                          shadow-[0_0_10px_rgba(22,242,179,.25)]
+                        "
+                      />
+                    ) : (
+                      <FiArrowUpRight
+                        size={13}
+                        className="
+                          text-gray-600
+                          opacity-0
+                          transition-all
+                          duration-200
+                          group-hover/mobile:translate-x-0.5
+                          group-hover/mobile:-translate-y-0.5
+                          group-hover/mobile:text-gray-300
+                          group-hover/mobile:opacity-100
+                        "
+                      />
+                    )}
                   </Link>
-                ))}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+                );
+              })}
+            </nav>
+
+            <div className="border-t border-white/[0.08] px-3 pb-3 pt-3">
+  <Link
+    href={personalData.resume}
+    target="_blank"
+    rel="noopener noreferrer"
+    onClick={() => setOpen(false)}
+    className="
+      flex
+      items-center
+      justify-between
+      rounded-2xl
+      border
+      border-[#16f2b3]/20
+      bg-[#16f2b3]/[0.05]
+      px-4
+      py-3.5
+      text-sm
+      font-medium
+      text-white
+      transition-all
+      duration-200
+      hover:border-[#16f2b3]/30
+      hover:bg-[#16f2b3]/[0.08]
+    "
+  >
+    <span className="flex items-center gap-3">
+      <FiDownload
+        size={15}
+        className="text-[#16f2b3]"
+      />
+
+      Download Resume
+    </span>
+
+    <FiArrowUpRight
+      size={13}
+      className="text-gray-500"
+    />
+  </Link>
+</div>
+          </motion.div>
+        </>
+      )}
     </>
   );
 }

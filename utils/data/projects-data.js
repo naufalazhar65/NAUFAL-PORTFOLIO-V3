@@ -23,19 +23,19 @@ export const projectsData = [
     gallery: [automation],
 
     summary:
-      "End-to-end automation framework using Selenium, Cypress and WebdriverIO.",
+      "A browser automation setup built around Selenium, Cypress, and WebdriverIO.",
 
     description:
-      "Developed end-to-end automation frameworks using Selenium, Cypress and WebdriverIO with Page Object Model architecture, reducing regression testing time and improving software quality.",
+      "Built end-to-end browser automation with Selenium, Cypress, and WebdriverIO using Page Object Model structure to make repeated regression checks faster and easier to maintain.",
 
     challenge:
-      "Regression testing was taking too much time due to repetitive manual execution.",
+      "Repeated manual regression checks were taking too much time and were difficult to scale as coverage grew.",
 
     solution:
-      "Built a Page Object Model automation framework integrated with GitHub Actions for faster and consistent regression testing.",
+      "Built a Page Object Model automation framework with GitHub Actions so the same regression suite could be run consistently in CI.",
 
     highlight:
-      "Reduced regression execution time by 70% through automated testing.",
+      "Reduced regression execution time by 70% by moving repetitive checks into automated test flows.",
 
     github: "https://github.com/naufalazhar65/CYPRESS-CUCUMBER-POM",
     githubLabel: "View GitHub",
@@ -190,23 +190,23 @@ npm run cy:run`,
     gallery: [mobile],
 
     summary:
-      "Scalable cross-platform mobile automation framework built with Appium, Python, and Pytest, supporting Android & iOS with Page Object Model architecture, HTML reporting, screenshots, and Telegram notifications.",
+      "A cross-platform mobile automation framework built with Appium, Python, and Pytest for Android and iOS.",
 
     description:
-      "Designed and developed a scalable mobile automation framework for Android and iOS applications using Appium, Python, and Pytest. The framework follows the Page Object Model architecture and includes centralized driver management, reusable utilities, HTML reporting, screenshot capture, GitHub Actions CI integration, and automated Telegram notifications.",
+      "Built an Appium-based mobile automation framework with Python and Pytest, using Page Object Model, shared driver setup, HTML reports, screenshots, GitHub Actions, and Telegram notifications.",
 
     github: "https://github.com/naufalazhar65/SELENIUM-MOBILE-PYTHON",
 
     githubLabel: "View GitHub",
 
     challenge:
-      "Manual testing on Android devices required repetitive execution and increased regression time.",
+      "Repeated Android regression checks required too much manual execution, while keeping Android and iOS coverage organized added more maintenance.",
 
     solution:
-      "Implemented a reusable Page Object Model framework with automated test execution and reporting.",
+      "Implemented reusable Page Objects, centralized driver creation, automated reporting, and CI execution for Android and iOS suites.",
 
     highlight:
-      "Built a reusable cross-platform automation framework capable of running Android and iOS test suites with automated reporting and CI/CD integration.",
+      "Built one mobile automation setup for Android and iOS with reusable page objects, reporting, and CI execution.",
 
     tools: [
       { name: "Python" },
@@ -718,10 +718,10 @@ def test_login(driver):
 
     gallery: [api],
 
-    summary: "REST API testing using Postman, Newman, REST Assured and Jest.",
+    summary: "API validation using Postman, Newman, REST Assured, and Jest.",
 
     description:
-      "Performed REST API testing using Postman, Newman, REST Assured and Jest covering functional, performance and security testing.",
+      "Validated REST APIs with Postman, Newman, REST Assured, and Jest across functional, performance, and security scenarios.",
 
     github: "",
     live: "https://documenter.getpostman.com/view/22824154/2sA3JJ93TP",
@@ -729,7 +729,7 @@ def test_login(driver):
     githubLabel: "",
     liveLabel: "View Postman Docs",
 
-    highlight: "Achieved 98% API coverage through automated API validation.",
+    highlight: "Reached 98% API coverage across the documented test scenarios.",
 
     tools: [
       { name: "Postman" },
@@ -783,10 +783,10 @@ def test_login(driver):
 
     gallery: [performance],
 
-    summary: "Performance testing using K6 and Apache JMeter.",
+    summary: "Load and performance testing with K6 and Apache JMeter.",
 
     description:
-      "Performed load, stress and endurance testing using K6 and Apache JMeter to evaluate application scalability and system stability.",
+      "Used K6 and Apache JMeter to exercise load, stress, spike, and endurance scenarios and observe response time and system stability.",
 
     github: "",
     live: "",
@@ -795,7 +795,7 @@ def test_login(driver):
     liveLabel: "",
 
     highlight:
-      "Validated application performance up to 1000 concurrent virtual users.",
+      "Validated the application under load up to 1000 concurrent virtual users.",
 
     tools: [{ name: "K6" }, { name: "JMeter" }],
 
@@ -845,10 +845,10 @@ def test_login(driver):
     gallery: [documentation],
 
     summary:
-      "Comprehensive QA documentation including Test Cases and Bug Reports.",
+      "QA documentation covering test planning, scenarios, and bug reporting.",
 
     description:
-      "Prepared Test Plans, Test Cases, Boundary Value Analysis and Bug Reports to support software quality assurance activities.",
+      "Prepared test plans, test cases, Boundary Value Analysis, and bug reports to make QA work easier to execute and review.",
 
     github: "",
     live: "https://docs.google.com/spreadsheets/d/1AfhnYF8g7SUe6a5VdKIg4pvIrOImEOLm1z5oqOwfZts/edit",
@@ -857,7 +857,7 @@ def test_login(driver):
     liveLabel: "View Documentation",
 
     highlight:
-      "Created more than 250 testing scenarios and comprehensive QA documents.",
+      "Created more than 250 test scenarios alongside structured QA documentation.",
 
     tools: [
       { name: "Google Sheets" },
@@ -909,7 +909,7 @@ def test_login(driver):
 
   year: "2026",
 
-  status: "In Development",
+  status: "Active Development",
 
   role: "Creator",
 
@@ -918,21 +918,22 @@ def test_login(driver):
   gallery: [flowtest],
 
   summary:
-    "A visual mobile automation testing platform inspired by Node-RED and React Flow.",
+    "A visual mobile automation studio I am building to make Android and iOS test workflows easier to design and debug.",
 
   description:
-    "FlowTest Studio is a visual workflow builder designed for creating mobile automation tests without writing code. Users can drag and connect automation nodes such as Launch App, Tap, Input, Delay, Assert, Swipe, and Execute Workflow. The project is built with React Flow, Zustand, Tailwind CSS, and Framer Motion to provide an interactive testing experience.",
+    "FlowTest Studio is a browser-based workspace that combines visual flow authoring, Appium inspection, mobile execution, evidence capture, reporting, test suites, CI execution, Python project generation, and structured AI assistance.",
 
   challenge:
-    "Traditional mobile automation frameworks require writing and maintaining code, making them difficult for non-developers and time-consuming for repetitive workflow creation.",
+    "Mobile automation can become fragmented: write code in one place, inspect elements in another, run the test somewhere else, then jump between logs and reports when something fails.",
 
   solution:
-    "Designed a visual node-based editor that allows automation workflows to be built through drag-and-drop interactions, complete with live execution simulation, workflow visualization, execution logs, and an interactive inspector.",
+    "I built a visual, plugin-based workspace where a QA engineer can design a flow, inspect an Appium session, validate the flow, run it on Android or iOS, collect evidence, review the result, generate Python tests, and use structured AI assistance when needed.",
 
   highlight:
-    "Built an interactive visual automation platform with real-time workflow execution and node-based testing.",
+    "A visual workspace for designing mobile tests, inspecting Appium sessions, running flows, and keeping the evidence close to the execution.",
 
-  github: "https://github.com/naufalazhar65",
+  github:
+    "https://github.com/naufalazhar65/FlowTest-Studio",
 
   githubLabel: "Source Code",
 
@@ -941,49 +942,355 @@ def test_login(driver):
   liveLabel: "Launch Live Demo",
 
   tools: [
-    { name: "Next.js" },
+    { name: "React" },
+    { name: "TypeScript" },
+    { name: "Vite" },
+    { name: "Tailwind CSS" },
     { name: "React Flow" },
     { name: "Zustand" },
-    { name: "Tailwind CSS" },
     { name: "Framer Motion" },
     { name: "Appium" },
-    { name: "React Icons" },
+    { name: "UiAutomator2" },
+    { name: "XCUITest" },
+    { name: "Express" },
+    { name: "Ollama" },
+    { name: "Vitest" },
   ],
 
   features: [
-    "Visual Workflow Builder",
-    "Drag & Drop Nodes",
-    "Interactive Execution",
-    "Execution Timeline",
-    "Inspector Panel",
-    "Execution Console",
-    "Animated Workflow",
-    "React Flow Canvas",
+    "Visual Flow Designer",
+    "Plugin-Based Node System",
+    "Appium Element Inspector",
+    "Android & iOS Execution",
+    "Real-Device Support",
+    "Execution Timeline & Controls",
+    "Screenshots & Page-Source Evidence",
+    "Persisted Reports & Analytics",
+    "Sequential Test Suites",
+    "CI-Ready Headless Runner",
+    "JUnit XML Reporting",
+    "Python / Pytest Generator",
+    "AI Test-Case Generation",
+    "Generic Locator Self-Healing",
+    "Execution Recovery",
   ],
 
   stats: [
     {
-      label: "Workflow Nodes",
-      value: "8+",
+      label: "Registered Nodes",
+      value: "38",
       featured: true,
     },
     {
-      label: "Interactive",
-      value: "100%",
+      label: "Platforms",
+      value: "Android + iOS",
       featured: true,
     },
     {
-      label: "Built With",
-      value: "React",
+      label: "CI",
+      value: "Ready",
       featured: true,
     },
   ],
 
-  code: `const workflow = [
-  launch(),
-  tap(),
-  input(),
-  assert()
+  repository: {
+    root: "FlowTest-Studio",
+
+    branch: "main",
+
+    folders: [
+      {
+        type: "folder",
+        name: "src",
+
+        description:
+          "Frontend application, product features, shared components, and execution workflows",
+
+        children: [
+          {
+            type: "folder",
+            name: "features",
+
+            children: [
+              {
+                type: "folder",
+                name: "ai",
+                description:
+                  "AI client, plans, previews, and validated application",
+              },
+              {
+                type: "folder",
+                name: "command",
+                description:
+                  "Command palette and keyboard commands",
+              },
+              {
+                type: "folder",
+                name: "device",
+                description:
+                  "Device manager UI and configuration",
+              },
+              {
+                type: "folder",
+                name: "execution",
+                description:
+                  "Execution engine, Appium services, runners, and recovery",
+              },
+              {
+                type: "folder",
+                name: "flow",
+                description:
+                  "Canvas, nodes, plugins, actions, store, and validation",
+              },
+              {
+                type: "folder",
+                name: "generator",
+                description:
+                  "Python generator and code preview",
+              },
+              {
+                type: "folder",
+                name: "inspector",
+                description:
+                  "Element inspection and locator services",
+              },
+              {
+                type: "folder",
+                name: "project",
+                description:
+                  "Project persistence and file workflows",
+              },
+              {
+                type: "folder",
+                name: "reports",
+                description:
+                  "Report persistence, analytics, and exports",
+              },
+              {
+                type: "folder",
+                name: "suites",
+                description:
+                  "Test-suite models and execution",
+              },
+            ],
+          },
+        ],
+      },
+
+      {
+        type: "folder",
+        name: "server",
+
+        description:
+          "Express local service for device discovery and AI workflows",
+
+        children: [
+          {
+            type: "folder",
+            name: "device",
+            description:
+              "Android and iOS device discovery",
+          },
+          {
+            type: "folder",
+            name: "ai",
+            description:
+              "AI prompts and structured schemas",
+          },
+          {
+            type: "folder",
+            name: "services",
+            description:
+              "Ollama, QA intelligence, and target resolution",
+          },
+        ],
+      },
+
+      {
+        type: "folder",
+        name: "docs",
+
+        description:
+          "Project documentation and compatibility guidance",
+      },
+    ],
+
+    files: [
+      {
+        type: "file",
+        name: "README.md",
+
+        description:
+          "Product overview, capabilities, architecture, setup, testing, and current limitations",
+
+        content:
+          "# FlowTest Studio\n\nVisual Mobile Automation Testing Studio",
+      },
+
+      {
+        type: "file",
+        name: "docs/ROADMAP.md",
+
+        description:
+          "Phased product roadmap from real-device reliability through CI, resilience, scale, AI governance, and collaboration",
+
+        content:
+          "M1 Real-device reliability → M2 CI-ready execution → M3 Test data & resilience → M4 Parallel execution → M5 AI governance → M6 Collaboration",
+      },
+
+      {
+        type: "file",
+        name: "docs/COMPATIBILITY.md",
+
+        description:
+          "Android and iOS compatibility matrix",
+      },
+
+      {
+        type: "file",
+        name: "docs/IOS-REAL-DEVICE.md",
+
+        description:
+          "Validated iOS physical-device setup using Xcode, XCUITest, and WebDriverAgent",
+      },
+    ],
+  },
+
+  workflow: [
+    {
+      title: "Create Project",
+      icon: "project",
+      subtitle: "Project Workspace",
+
+      description:
+        "Create or open an Android, iOS, or cross-platform automation project.",
+
+      command:
+        "Create FlowTest project",
+
+      output: [
+        "Project created",
+        "Platform configuration loaded",
+        "Workspace ready",
+      ],
+    },
+
+    {
+      title: "Design Flow",
+      icon: "flow",
+      subtitle: "React Flow",
+
+      description:
+        "Build connected automation scenarios using the visual node-based editor.",
+
+      command:
+        "Add node → Connect node → Validate flow",
+
+      output: [
+        "Node inserted",
+        "Execution path connected",
+        "Flow validation passed",
+      ],
+    },
+
+    {
+      title: "Inspect App",
+      icon: "inspector",
+      subtitle: "Appium Inspector",
+
+      description:
+        "Inspect the active mobile application, generate locator candidates, and validate them against the Appium session.",
+
+      command:
+        "Inspect active Appium session",
+
+      output: [
+        "Page source retrieved",
+        "Element tree parsed",
+        "Locator candidates generated",
+      ],
+    },
+
+    {
+      title: "Execute",
+      icon: "appium",
+      subtitle: "Appium Runtime",
+
+      description:
+        "Run the visual flow against an Android or iOS Appium session.",
+
+      command:
+        "Run FlowTest flow",
+
+      output: [
+        "Session created",
+        "Flow execution started",
+        "Node results recorded",
+      ],
+    },
+
+    {
+      title: "Diagnose",
+      icon: "report",
+      subtitle: "Evidence & Reports",
+
+      description:
+        "Review execution logs, screenshots, page source, durations, errors, and persisted run reports.",
+
+      command:
+        "Open execution report",
+
+      output: [
+        "Execution evidence collected",
+        "Report persisted",
+        "Failure context available",
+      ],
+    },
+
+    {
+      title: "Generate",
+      icon: "code",
+      subtitle: "Python / Pytest",
+
+      description:
+        "Generate a structured Python, pytest, and Appium project from the visual flow.",
+
+      command:
+        "Generate Python project",
+
+      output: [
+        "Project structure generated",
+        "Test code emitted",
+        "Monaco preview ready",
+      ],
+    },
+
+    {
+      title: "Assist",
+      icon: "ai",
+      subtitle: "AI + QA Intelligence",
+
+      description:
+        "Use structured AI plans for test generation, flow analysis, validated changes, and generic locator self-healing.",
+
+      command:
+        "Generate QA improvement plan",
+
+      output: [
+        "Flow context analyzed",
+        "Plan validated",
+        "Recommended changes ready for review",
+      ],
+    },
+  ],
+
+  code: `const flow = [
+  launchApp(),
+  tap("Login"),
+  inputText("Username", username),
+  inputText("Password", password),
+  tap("Login Button"),
+  assert("Dashboard"),
 ];`,
-},
+}
 ];

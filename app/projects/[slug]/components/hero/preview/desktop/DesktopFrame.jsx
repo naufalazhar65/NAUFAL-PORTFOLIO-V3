@@ -7,7 +7,20 @@ import DesktopScreen from "./DesktopScreen";
 export default function DesktopFrame({
   variant = "workflow",
   shadow = true,
+  hideFrame = false,
 }) {
+  const content = (
+    <DesktopScreen variant={variant} />
+  );
+
+  if (hideFrame) {
+    return (
+      <div className="h-[560px] w-[900px] overflow-hidden">
+        {content}
+      </div>
+    );
+  }
+
   return (
     <div
       className={`
@@ -37,9 +50,7 @@ export default function DesktopFrame({
             pointer-events-none
             absolute
             inset-0
-
             rounded-[28px]
-
             bg-[radial-gradient(circle_at_top,#16f2b320,transparent_70%)]
           "
         />
@@ -62,12 +73,9 @@ export default function DesktopFrame({
             h-12
             items-center
             justify-between
-
             border-b
             border-white/5
-
             bg-white/[0.03]
-
             px-5
           "
         >
@@ -88,14 +96,10 @@ export default function DesktopFrame({
               w-[340px]
               items-center
               justify-center
-
               rounded-full
-
               border
               border-white/5
-
               bg-[#111821]
-
               text-[11px]
               text-gray-500
             "
@@ -114,7 +118,7 @@ export default function DesktopFrame({
         {/* Desktop */}
 
         <div className="h-[calc(100%-48px)]">
-          <DesktopScreen variant={variant} />
+          {content}
         </div>
       </div>
     </div>

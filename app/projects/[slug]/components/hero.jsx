@@ -10,62 +10,184 @@ import HeroStats from "./hero/HeroStats";
 import HeroImage from "./hero/HeroImage";
 
 export default function Hero({ project }) {
+  const role = project.role || "QA Engineer";
+  const year = project.year || "";
+
   return (
-    <div
+    <section
       className="
-        mx-auto
-        grid
-        min-h-0
-        max-w-[1550px]
-        grid-cols-1
-        items-center
-        gap-14
-        overflow-visible
-        px-6
-        sm:px-8
-        lg:min-h-[760px]
-        lg:grid-cols-[0.85fr_1.45fr]
-        lg:gap-10
-        xl:gap-14
+        relative
+        overflow-hidden
+        border-b
+        border-white/[0.08]
       "
     >
-      {/* ========================= */}
-      {/* LEFT */}
-      {/* ========================= */}
+      {/* Subtle background */}
 
-      <motion.div
-        {...fadeLeft}
+      <div
         className="
-          text-center
-          lg:text-left
+          pointer-events-none
+          absolute
+          left-[8%]
+          top-[15%]
+          h-[520px]
+          w-[520px]
+          rounded-full
+          bg-white/[0.025]
+          blur-[160px]
+        "
+      />
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          bottom-[5%]
+          right-[10%]
+          h-[420px]
+          w-[420px]
+          rounded-full
+          bg-[#16f2b3]/[0.018]
+          blur-[150px]
+        "
+      />
+
+      <div
+        className="
+          relative
+          mx-auto
+          grid
+          w-full
+          max-w-[1280px]
+          grid-cols-1
+          items-center
+          gap-12
+          px-4
+          pt-24
+          pb-16
+          sm:px-6
+          sm:pt-28
+          sm:pb-20
+          lg:min-h-[760px]
+          lg:grid-cols-[0.8fr_1.2fr]
+          lg:gap-16
+          lg:px-0
+          lg:pt-36
+          lg:pb-24
         "
       >
-        <div
+        {/* LEFT */}
+
+        <motion.div
+          {...fadeLeft}
           className="
-            pt-8
-            sm:pt-10
-            lg:pt-0
+            relative
+            z-10
+            text-center
+            lg:text-left
           "
         >
+          {/* Project identity */}
+
+          <div
+            className="
+              mb-6
+              flex
+              flex-wrap
+              items-center
+              justify-center
+              gap-x-4
+              gap-y-2
+              lg:justify-start
+            "
+          >
+            <span
+              className="
+                text-[10px]
+                font-semibold
+                uppercase
+                tracking-[0.14em]
+                text-[#16f2b3]
+              "
+            >
+              01
+            </span>
+
+            <span
+              className="
+                text-[10px]
+                font-semibold
+                uppercase
+                tracking-[0.14em]
+                text-gray-400
+              "
+            >
+              Case Study
+            </span>
+
+            <span
+              className="
+                h-1
+                w-1
+                rounded-full
+                bg-white/20
+              "
+            />
+
+            <span
+              className="
+                text-[10px]
+                font-medium
+                uppercase
+                tracking-[0.12em]
+                text-gray-600
+              "
+            >
+              {role}
+            </span>
+
+            {year && (
+              <>
+                <span
+                  className="
+                    h-1
+                    w-1
+                    rounded-full
+                    bg-white/20
+                  "
+                />
+
+                <span
+                  className="
+                    text-[10px]
+                    font-medium
+                    uppercase
+                    tracking-[0.12em]
+                    text-gray-600
+                  "
+                >
+                  {year}
+                </span>
+              </>
+            )}
+          </div>
+
           {/* Status */}
 
-          <span
+          <div
             className="
+              mb-6
               inline-flex
               items-center
               gap-2
-              rounded-full
-              border
+              border-b
               border-white/[0.08]
-              bg-white/[0.03]
-              px-3
-              py-1
-              text-[11px]
-              font-medium
+              pb-2
+              text-[10px]
+              font-semibold
               uppercase
-              tracking-[2.5px]
-              text-gray-400
-              backdrop-blur-xl
+              tracking-[0.14em]
+              text-gray-500
             "
           >
             <span
@@ -74,68 +196,71 @@ export default function Hero({ project }) {
                 w-1.5
                 rounded-full
                 bg-[#16f2b3]
-                shadow-[0_0_8px_rgba(22,242,179,0.8)]
+                shadow-[0_0_12px_rgba(22,242,179,.3)]
               "
             />
+
             {project.status}
-          </span>
+          </div>
 
           {/* Title */}
 
           <h1
             className="
-              mt-6
-              text-5xl
+              max-w-[720px]
+              text-[clamp(56px,7vw,104px)]
               font-semibold
-              leading-[1.05]
-              tracking-tight
+              leading-[0.9]
+              tracking-[-0.075em]
               text-white
-              sm:text-6xl
-              lg:max-w-xl
-              lg:text-[4.25rem]
             "
           >
             {project.name}
           </h1>
 
-          {/* Tagline */}
+          {/* Project thesis */}
 
-          <p
-            className="
-              mt-5
-              text-lg
-              font-medium
-              tracking-tight
-              text-[#16f2b3]
-              sm:text-xl
-            "
-          >
-            {project.hero?.tagline}
-          </p>
+          {project.hero?.tagline && (
+            <p
+              className="
+                mt-7
+                text-xl
+                font-medium
+                leading-tight
+                tracking-[-0.025em]
+                text-gray-200
+                sm:text-2xl
+              "
+            >
+              {project.hero.tagline}
+            </p>
+          )}
 
           {/* Description */}
 
-          <p
-            className="
-              mx-auto
-              mt-6
-              max-w-lg
-              text-[15px]
-              leading-7
-              text-gray-500
-              lg:mx-0
-            "
-          >
-            {project.hero?.description}
-          </p>
+          {project.hero?.description && (
+            <p
+              className="
+                mx-auto
+                mt-6
+                max-w-[560px]
+                text-[15px]
+                leading-7
+                text-gray-500
+                lg:mx-0
+              "
+            >
+              {project.hero.description}
+            </p>
+          )}
 
-          {/* Tech */}
+          {/* Badges */}
 
           <div className="mt-8">
             <HeroBadges badges={project.hero?.badges || []} />
           </div>
 
-          {/* Buttons */}
+          {/* Actions */}
 
           <div
             className="
@@ -153,73 +278,50 @@ export default function Hero({ project }) {
               github={project.github}
               live={project.live}
             />
-
-            <span
-              className="
-                hidden
-                items-center
-                gap-1.5
-                text-xs
-                text-gray-600
-                sm:flex
-              "
-            >
-              Press
-              <kbd
-                className="
-                  rounded-md
-                  border
-                  border-white/10
-                  bg-white/[0.04]
-                  px-1.5
-                  py-0.5
-                  font-mono
-                  text-[11px]
-                  text-gray-400
-                "
-              >
-                ⏎
-              </kbd>
-              to launch
-            </span>
           </div>
 
           {/* Stats */}
 
-          <div
-            className="
-              mt-12
-              border-t
-              border-white/[0.06]
-              pt-8
-            "
-          >
-            <HeroStats stats={project.hero?.stats || []} />
+          {project.hero?.stats?.length > 0 && (
+            <div
+              className="
+                mt-12
+                border-t
+                border-white/[0.08]
+                pt-7
+              "
+            >
+              <HeroStats
+                stats={project.hero.stats}
+              />
+            </div>
+          )}
+        </motion.div>
+
+        {/* RIGHT */}
+
+        <motion.div
+          {...fadeRight}
+          className="
+            relative
+            z-10
+            flex
+            w-full
+            items-center
+            justify-center
+            lg:justify-end
+          "
+        >
+          <div className="w-full max-w-[720px]">
+            <HeroImage
+              image={project.image}
+              preview={
+                project.slug === "flowtest-studio"
+              }
+            />
           </div>
-        </div>
-      </motion.div>
-
-      {/* ========================= */}
-      {/* RIGHT */}
-      {/* ========================= */}
-
-      <motion.div
-        {...fadeRight}
-        className="
-          relative
-          flex
-          w-full
-          items-center
-          justify-center
-          overflow-visible
-          lg:mt-1
-        "
-      >
-        <HeroImage
-          image={project.image}
-          preview={project.slug === "flowtest-studio"}
-        />
-      </motion.div>
-    </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }

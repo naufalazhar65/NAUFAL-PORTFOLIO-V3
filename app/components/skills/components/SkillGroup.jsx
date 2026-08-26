@@ -2,63 +2,76 @@
 
 import { motion } from "framer-motion";
 
-import { fadeUp, stagger } from "@/app/lib/motion";
+import { fadeUp } from "@/app/lib/motion";
 
 import SkillCard from "./SkillCard";
 
-export default function SkillGroup({ group }) {
+export default function SkillGroup({
+  group,
+  index = 0,
+}) {
   return (
-    <motion.div
+    <motion.section
       variants={fadeUp}
-      className="relative"
+      className="
+        grid
+        gap-8
+        border-b
+        border-white/[0.08]
+        py-8
+        lg:grid-cols-[0.3fr_1fr]
+        lg:gap-16
+        lg:py-10
+      "
     >
-      {/* ========================= */}
-      {/* GROUP TITLE */}
-      {/* ========================= */}
+      <div>
+        <div className="flex items-center gap-4">
+          <span
+            className="
+              font-mono
+              text-[10px]
+              tabular-nums
+              text-gray-500
+            "
+          >
+            {String(index + 1).padStart(2, "0")}
+          </span>
 
-      <div className="mb-6 flex items-center gap-4">
-        <h3
+          <h2
+            className="
+              text-[11px]
+              font-semibold
+              uppercase
+              tracking-[0.12em]
+              text-gray-300
+            "
+          >
+            {getGroupTitle(group.title)}
+          </h2>
+        </div>
+
+        <p
           className="
-            text-xl
-            font-bold
-            tracking-tight
-            text-white
-
-            md:text-2xl
+            mt-4
+            max-w-xs
+            text-[11px]
+            leading-6
+            text-gray-500
           "
         >
-          {group.title}
-        </h3>
-
-        <div
-          className="
-            h-px
-            flex-1
-
-            bg-gradient-to-r
-            from-[#16f2b3]/30
-            to-transparent
-          "
-        />
+          {getGroupDescription(group.title)}
+        </p>
       </div>
 
-      {/* ========================= */}
-      {/* SKILLS */}
-      {/* ========================= */}
-
-      <motion.div
-        variants={stagger}
+      <div
         className="
-          grid
-          grid-cols-2
-          gap-4
-
-          sm:grid-cols-3
-          sm:gap-5
-
-          lg:grid-cols-4
-          xl:grid-cols-5
-          xl:gap-6
+          flex
+          flex-wrap
+          items-center
+          gap-x-4
+          gap-y-3
+          sm:gap-x-5
+          sm:gap-y-4
         "
       >
         {group.skills.map((skill) => (
@@ -67,7 +80,43 @@ export default function SkillGroup({ group }) {
             skill={skill}
           />
         ))}
-      </motion.div>
-    </motion.div>
+      </div>
+    </motion.section>
+  );
+}
+
+function getGroupTitle(title) {
+  const titles = {
+    Programming: "Programming",
+    "Test Automation": "Automation",
+    "API Testing": "API",
+    "Performance Testing": "Performance",
+    "CI/CD & Tools": "Delivery & tooling",
+  };
+
+  return titles[title] ?? title;
+}
+
+function getGroupDescription(title) {
+  const descriptions = {
+    Programming:
+      "Languages I use for automation, tooling, and application logic.",
+
+    "Test Automation":
+      "Browser and mobile automation frameworks used in day-to-day test work.",
+
+    "API Testing":
+      "Tools for checking requests, contracts, and service behavior.",
+
+    "Performance Testing":
+      "Load and performance tools used to model and analyze system behavior.",
+
+    "CI/CD & Tools":
+      "Source control, delivery, project, database, and operating-system tooling.",
+  };
+
+  return (
+    descriptions[title] ??
+    "Tools that support the test workflow."
   );
 }

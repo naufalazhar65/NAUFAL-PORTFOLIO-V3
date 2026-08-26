@@ -61,6 +61,7 @@ export default function HeroCodeWindow({
 
       <div className="flex">
         <div className="h-px w-full bg-gradient-to-r from-transparent via-pink-500 to-violet-600" />
+
         <div className="h-px w-full bg-gradient-to-r from-violet-600 to-transparent" />
       </div>
 
@@ -79,21 +80,39 @@ export default function HeroCodeWindow({
       <div className="overflow-hidden border-t-2 border-indigo-900 px-4 py-4 lg:px-8 lg:py-8">
         <code className="font-mono text-xs md:text-sm lg:text-base">
           <div className="blink">
-            <span className="mr-2 text-pink-500">const</span>
-            <span className="mr-2 text-heading">coder</span>
-            <span className="mr-2 text-pink-500">=</span>
-            <span className="text-muted">{"{"}</span>
+            <span className="mr-2 text-pink-500">
+              const
+            </span>
+
+            <span className="mr-2 text-heading">
+              coder
+            </span>
+
+            <span className="mr-2 text-pink-500">
+              =
+            </span>
+
+            <span className="text-muted">
+              {"{"}
+            </span>
           </div>
 
           <div>
             <span className="ml-4 mr-2 text-heading lg:ml-8">
               name:
             </span>
-            <span className="text-muted">'</span>
+
+            <span className="text-muted">
+              &apos;
+            </span>
+
             <span className="text-amber-300">
               Naufal Azhar
             </span>
-            <span className="text-muted">',</span>
+
+            <span className="text-muted">
+              &apos;,
+            </span>
           </div>
 
           <div className="ml-4 mr-2 lg:ml-8">
@@ -101,21 +120,27 @@ export default function HeroCodeWindow({
               skills:
             </span>
 
-            <span className="text-muted">[</span>
+            <span className="text-muted">
+              [
+            </span>
 
             {skills.map((skill, index) => (
               <span key={skill}>
                 <span className="text-amber-300">
-                  "{skill}"
+                  &quot;{skill}&quot;
                 </span>
 
                 {index !== skills.length - 1 && (
-                  <span className="text-muted">, </span>
+                  <span className="text-muted">
+                    ,{" "}
+                  </span>
                 )}
               </span>
             ))}
 
-            <span className="text-muted">]</span>
+            <span className="text-muted">
+              ]
+            </span>
           </div>
 
           {traits.map((trait) => (
@@ -128,7 +153,9 @@ export default function HeroCodeWindow({
                 true
               </span>
 
-              <span className="text-muted">,</span>
+              <span className="text-muted">
+                ,
+              </span>
             </div>
           ))}
 
