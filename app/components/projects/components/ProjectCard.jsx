@@ -43,58 +43,37 @@ export default function ProjectCard({
           <div className="project-meta">
             <span className="project-index">01</span>
 
-            <span className="project-category">
-              {project.category}
-            </span>
+            <span className="project-category">{project.category}</span>
 
-            <span className="project-status">
-              {project.status}
-            </span>
+            <span className="project-status">{project.status}</span>
           </div>
 
-          <h2 className="project-featured-title">
-            {project.name}
-          </h2>
+          <h2 className="project-featured-title">{project.name}</h2>
 
-          <p className="project-highlight">
-            {project.highlight}
-          </p>
+          <p className="project-highlight">{project.highlight}</p>
 
-          <p className="project-description">
-            {project.description}
-          </p>
+          <p className="project-description">{project.description}</p>
 
           {project.stats?.length > 0 && (
             <div className="project-stats">
-              {project.stats
-                .slice(0, 3)
-                .map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="project-stat"
-                  >
-                    <strong>{stat.value}</strong>
+              {project.stats.slice(0, 3).map((stat) => (
+                <div key={stat.label} className="project-stat">
+                  <strong>{stat.value}</strong>
 
-                    <span>{stat.label}</span>
-                  </div>
-                ))}
+                  <span>{stat.label}</span>
+                </div>
+              ))}
             </div>
           )}
 
           {project.tools?.length > 0 && (
             <div className="project-tools">
-              {project.tools
-                .slice(0, 5)
-                .map((tool) => (
-                  <span key={tool.name}>
-                    {tool.name}
-                  </span>
-                ))}
+              {project.tools.slice(0, 5).map((tool) => (
+                <span key={tool.name}>{tool.name}</span>
+              ))}
 
               {project.tools.length > 5 && (
-                <span>
-                  +{project.tools.length - 5}
-                </span>
+                <span>+{project.tools.length - 5}</span>
               )}
             </div>
           )}
@@ -169,55 +148,35 @@ export default function ProjectCard({
         <div>
           <h2>{project.name}</h2>
 
-          <p className="project-highlight">
-            {project.highlight}
-          </p>
+          <p className="project-highlight">{project.highlight}</p>
 
-          <p className="project-description">
-            {project.description}
-          </p>
+          <p className="project-description">{project.description}</p>
         </div>
 
         {project.tools?.length > 0 && (
           <div className="project-tools project-tools-compact">
-            {project.tools
-              .slice(0, 5)
-              .map((tool) => (
-                <span key={tool.name}>
-                  {tool.name}
-                </span>
-              ))}
+            {project.tools.slice(0, 5).map((tool) => (
+              <span key={tool.name}>{tool.name}</span>
+            ))}
 
             {project.tools.length > 5 && (
-              <span>
-                +{project.tools.length - 5}
-              </span>
+              <span>+{project.tools.length - 5}</span>
             )}
           </div>
         )}
 
-        <Link
-          href={`/projects/${project.slug}`}
-          className="project-text-link"
-        >
+        <Link href={`/projects/${project.slug}`} className="project-text-link">
           {actions.secondary}
           <FiArrowUpRight />
         </Link>
       </div>
 
-      <ProjectPreview
-        project={project}
-        overlayLabel={actions.overlay}
-      />
+      <ProjectPreview project={project} overlayLabel={actions.overlay} />
     </motion.article>
   );
 }
 
-function ProjectPreview({
-  project,
-  featured = false,
-  overlayLabel,
-}) {
+function ProjectPreview({ project, featured = false, overlayLabel }) {
   return (
     <div
       className={`
@@ -240,7 +199,10 @@ function ProjectPreview({
 
           <span>{project.slug}</span>
 
-          <span>VIEW ↗</span>
+          <span className="flex items-center gap-1">
+            VIEW
+            <FiArrowUpRight size={11} />
+          </span>
         </div>
       )}
 
@@ -300,9 +262,7 @@ function getProjectAction(project) {
 
     case "api-testing":
       return {
-        primary: project.live
-          ? "Open API documentation"
-          : null,
+        primary: project.live ? "Open API documentation" : null,
         secondary: "View API work",
         overlay: "Open API work",
       };
@@ -316,18 +276,14 @@ function getProjectAction(project) {
 
     case "qa-documentation":
       return {
-        primary: project.live
-          ? "View documentation"
-          : null,
+        primary: project.live ? "View documentation" : null,
         secondary: "View QA work",
         overlay: "Open documentation",
       };
 
     default:
       return {
-        primary: project.live
-          ? project.liveLabel || "Open live work"
-          : null,
+        primary: project.live ? project.liveLabel || "Open live work" : null,
         secondary: "View project",
         overlay: "Open project",
       };

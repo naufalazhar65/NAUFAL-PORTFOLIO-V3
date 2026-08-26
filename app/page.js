@@ -1,41 +1,36 @@
 "use client";
 
 import Link from "next/link";
-
+import { FiArrowUpRight } from "react-icons/fi";
 import FlowTestStudioPreview from "./components/flowtest-preview/FlowTestStudioPreview";
 
 const technicalProof = [
   {
     number: "01",
     title: "Automation",
-    tools:
-      "Selenium · Playwright · WebdriverIO · PyTest",
+    tools: "Selenium · Playwright · WebdriverIO · PyTest",
     contribution:
       "Reusable automation structure, browser workflows, and CI execution.",
   },
   {
     number: "02",
     title: "Mobile",
-    tools:
-      "Appium · UiAutomator2 · XCUITest",
+    tools: "Appium · UiAutomator2 · XCUITest",
     contribution:
       "Real-device flows, locator inspection, and session debugging.",
   },
   {
     number: "03",
     title: "API",
-    tools:
-      "Postman · Newman · Supertest · Playwright API",
+    tools: "Postman · Newman · Supertest · Playwright API",
     contribution:
       "Contract checks, request validation, and failure diagnostics.",
   },
   {
     number: "04",
     title: "Performance",
-    tools:
-      "k6 · JMeter",
-    contribution:
-      "Load scenarios, thresholds, and result analysis.",
+    tools: "k6 · JMeter",
+    contribution: "Load scenarios, thresholds, and result analysis.",
   },
 ];
 
@@ -52,9 +47,7 @@ export default function Home() {
         <div className="hero-meta">
           <span>SOFTWARE QUALITY ASSURANCE ENGINEER</span>
 
-          <span>
-            INDONESIA · OPEN TO OPPORTUNITIES
-          </span>
+          <span>INDONESIA · OPEN TO OPPORTUNITIES</span>
         </div>
 
         <div className="hero-content">
@@ -71,38 +64,27 @@ export default function Home() {
           </h1>
 
           <p className="hero-description">
-            Software Quality Assurance Engineer focused on
-            automation, mobile testing, API testing, and the
-            tooling around reliable execution, inspection,
-            and failure evidence.
+            Software Quality Assurance Engineer focused on automation, mobile
+            testing, API testing, and the tooling around reliable execution,
+            inspection, and failure evidence.
           </p>
 
           <div className="hero-actions">
-            <Link
-              href="/projects"
-              className="button button-primary"
-            >
+            <Link href="/projects" className="button button-primary">
               See the work
-              <span>↗</span>
+              <FiArrowUpRight size={14} />
             </Link>
 
-            <Link
-              href="/about"
-              className="button button-secondary"
-            >
+            <Link href="/about" className="button button-secondary">
               About Naufal
             </Link>
           </div>
         </div>
 
         <div className="hero-footer">
-          <span>
-            AUTOMATION · MOBILE · API · PERFORMANCE
-          </span>
+          <span>AUTOMATION · MOBILE · API · PERFORMANCE</span>
 
-          <span>
-            INDONESIA
-          </span>
+          <span>INDONESIA</span>
         </div>
       </section>
 
@@ -118,9 +100,7 @@ export default function Home() {
 
         <div className="featured-grid">
           <div className="featured-copy">
-            <p className="project-kicker">
-              FLOWTEST STUDIO
-            </p>
+            <p className="project-kicker">FLOWTEST STUDIO</p>
 
             <h2>
               Mobile test failures were
@@ -129,11 +109,10 @@ export default function Home() {
             </h2>
 
             <p>
-              Code, inspector sessions, device execution, logs,
-              screenshots, and reports often lived in separate
-              places. FlowTest Studio is my attempt to bring the
-              most important parts of that workflow into one
-              workspace.
+              Code, inspector sessions, device execution, logs, screenshots, and
+              reports often lived in separate places. FlowTest Studio is my
+              attempt to bring the most important parts of that workflow into
+              one workspace.
             </p>
 
             <div className="featured-meta">
@@ -149,12 +128,9 @@ export default function Home() {
               <span>CI / JUnit</span>
             </div>
 
-            <Link
-              href="/projects/flowtest-studio"
-              className="text-link"
-            >
+            <Link href="/projects/flowtest-studio" className="text-link">
               Explore the build
-              <span>↗</span>
+              <FiArrowUpRight size={14} />
             </Link>
           </div>
 
@@ -184,18 +160,15 @@ export default function Home() {
           </h2>
 
           <p>
-            The tools matter less than the layer they support:
-            automation structure, real-device execution, API
-            validation, and performance analysis.
+            The tools matter less than the layer they support: automation
+            structure, real-device execution, API validation, and performance
+            analysis.
           </p>
         </div>
 
         <div className="stats-grid">
           {technicalProof.map((item) => (
-            <div
-              className="stat-item"
-              key={item.number}
-            >
+            <div className="stat-item" key={item.number}>
               <div className="stat-top">
                 <span>{item.number}</span>
               </div>
@@ -204,17 +177,13 @@ export default function Home() {
                 <strong>{item.title}</strong>
 
                 <span className="stat-arrow">
-                  ↗
+                  <FiArrowUpRight size={16} />
                 </span>
               </div>
 
-              <p className="stat-tools">
-                {item.tools}
-              </p>
+              <p className="stat-tools">{item.tools}</p>
 
-              <p className="stat-contribution">
-                {item.contribution}
-              </p>
+              <p className="stat-contribution">{item.contribution}</p>
             </div>
           ))}
         </div>
@@ -226,9 +195,7 @@ export default function Home() {
 
       <section className="closing-section">
         <div className="closing-content">
-          <p className="hero-eyebrow">
-            HOW I THINK ABOUT QA
-          </p>
+          <p className="hero-eyebrow">HOW I THINK ABOUT QA</p>
 
           <h2>
             A failed test is only useful
@@ -237,25 +204,18 @@ export default function Home() {
           </h2>
 
           <p className="hero-description">
-            That means keeping execution evidence close to the
-            workflow, making selectors inspectable, reproducing
-            device failures, and building automation that can
-            survive change.
+            That means keeping execution evidence close to the workflow, making
+            selectors inspectable, reproducing device failures, and building
+            automation that can survive change.
           </p>
 
           <div className="hero-actions">
-            <Link
-              href="/projects"
-              className="button button-primary"
-            >
+            <Link href="/projects" className="button button-primary">
               View my QA work
-              <span>↗</span>
+              <FiArrowUpRight size={14} />
             </Link>
 
-            <Link
-              href="/contact"
-              className="button button-secondary"
-            >
+            <Link href="/contact" className="button button-secondary">
               Discuss a QA problem
             </Link>
           </div>

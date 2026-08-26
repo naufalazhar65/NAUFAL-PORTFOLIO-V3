@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FiGithub, FiGitBranch } from "react-icons/fi";
+import { FiGithub, FiGitBranch, FiArrowUpRight } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 import RepositoryTree from "./RepositoryTree";
@@ -375,7 +375,7 @@ export default function Repository({ project }) {
             "
           >
             Open repository on GitHub
-            <span>↗</span>
+            <FiArrowUpRight size={14} />
           </a>
         </div>
       </div>

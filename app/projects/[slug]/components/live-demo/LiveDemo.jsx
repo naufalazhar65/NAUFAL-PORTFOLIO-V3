@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { FiArrowUpRight } from "react-icons/fi";
 
 import BrowserFrame from "./BrowserFrame";
 import DemoLayout from "./desktop/DemoLayout";
@@ -164,7 +165,7 @@ export default function LiveDemo({ project }) {
             "
           >
             Launch Full Demo
-            <span>↗</span>
+            <FiArrowUpRight size={14} />
           </Link>
 
           <Link
@@ -190,7 +191,7 @@ export default function LiveDemo({ project }) {
             "
           >
             View Source
-            <span>↗</span>
+           <FiArrowUpRight size={14} />
           </Link>
         </div>
 
