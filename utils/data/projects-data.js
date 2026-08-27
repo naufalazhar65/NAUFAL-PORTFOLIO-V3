@@ -1102,7 +1102,7 @@ export default function () {
     github: "",
     githubLabel: "",
 
-    live: "https://docs.google.com/spreadsheets/d/1AfhnYF8g7SU6e5VdKIg4pvIrOImEOLm1z5oqOwfZts/edit",
+    live: "https://docs.google.com/spreadsheets/d/1OEQ2XASEXpzgmTcGU4WC-_hT9DjyHFc7reDPmB6100I/edit?usp=sharing",
 
     liveLabel: "View Documentation",
 
