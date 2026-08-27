@@ -15,7 +15,7 @@ export const projectsData = [
     icon: "🤖",
     color: "#16f2b3",
 
-    year: "2025",
+    year: "2024",
     status: "Completed",
     role: "QA Engineer",
 
@@ -238,7 +238,7 @@ npm run cy:run`,
     icon: "📱",
     color: "#3b82f6",
 
-    year: "2025",
+    year: "2024",
     status: "Completed",
     role: "QA Engineer",
 
@@ -771,7 +771,7 @@ def test_login(driver):
     icon: "🔗",
     color: "#8b5cf6",
 
-    year: "2025",
+    year: "2024",
     status: "Completed",
     role: "QA Engineer",
 
@@ -923,7 +923,7 @@ pm.test("Response contains expected data", function () {
     icon: "⚡",
     color: "#f97316",
 
-    year: "2025",
+    year: "2024",
     status: "Completed",
     role: "QA Engineer",
 
@@ -1077,7 +1077,7 @@ export default function () {
     icon: "📝",
     color: "#ec4899",
 
-    year: "2025",
+    year: "2024",
     status: "Completed",
     role: "QA Engineer",
 
