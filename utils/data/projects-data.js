@@ -1,8 +1,8 @@
-import automation from "@/public/projects/automation.png";
-import mobile from "@/public/projects/mobile.png";
-import api from "@/public/projects/api.png";
-import performance from "@/public/projects/performance.png";
-import documentation from "@/public/projects/documentation.png";
+import automation from "@/public/projects/project.gif";
+import mobile from "@/public/projects/project.gif";
+import api from "@/public/projects/project.gif";
+import performance from "@/public/projects/project.gif";
+import documentation from "@/public/projects/project.gif";
 import flowtest from "@/public/projects/hero-front.png";
 
 export const projectsData = [
