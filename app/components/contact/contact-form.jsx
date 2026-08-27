@@ -46,14 +46,10 @@ export default function ContactForm() {
   };
 
   const validate = () => {
-    const emailInvalid =
-      input.email.length > 0 &&
-      !isValidEmail(input.email);
+    const emailInvalid = input.email.length > 0 && !isValidEmail(input.email);
 
     const requiredMissing =
-      !input.name.trim() ||
-      !input.email.trim() ||
-      !input.message.trim();
+      !input.name.trim() || !input.email.trim() || !input.message.trim();
 
     setError({
       email: emailInvalid,
@@ -70,14 +66,11 @@ export default function ContactForm() {
       return;
     }
 
-    const serviceID =
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
 
-    const templateID =
-      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
 
-    const publicKey =
-      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
     if (!serviceID || !templateID || !publicKey) {
       toast.error("Email service is not configured.");
@@ -87,38 +80,31 @@ export default function ContactForm() {
     setSending(true);
 
     try {
-      const response = await emailjs.send(
-        serviceID,
-        templateID,
-        input,
-        {
-          publicKey,
-        },
-      );
+      const response = await emailjs.send(serviceID, templateID, input, {
+        publicKey,
+      });
 
       if (response.status === 200) {
-        toast.success(
-          "Message sent successfully!",
-        );
+        toast.success("Message sent successfully!");
 
         setInput(initialInput);
         setError(initialError);
       }
     } catch (sendError) {
-      toast.error(
-        sendError?.text ||
-          "Failed to send message.",
-      );
+      console.error("EmailJS error:", {
+        status: sendError?.status,
+        text: sendError?.text,
+        message: sendError?.message,
+      });
+
+      toast.error(sendError?.text || "Failed to send message.");
     } finally {
       setSending(false);
     }
   };
 
   return (
-    <form
-      onSubmit={handleSendMail}
-      className="w-full"
-    >
+    <form onSubmit={handleSendMail} className="w-full">
       {/* =========================
           FORM HEADER
       ========================= */}
@@ -186,9 +172,8 @@ export default function ContactForm() {
             text-gray-300
           "
         >
-          Share an opportunity, project idea, or
-          collaboration. I&apos;ll get back to you as soon
-          as possible.
+          Share an opportunity, project idea, or collaboration. I&apos;ll get
+          back to you as soon as possible.
         </p>
       </div>
 
@@ -235,12 +220,7 @@ export default function ContactForm() {
             autoComplete="name"
             required
             value={input.name}
-            onChange={(event) =>
-              handleChange(
-                "name",
-                event.target.value,
-              )
-            }
+            onChange={(event) => handleChange("name", event.target.value)}
             className="
               mt-3
               w-full
@@ -269,11 +249,7 @@ export default function ContactForm() {
             duration-300
             focus-within:border-white/[0.2]
 
-            ${
-              error.email
-                ? "border-red-400/40"
-                : "border-white/[0.08]"
-            }
+            ${error.email ? "border-red-400/40" : "border-white/[0.08]"}
           `}
         >
           <label
@@ -305,12 +281,7 @@ export default function ContactForm() {
             autoComplete="email"
             required
             value={input.email}
-            onChange={(event) =>
-              handleChange(
-                "email",
-                event.target.value,
-              )
-            }
+            onChange={(event) => handleChange("email", event.target.value)}
             onBlur={() => {
               if (!input.email.trim()) {
                 return;
@@ -318,9 +289,7 @@ export default function ContactForm() {
 
               setError((previous) => ({
                 ...previous,
-                email: !isValidEmail(
-                  input.email,
-                ),
+                email: !isValidEmail(input.email),
               }));
             }}
             className={`
@@ -335,11 +304,7 @@ export default function ContactForm() {
               placeholder:text-gray-500
               focus:ring-0
 
-              ${
-                error.email
-                  ? "text-red-300"
-                  : "text-white"
-              }
+              ${error.email ? "text-red-300" : "text-white"}
             `}
             placeholder="you@example.com"
           />
@@ -353,8 +318,7 @@ export default function ContactForm() {
                 text-red-400
               "
             >
-              Please provide a valid email
-              address.
+              Please provide a valid email address.
             </p>
           )}
         </div>
@@ -396,12 +360,7 @@ export default function ContactForm() {
             required
             rows={6}
             value={input.message}
-            onChange={(event) =>
-              handleChange(
-                "message",
-                event.target.value,
-              )
-            }
+            onChange={(event) => handleChange("message", event.target.value)}
             className="
               mt-3
               w-full
@@ -452,8 +411,7 @@ export default function ContactForm() {
               text-red-400
             "
           >
-            Please complete all required
-            fields.
+            Please complete all required fields.
           </p>
         </motion.div>
       )}
@@ -481,8 +439,7 @@ export default function ContactForm() {
             text-gray-400
           "
         >
-          Your message is sent securely through
-          the configured email service.
+          Your message is sent securely through the configured email service.
         </p>
 
         <button
@@ -514,11 +471,7 @@ export default function ContactForm() {
             sm:w-auto
           "
         >
-          <span>
-            {sending
-              ? "Sending..."
-              : "Send Message"}
-          </span>
+          <span>{sending ? "Sending..." : "Send Message"}</span>
 
           {!sending && (
             <TbMailForward

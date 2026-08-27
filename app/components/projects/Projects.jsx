@@ -8,13 +8,9 @@ import FeaturedProject from "./components/FeaturedProject";
 import ProjectsList from "./components/ProjectsList";
 
 export default function Projects() {
-  const featuredProject = projectsData.find(
-    (project) => project.featured,
-  );
+  const featuredProject = projectsData.find((project) => project.featured);
 
-  const otherProjects = projectsData.filter(
-    (project) => !project.featured,
-  );
+  const otherProjects = projectsData.filter((project) => !project.featured);
 
   return (
     <section
@@ -128,34 +124,32 @@ export default function Projects() {
 
           <h1
             className="
-              max-w-5xl
-              text-[clamp(52px,8vw,112px)]
-              font-semibold
-              leading-[0.92]
-              tracking-[-0.07em]
-              text-white
-            "
+    max-w-5xl
+    text-[clamp(52px,8vw,112px)]
+    font-semibold
+    leading-[0.96]
+    tracking-[-0.07em]
+    text-white
+  "
           >
-            Things I built
+            QA work,
             <br />
-            <span className="text-gray-400">
-              to solve QA problems.
-            </span>
+            <span className="text-gray-400">built around real problems.</span>
           </h1>
 
           <p
             className="
-              mt-8
-              max-w-2xl
-              text-[15px]
-              leading-7
-              text-gray-300
-              sm:text-base
-            "
+    mt-8
+    max-w-2xl
+    text-[15px]
+    leading-7
+    text-gray-300
+    sm:text-base
+  "
           >
-            Projects across automation, mobile testing, API
-            validation, performance testing, and the tools I
-            built while working through real QA problems.
+            Automation frameworks, mobile test tooling, API validation,
+            performance testing, and QA documentation built to make testing more
+            repeatable and easier to investigate.
           </p>
         </motion.div>
 
@@ -319,10 +313,7 @@ export default function Projects() {
                 text-gray-400
               "
             >
-              {otherProjects.length
-                .toString()
-                .padStart(2, "0")}{" "}
-              projects
+              {otherProjects.length.toString().padStart(2, "0")} projects
             </span>
           </div>
 

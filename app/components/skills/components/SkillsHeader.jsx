@@ -51,7 +51,7 @@ export default function SkillsHeader() {
             max-w-4xl
             text-[clamp(48px,6.5vw,88px)]
             font-semibold
-            leading-[0.94]
+            leading-[0.96]
             tracking-[-0.07em]
             text-white
           "
@@ -72,9 +72,9 @@ export default function SkillsHeader() {
           text-gray-500
         "
       >
-        A working toolset for automation, mobile testing,
-        API validation, performance checks, and the
-        infrastructure around them.
+        Languages, automation frameworks, API tools,
+        performance tooling, and the systems I use to
+        build and run QA workflows.
       </p>
     </motion.div>
   );

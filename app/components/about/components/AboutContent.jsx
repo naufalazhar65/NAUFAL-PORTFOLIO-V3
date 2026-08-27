@@ -63,17 +63,17 @@ export default function AboutContent() {
       ========================= */}
 
       <motion.h1
-        variants={fadeUp}
-        className="
-          mt-8
-          max-w-3xl
-          text-[clamp(52px,7vw,96px)]
-          font-semibold
-          leading-[0.92]
-          tracking-[-0.075em]
-          text-white
-        "
-      >
+  variants={fadeUp}
+  className="
+    mt-8
+    max-w-3xl
+    text-[clamp(52px,7vw,96px)]
+    font-semibold
+    leading-[0.98]
+    tracking-[-0.075em]
+    text-white
+  "
+>
         I like finding out
         <br />
         <span className="text-gray-400">
