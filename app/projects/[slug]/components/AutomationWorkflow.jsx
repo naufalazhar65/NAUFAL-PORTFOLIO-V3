@@ -7,6 +7,8 @@ import {
   FiCheckCircle,
   FiPlay,
   FiSearch,
+  FiCopy,
+  FiCheck,
 } from "react-icons/fi";
 
 import WorkflowMobileModal from "./WorkflowMobileModal";
@@ -174,7 +176,7 @@ export default function AutomationWorkflow({
             max-w-[1280px]
             px-4
             sm:px-6
-            lg:px-0
+            lg:px-8
           "
         >
           <WorkflowHeader
@@ -393,24 +395,14 @@ export default function AutomationWorkflow({
                   Example
                 </span>
 
-                <pre
-                  className="
-                    mt-3
-                    overflow-x-auto
-                    border
-                    border-white/[0.08]
-                    bg-[#050505]
-                    px-4
-                    py-4
-                    font-mono
-                    text-[11px]
-                    leading-6
-                    text-[#16f2b3]
-                  "
-                >
-                  {activeWorkflowStep?.command ??
-                    activeStage.command}
-                </pre>
+                <div className="mt-3">
+                  <CommandBlock
+                    command={
+                      activeWorkflowStep?.command ??
+                      activeStage.command
+                    }
+                  />
+                </div>
               </div>
 
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
@@ -521,7 +513,7 @@ export default function AutomationWorkflow({
           max-w-[1280px]
           px-4
           sm:px-6
-          lg:px-0
+          lg:px-8
         "
       >
         <WorkflowHeader
@@ -613,23 +605,9 @@ export default function AutomationWorkflow({
                   )}
 
                   {step.command && (
-                    <pre
-                      className="
-                        mt-5
-                        overflow-x-auto
-                        border
-                        border-white/[0.08]
-                        bg-[#050505]
-                        px-4
-                        py-3
-                        font-mono
-                        text-[11px]
-                        leading-6
-                        text-[#16f2b3]
-                      "
-                    >
-                      {step.command}
-                    </pre>
+                    <div className="mt-5">
+                      <CommandBlock command={step.command} />
+                    </div>
                   )}
 
                   {step.output?.length > 0 && (
@@ -730,5 +708,35 @@ function WorkflowHeader({
         {description}
       </p>
     </motion.div>
+  );
+}
+
+function CommandBlock({ command }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(command);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div className="relative w-full max-w-full">
+      <pre className="w-full max-w-full overflow-x-auto border border-white/[0.08] bg-[#050505] px-4 py-4 pr-12 font-mono text-[11px] leading-6 text-[#16f2b3]">
+        {command}
+      </pre>
+      <button
+        type="button"
+        onClick={handleCopy}
+        aria-label="Copy command"
+        className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.03] text-gray-400 opacity-100 transition-colors duration-200 hover:border-white/[0.15] hover:text-white"
+      >
+        {copied ? <FiCheck size={12} /> : <FiCopy size={12} />}
+      </button>
+    </div>
   );
 }

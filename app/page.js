@@ -45,9 +45,7 @@ export default function Home() {
 
       <section className="hero-minimal">
         <div className="hero-meta">
-          <span>SOFTWARE QUALITY ASSURANCE ENGINEER</span>
-
-          <span>INDONESIA · OPEN TO OPPORTUNITIES</span>
+          <span>OPEN TO OPPORTUNITIES</span>
         </div>
 
         <div className="hero-content">
@@ -83,8 +81,6 @@ export default function Home() {
 
         <div className="hero-footer">
           <span>AUTOMATION · MOBILE · API · PERFORMANCE</span>
-
-          <span>INDONESIA</span>
         </div>
       </section>
 

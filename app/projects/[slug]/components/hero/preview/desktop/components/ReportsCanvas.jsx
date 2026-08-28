@@ -1,232 +1,323 @@
 "use client";
 
 import {
-  Activity,
   BarChart3,
   CheckCircle2,
   Clock3,
-  FileDown,
-  ShieldCheck,
+  TrendingUp,
+  XCircle,
 } from "lucide-react";
 
+import { useHero } from "../../HeroContext";
+
 export default function ReportsCanvas() {
-  const recent = [
-    "Login Automation",
-    "Checkout Flow",
-    "Search Product",
-    "Profile Validation",
+  const { reports = [] } = useHero();
+
+  // Data dummy sementara jika reports kosong
+  const dummyReports = [
+    {
+      id: "1",
+      status: "passed",
+      startedAt: Date.now() - 3600000,
+      duration: 12500,
+      nodes: [
+        { nodeType: "tap", nodeTitle: "Tap Login", status: "passed" },
+        { nodeType: "assert", nodeTitle: "Verify Dashboard", status: "passed" },
+      ],
+      logs: [],
+    },
+    {
+      id: "2",
+      status: "failed",
+      startedAt: Date.now() - 7200000,
+      duration: 18000,
+      nodes: [
+        { nodeType: "tap", nodeTitle: "Tap Login", status: "passed" },
+        { nodeType: "assert", nodeTitle: "Verify Dashboard", status: "failed" },
+      ],
+      logs: [
+        { level: "error", message: "Element not found", details: { reason: "locator timeout" } },
+      ],
+    },
+    {
+      id: "3",
+      status: "passed",
+      startedAt: Date.now() - 10800000,
+      duration: 9800,
+      nodes: [
+        { nodeType: "tap", nodeTitle: "Tap Login", status: "passed" },
+        { nodeType: "assert", nodeTitle: "Verify Dashboard", status: "passed" },
+      ],
+      logs: [],
+    },
   ];
 
+  const reportsData = reports.length > 0 ? reports : dummyReports;
+
   return (
-    <div className="relative h-full overflow-hidden">
-      {/* Background */}
+    <div className="h-full overflow-y-auto p-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/[0.08]">
+      <ReportAnalytics reports={reportsData} />
+    </div>
+  );
+}
 
-      <div
-        className="
-          absolute
-          inset-0
-          opacity-20
-          bg-[radial-gradient(circle_at_center,rgba(255,255,255,.05)_1px,transparent_1px)]
-          [background-size:22px_22px]
-        "
-      />
+function ReportAnalytics({ reports }) {
+  const totalRuns = reports.length;
+  const passedRuns = reports.filter((r) => r.status === "passed").length;
+  const failedRuns = reports.filter((r) => r.status === "failed").length;
+  const stoppedRuns = reports.filter((r) => r.status === "stopped").length;
 
-      <div
-        className="
-          absolute
-          left-1/2
-          top-1/2
-          h-[340px]
-          w-[340px]
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-full
-          bg-cyan-400/5
-          blur-[120px]
-        "
-      />
+  const totalDuration = reports.reduce((sum, r) => sum + r.duration, 0);
+  const averageDuration = totalRuns > 0 ? totalDuration / totalRuns : 0;
+  const passRate = totalRuns > 0 ? (passedRuns / totalRuns) * 100 : 0;
+  const failureRate = totalRuns > 0 ? (failedRuns / totalRuns) * 100 : 0;
 
-      <div className="relative flex h-full flex-col p-8">
-        {/* Header */}
+  const trendReports = [...reports].sort((a, b) => a.startedAt - b.startedAt);
+  const failedNodes = getFailedNodes(reports);
+  const failureReasons = getFailureReasons(reports);
+  const maxFailedNodes = failedNodes.length > 0 ? failedNodes[0].count : 1;
+  const maxFailureReason = failureReasons.length > 0 ? failureReasons[0].count : 1;
 
-        <div>
-          <p className="text-[11px] uppercase tracking-[4px] text-cyan-400">
-            Analytics
-          </p>
+  if (totalRuns === 0) return null;
 
-          <h2 className="mt-2 text-2xl font-bold text-white">
-            Execution Reports
-          </h2>
-        </div>
+  return (
+    <div className="space-y-3">
+      {/* Summary cards */}
+      <div className="grid grid-cols-4 gap-3">
+        <AnalyticsCard
+          label="Pass Rate"
+          value={`${passRate.toFixed(1)}%`}
+          icon={<TrendingUp size={17} />}
+          accent="#3FB950"
+          subtitle={`${passedRuns} of ${totalRuns} runs passed`}
+        />
+        <AnalyticsCard
+          label="Failure Rate"
+          value={`${failureRate.toFixed(1)}%`}
+          icon={<XCircle size={17} />}
+          accent="#F85149"
+          subtitle={`${failedRuns} failed runs`}
+        />
+        <AnalyticsCard
+          label="Average Duration"
+          value={formatDuration(averageDuration)}
+          icon={<Clock3 size={17} />}
+          accent="#58A6FF"
+          subtitle={`${totalRuns} total executions`}
+        />
+        <AnalyticsCard
+          label="Stopped Runs"
+          value={stoppedRuns}
+          icon={<BarChart3 size={17} />}
+          accent="#D29922"
+          subtitle={stoppedRuns === 0 ? "No stopped executions" : "Execution stopped manually"}
+        />
+      </div>
 
-        {/* Chart */}
+      {/* Trend + Distribution */}
+      <div className="grid grid-cols-[2fr_1fr] gap-3">
+        <AnalyticsPanel title="Execution Trend">
+          <div className="w-full overflow-x-auto pb-1" style={{ overscrollBehaviorX: "contain" }}>
+            <div
+              className="flex items-end gap-2.5"
+              style={{
+                minWidth: Math.max(360, trendReports.length * 52),
+                width: "max-content",
+                height: 150,
+                padding: "12px 4px 4px",
+              }}
+            >
+              {trendReports.map((report, index) => {
+                const maxDuration = Math.max(...trendReports.map((r) => r.duration));
+                const barHeight = Math.max(22, Math.min(108, maxDuration > 0 ? (report.duration / maxDuration) * 108 : 22));
+                const color =
+                  report.status === "passed" ? "#3FB950" : report.status === "failed" ? "#F85149" : "#D29922";
 
-        <div
-          className="
-            mt-8
-            rounded-2xl
-            border
-            border-white/10
-            bg-[#141d29]
-            p-6
-          "
-        >
-          <div className="mb-5 flex items-center justify-between">
-            <span className="text-sm font-semibold text-white">
-              Success Rate
-            </span>
-
-            <BarChart3
-              size={18}
-              className="text-cyan-400"
-            />
+                return (
+                  <div
+                    key={report.id}
+                    style={{ flex: "0 0 42px", width: 42, height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", gap: 6 }}
+                  >
+                    <div
+                      title={`${report.status.toUpperCase()} · ${formatDuration(report.duration)}`}
+                      style={{ width: "100%", height: barHeight, borderRadius: "6px 6px 3px 3px", background: color, opacity: 0.85 }}
+                    />
+                    <span style={{ color: "#6E7681", fontSize: 9 }}>{index + 1}</span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          <div className="flex h-28 items-end gap-3">
-            {[35, 48, 40, 62, 55, 78, 70].map((h) => (
-              <div
-                key={h}
-                className="flex-1 rounded-t-xl bg-cyan-400/80"
-                style={{
-                  height: `${h}%`,
-                }}
-              />
-            ))}
+          <div className="mt-1 flex items-center gap-3 text-[10px] text-gray-500">
+            <Legend color="#3FB950" label="Passed" />
+            <Legend color="#F85149" label="Failed" />
+            <Legend color="#D29922" label="Stopped" />
+            <span className="ml-auto">{trendReports.length === 1 ? "1 run" : `${trendReports.length} runs`}</span>
           </div>
-        </div>
+        </AnalyticsPanel>
 
-        {/* Metrics */}
-
-        <div className="mt-6 grid grid-cols-3 gap-4">
-          <Metric
-            icon={CheckCircle2}
-            value="98.7%"
-            label="Passed"
-          />
-
-          <Metric
-            icon={Clock3}
-            value="18.2s"
-            label="Average"
-          />
-
-          <Metric
-            icon={ShieldCheck}
-            value="0"
-            label="Critical"
-          />
-        </div>
-
-        {/* Recent */}
-
-        <div
-          className="
-            mt-6
-            flex-1
-            rounded-2xl
-            border
-            border-white/10
-            bg-[#141d29]
-            p-5
-          "
-        >
-          <div className="mb-4 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-white">
-              Recent Executions
-            </h3>
-
-            <Activity
-              size={18}
-              className="text-cyan-400"
-            />
+        <AnalyticsPanel title="Run Distribution">
+          <div className="flex flex-col gap-3 pt-1">
+            <DistributionRow label="Passed" value={passedRuns} total={totalRuns} color="#3FB950" />
+            <DistributionRow label="Failed" value={failedRuns} total={totalRuns} color="#F85149" />
+            <DistributionRow label="Stopped" value={stoppedRuns} total={totalRuns} color="#D29922" />
           </div>
+        </AnalyticsPanel>
+      </div>
 
-          <div className="space-y-3">
-            {recent.map((item) => (
-              <div
-                key={item}
-                className="
-                  flex
-                  items-center
-                  justify-between
-                  rounded-xl
-                  bg-white/5
-                  px-4
-                  py-3
-                "
-              >
-                <span className="text-sm text-white">
-                  {item}
-                </span>
+      {/* Failure Analysis */}
+      <div className="grid grid-cols-2 gap-3">
+        <AnalyticsPanel title="Most Failed Nodes">
+          {failedNodes.length === 0 ? (
+            <AnalyticsEmpty icon={<CheckCircle2 size={18} />} message="No failed nodes yet." />
+          ) : (
+            <div className="flex flex-col gap-3">
+              {failedNodes.slice(0, 5).map((item) => (
+                <ProgressRow
+                  key={item.key}
+                  label={item.title}
+                  meta={`${item.nodeType} · ${item.count} failure${item.count === 1 ? "" : "s"}`}
+                  value={item.count}
+                  max={maxFailedNodes}
+                  color="#F85149"
+                />
+              ))}
+            </div>
+          )}
+        </AnalyticsPanel>
 
-                <span className="text-xs text-emerald-400">
-                  Passed
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Footer */}
-
-        <button
-          className="
-            mt-6
-            flex
-            items-center
-            justify-center
-            gap-2
-
-            rounded-xl
-
-            border
-            border-cyan-400/20
-
-            bg-cyan-400/10
-
-            py-3
-
-            text-sm
-            font-semibold
-
-            text-cyan-400
-          "
-        >
-          <FileDown size={16} />
-          Export Report
-        </button>
+        <AnalyticsPanel title="Failure Analysis">
+          {failureReasons.length === 0 ? (
+            <AnalyticsEmpty icon={<CheckCircle2 size={18} />} message="No failure reasons recorded." />
+          ) : (
+            <div className="flex flex-col gap-3">
+              {failureReasons.slice(0, 5).map((item) => (
+                <ProgressRow
+                  key={item.reason}
+                  label={item.reason}
+                  value={item.count}
+                  max={maxFailureReason}
+                  color="#D29922"
+                />
+              ))}
+            </div>
+          )}
+        </AnalyticsPanel>
       </div>
     </div>
   );
 }
 
-function Metric({
-  icon: Icon,
-  value,
-  label,
-}) {
+// Helper components (sesuaikan gaya dengan Tailwind)
+function AnalyticsCard({ label, value, icon, accent, subtitle }) {
   return (
-    <div
-      className="
-        rounded-xl
-        border
-        border-white/10
-        bg-[#141d29]
-        p-4
-      "
-    >
-      <Icon
-        size={18}
-        className="text-cyan-400"
-      />
-
-      <h4 className="mt-3 text-xl font-bold text-white">
-        {value}
-      </h4>
-
-      <p className="mt-1 text-xs uppercase tracking-[2px] text-gray-500">
-        {label}
-      </p>
+    <div className="min-w-0 rounded-xl border border-white/10 bg-[#161B22] p-4">
+      <div className="flex items-center gap-2 text-[11px] text-gray-500">
+        <span style={{ color: accent }}>{icon}</span>
+        <span>{label}</span>
+      </div>
+      <div className="mt-2 text-[22px] font-bold text-white">{value}</div>
+      <div className="mt-1 text-[9px] text-gray-600">{subtitle}</div>
     </div>
   );
+}
+
+function AnalyticsPanel({ title, children }) {
+  return (
+    <div className="min-w-0 rounded-xl border border-white/10 bg-[#161B22] p-4">
+      <div className="mb-2 text-xs font-semibold text-white">{title}</div>
+      {children}
+    </div>
+  );
+}
+
+function DistributionRow({ label, value, total, color }) {
+  const percentage = total > 0 ? (value / total) * 100 : 0;
+  return (
+    <div>
+      <div className="flex justify-between text-[10px] text-gray-500 mb-1">
+        <span>{label}</span>
+        <span>{value} · {percentage.toFixed(1)}%</span>
+      </div>
+      <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+        <div style={{ width: `${percentage}%`, height: "100%", background: color }} />
+      </div>
+    </div>
+  );
+}
+
+function ProgressRow({ label, meta, value, max, color }) {
+  const percentage = max > 0 ? (value / max) * 100 : 0;
+  return (
+    <div>
+      <div className="flex items-baseline justify-between gap-3 mb-1">
+        <span className="truncate text-[10px] font-semibold text-gray-300">{label}</span>
+        <span className="shrink-0 text-[10px] font-bold" style={{ color }}>{value}</span>
+      </div>
+      {meta && <div className="text-[9px] text-gray-600 mb-1">{meta}</div>}
+      <div className="h-1 rounded-full bg-white/10 overflow-hidden">
+        <div style={{ width: `${percentage}%`, height: "100%", background: color }} />
+      </div>
+    </div>
+  );
+}
+
+function Legend({ color, label }) {
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <span className="w-1.5 h-1.5 rounded-full" style={{ background: color }} />
+      {label}
+    </span>
+  );
+}
+
+function AnalyticsEmpty({ icon, message }) {
+  return (
+    <div className="min-h-[96px] flex items-center justify-center gap-2 text-gray-600 text-[10px]">
+      {icon}
+      {message}
+    </div>
+  );
+}
+
+// Helper functions
+function getFailedNodes(reports) {
+  const counts = new Map();
+  for (const report of reports) {
+    for (const node of report.nodes || []) {
+      if (node.status !== "failed") continue;
+      const key = `${node.nodeType}:${node.nodeTitle}`;
+      const current = counts.get(key);
+      if (current) {
+        current.count += 1;
+      } else {
+        counts.set(key, {
+          key,
+          title: node.nodeTitle,
+          nodeType: node.nodeType,
+          count: 1,
+        });
+      }
+    }
+  }
+  return [...counts.values()].sort((a, b) => b.count - a.count);
+}
+
+function getFailureReasons(reports) {
+  const counts = new Map();
+  for (const report of reports) {
+    for (const log of report.logs || []) {
+      if (log.level !== "error") continue;
+      const reason = typeof log.details?.reason === "string" ? log.details.reason : log.message;
+      if (!reason) continue;
+      counts.set(reason, (counts.get(reason) ?? 0) + 1);
+    }
+  }
+  return [...counts.entries()].map(([reason, count]) => ({ reason, count })).sort((a, b) => b.count - a.count);
+}
+
+function formatDuration(duration) {
+  if (duration < 1000) return `${Math.round(duration)}ms`;
+  return `${(duration / 1000).toFixed(2)}s`;
 }

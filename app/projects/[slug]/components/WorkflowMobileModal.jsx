@@ -15,7 +15,6 @@ import {
 } from "react-icons/fi";
 
 import { FaApple, FaAndroid, FaTelegram, FaHtml5 } from "react-icons/fa";
-
 import { SiPytest, SiAppium } from "react-icons/si";
 
 const iconMap = {
@@ -57,73 +56,36 @@ export default function WorkflowMobileModal({ step, onClose }) {
       html.style.overflow = prevHtmlOverflow;
       body.style.overflow = prevBodyOverflow;
       body.style.touchAction = prevTouchAction;
-
       window.removeEventListener("keydown", handleEsc);
     };
   }, [step, onClose]);
 
   if (!step) return null;
 
-  const Icon = iconMap[step.icon] || FiBox;
+  const Icon =
+    typeof step.icon === "function" ? step.icon : iconMap[step.icon] || FiBox;
 
   return createPortal(
     <>
       {/* Overlay */}
-
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
         onClick={onClose}
-        className="
-          fixed
-          inset-0
-          z-[999999]
-          bg-black/60 backdrop-blur-md
-          backdrop-blur-sm
-        "
+        className="fixed inset-0 z-[999999] bg-black/60 backdrop-blur-md"
       />
 
       {/* Modal */}
-
       <motion.div
-        initial={{
-          opacity: 0,
-          scale: 0.96,
-          y: 40,
-        }}
-        animate={{
-          opacity: 1,
-          scale: 1,
-          y: 0,
-        }}
-        exit={{
-          opacity: 0,
-          scale: 0.98,
-          y: 25,
-        }}
-        transition={{
-          duration: 0.35,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-        className="
-    fixed
-    inset-x-3
-    top-24
-    z-[1000000]
-    mx-auto
-    max-w-md
-    overflow-hidden
-    rounded-3xl
-    border
-    border-[#16f2b3]/30
-    bg-[#111827]
-    shadow-[0_30px_80px_rgba(0,0,0,.45)]
-  "
+        initial={{ opacity: 0, scale: 0.96, y: 40 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.98, y: 25 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed inset-x-3 top-24 z-[1000000] mx-auto max-w-md overflow-hidden rounded-3xl border border-[#16f2b3]/30 bg-[#111827] shadow-[0_30px_80px_rgba(0,0,0,.45)]"
       >
         {/* Header */}
-
         <div className="border-b border-white/10 p-5 sm:p-6">
           <div className="flex items-start justify-between">
             <div>
@@ -140,7 +102,6 @@ export default function WorkflowMobileModal({ step, onClose }) {
                   <h3 className="text-2xl font-bold text-white">
                     {step.title}
                   </h3>
-
                   <p className="text-gray-400">{step.subtitle}</p>
                 </div>
               </div>
@@ -148,14 +109,8 @@ export default function WorkflowMobileModal({ step, onClose }) {
 
             <button
               onClick={onClose}
-              className="
-                rounded-xl
-                p-2
-                text-gray-400
-                transition
-                hover:bg-white/10
-                hover:text-white
-              "
+              aria-label="Close modal"
+              className="rounded-xl p-2 text-gray-400 transition hover:bg-white/10 hover:text-white"
             >
               <FiX size={22} />
             </button>
@@ -163,30 +118,16 @@ export default function WorkflowMobileModal({ step, onClose }) {
         </div>
 
         {/* Body */}
-
-        <div
-          className="
-max-h-[50vh] sm:max-h-[55vh]
-overflow-y-auto
-overscroll-contain
-scroll-smooth
-custom-scrollbar
-space-y-5
-p-5 sm:p-6
-"
-        >
+        <div className="max-h-[50vh] sm:max-h-[55vh] overflow-y-auto overscroll-contain scroll-smooth custom-scrollbar space-y-5 p-5 sm:p-6">
           {/* Description */}
-
           <div>
             <h4 className="mb-2 text-xs uppercase tracking-[3px] text-gray-500">
               Description
             </h4>
-
             <p className="leading-7 text-gray-300">{step.description}</p>
           </div>
 
           {/* Command */}
-
           {step.command && (
             <div>
               <div className="mb-3 flex items-center gap-2 text-xs uppercase tracking-[3px] text-gray-500">
@@ -194,25 +135,13 @@ p-5 sm:p-6
                 Command
               </div>
 
-              <pre
-                className="
-                  max-h-40
-                  overflow-auto
-                  rounded-xl
-                  bg-[#0d1117]
-                  p-3
-                  text-sm
-                  text-[#16f2b3]
-                  custom-scrollbar
-                "
-              >
+              <pre className="max-h-40 max-w-full overflow-auto rounded-xl bg-[#0d1117] p-3 text-sm text-[#16f2b3] custom-scrollbar whitespace-pre-wrap break-words">
                 {step.command}
               </pre>
             </div>
           )}
 
           {/* Output */}
-
           {step.output?.length > 0 && (
             <div>
               <h4 className="mb-3 text-xs uppercase tracking-[3px] text-gray-500">
@@ -223,20 +152,9 @@ p-5 sm:p-6
                 {step.output.map((item) => (
                   <div
                     key={item}
-                    className="
-                      flex
-                      items-center
-                      gap-3
-                      rounded-xl
-                      border
-                      border-white/5
-                      bg-white/5
-                      px-2
-                      py-2.5
-                    "
+                    className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/5 px-2 py-2.5"
                   >
                     <FiCheckCircle className="text-[#16f2b3]" />
-
                     <span className="text-gray-300">{item}</span>
                   </div>
                 ))}
@@ -245,11 +163,9 @@ p-5 sm:p-6
           )}
 
           {/* Duration */}
-
           {step.duration && (
             <div className="flex items-center gap-2 text-gray-400">
               <FiClock />
-
               <span>{step.duration}</span>
             </div>
           )}
