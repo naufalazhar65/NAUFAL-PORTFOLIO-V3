@@ -13,7 +13,7 @@ export default function DesktopScreen({ variant = "workflow" }) {
   const [activeMenu, setActiveMenu] = useState("Flow Builder");
 
   return (
-    <div className="grid h-full grid-cols-[220px_1fr] grid-rows-[56px_1fr_auto] [mask-image:linear-gradient(to_right,black_0%,black_78%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,black_0%,black_78%,transparent_100%)]">
+    <div className="grid h-full grid-cols-[220px_1fr] grid-rows-[56px_1fr_auto]">
       <aside className="row-span-3 border-r border-white/5 bg-white/[0.02]">
         <Sidebar activeMenu={activeMenu} onMenuChange={setActiveMenu} />
       </aside>

@@ -3,10 +3,7 @@
 import Link from "next/link";
 import { FiArrowUpRight } from "react-icons/fi";
 
-import BrowserFrame from "./BrowserFrame";
-import DemoLayout from "./desktop/DemoLayout";
-import MobileLiveDemo from "./mobile/MobileLiveDemo";
-import DemoProvider from "./shared/DemoProvider";
+import FlowTestStudioPreview from "@/app/components/flowtest-preview/FlowTestStudioPreview";
 
 export default function LiveDemo({ project }) {
   if (project.slug !== "flowtest-studio") {
@@ -25,6 +22,7 @@ export default function LiveDemo({ project }) {
         lg:py-32
       "
     >
+      {/* Ambient glow */}
       <div
         className="
           pointer-events-none
@@ -48,121 +46,43 @@ export default function LiveDemo({ project }) {
           max-w-[1280px]
           px-4
           sm:px-6
-          lg:px-0
+          lg:px-8
         "
       >
-        {/* =========================
-            HEADER
-        ========================= */}
-
-        <div
-          className="
-            border-b
-            border-white/[0.08]
-            pb-8
-            lg:pb-10
-          "
-        >
+        {/* Header */}
+        <div className="border-b border-white/[0.08] pb-8 lg:pb-10">
           <div className="flex items-center gap-4">
-            <span
-              className="
-                text-[10px]
-                font-semibold
-                uppercase
-                tracking-[0.14em]
-                text-[#16f2b3]
-              "
-            >
+            <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#16f2b3]">
               02
             </span>
-
-            <span
-              className="
-                text-[10px]
-                font-semibold
-                uppercase
-                tracking-[0.14em]
-                text-gray-600
-              "
-            >
+            <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gray-600">
               Live Product
             </span>
           </div>
 
-          <div
-            className="
-              mt-8
-              grid
-              gap-8
-              lg:grid-cols-[1fr_0.55fr]
-              lg:items-end
-            "
-          >
+          <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_0.55fr] lg:items-end">
             <div>
-              <h2
-                className="
-                  max-w-4xl
-                  text-[clamp(48px,7vw,96px)]
-                  font-semibold
-                  leading-[0.93]
-                  tracking-[-0.07em]
-                  text-white
-                "
-              >
+              <h2 className="max-w-4xl text-[clamp(48px,7vw,96px)] font-semibold leading-[0.93] tracking-[-0.07em] text-white">
                 Experience
                 <br />
-                <span className="text-gray-600">
-                  FlowTest Studio.
-                </span>
+                <span className="text-gray-600">FlowTest Studio.</span>
               </h2>
             </div>
-
-            <p
-              className="
-                max-w-md
-                text-[15px]
-                leading-7
-                text-gray-500
-              "
-            >
-              Explore the workflow builder, execution
-              engine, and testing interface through the
-              interactive product demo.
+            <p className="max-w-md text-[15px] leading-7 text-gray-500">
+              Explore the workflow builder, execution engine, and testing
+              interface through the interactive product demo.
             </p>
           </div>
         </div>
 
-        {/* =========================
-            ACTIONS
-        ========================= */}
-
-        <div
-          className="
-            flex
-            flex-wrap
-            gap-3
-            py-8
-          "
-        >
+        {/* Actions */}
+        <div className="flex flex-wrap gap-3 py-8">
           <Link
             href="/flowtest"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Launch FlowTest Studio full demo"
-            className="
-              inline-flex
-              min-h-11
-              items-center
-              gap-3
-              rounded-full
-              bg-white
-              px-5
-              text-sm
-              font-medium
-              text-black
-              transition
-              hover:bg-gray-200
-            "
+            className="inline-flex min-h-11 items-center gap-3 rounded-full bg-white px-5 text-sm font-medium text-black transition hover:bg-gray-200"
           >
             Launch Full Demo
             <FiArrowUpRight size={14} />
@@ -173,48 +93,16 @@ export default function LiveDemo({ project }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View FlowTest Studio source code"
-            className="
-              inline-flex
-              min-h-11
-              items-center
-              gap-3
-              rounded-full
-              border
-              border-white/[0.1]
-              px-5
-              text-sm
-              font-medium
-              text-white
-              transition
-              hover:border-white/[0.2]
-              hover:bg-white/[0.03]
-            "
+            className="inline-flex min-h-11 items-center gap-3 rounded-full border border-white/[0.1] px-5 text-sm font-medium text-white transition hover:border-white/[0.2] hover:bg-white/[0.03]"
           >
             View Source
-           <FiArrowUpRight size={14} />
+            <FiArrowUpRight size={14} />
           </Link>
         </div>
 
-        {/* =========================
-            DEMO
-        ========================= */}
-
+        {/* Demo preview konsisten */}
         <div className="mt-2">
-          <BrowserFrame>
-            <DemoProvider>
-              {/* Desktop */}
-
-              <div className="hidden lg:block">
-                <DemoLayout />
-              </div>
-
-              {/* Mobile */}
-
-              <div className="lg:hidden">
-                <MobileLiveDemo />
-              </div>
-            </DemoProvider>
-          </BrowserFrame>
+          <FlowTestStudioPreview hideFrame={false} maxScale={1.4} />
         </div>
       </div>
     </section>

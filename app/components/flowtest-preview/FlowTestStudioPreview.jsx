@@ -10,39 +10,32 @@ const DESIGN_HEIGHT = 560;
 
 export default function FlowTestStudioPreview({
   hideFrame = false,
+  maxScale = 1,
 }) {
   const containerRef = useRef(null);
-
   const [scale, setScale] = useState(1);
 
   useEffect(() => {
     const element = containerRef.current;
-
-    if (!element) {
-      return;
-    }
+    if (!element) return;
 
     const updateScale = () => {
       const width = element.getBoundingClientRect().width;
-
-      const nextScale = Math.min(
-        width / DESIGN_WIDTH,
-        1,
-      );
-
+      const nextScale = Math.min(width / DESIGN_WIDTH, maxScale);
       setScale(nextScale);
     };
 
     updateScale();
 
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", updateScale);
+      return () => window.removeEventListener("resize", updateScale);
+    }
+
     const observer = new ResizeObserver(updateScale);
-
     observer.observe(element);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+    return () => observer.disconnect();
+  }, [maxScale]);
 
   const scaledHeight = DESIGN_HEIGHT * scale;
 
@@ -50,9 +43,7 @@ export default function FlowTestStudioPreview({
     <div
       ref={containerRef}
       className="w-full overflow-hidden"
-      style={{
-        height: scaledHeight,
-      }}
+      style={{ height: scaledHeight }}
     >
       <div
         className="origin-top-left"
@@ -63,10 +54,7 @@ export default function FlowTestStudioPreview({
         }}
       >
         <HeroProvider>
-          <DesktopPreview
-            variant="workflow"
-            hideFrame={hideFrame}
-          />
+          <DesktopPreview variant="workflow" hideFrame={hideFrame} />
         </HeroProvider>
       </div>
     </div>

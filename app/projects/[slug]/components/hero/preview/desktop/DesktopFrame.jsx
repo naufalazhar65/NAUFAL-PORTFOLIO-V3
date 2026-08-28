@@ -104,7 +104,7 @@ export default function DesktopFrame({
               text-gray-500
             "
           >
-            flowtest.local
+            http://localhost:5173/
           </div>
 
           {/* Actions */}
