@@ -4,20 +4,14 @@ import { create } from "zustand";
 
 export const useExecutionStore = create((set) => ({
   running: false,
-
   currentNode: null,
-
   nodeStatus: {},
-
   nodeTiming: {},
-
   progress: 0,
 
-setProgress(progress) {
-    set({
-        progress,
-    });
-},
+  setProgress(progress) {
+    set({ progress });
+  },
 
   start() {
     set({
@@ -25,6 +19,7 @@ setProgress(progress) {
       currentNode: null,
       nodeStatus: {},
       nodeTiming: {},
+      progress: 0,
     });
   },
 
@@ -36,9 +31,7 @@ setProgress(progress) {
   },
 
   setCurrent(id) {
-    set({
-      currentNode: id,
-    });
+    set({ currentNode: id });
   },
 
   setStatus(id, status) {
@@ -59,4 +52,3 @@ setProgress(progress) {
     }));
   },
 }));
-

@@ -3,13 +3,13 @@ import { nodeConfig } from "../nodes/nodeConfig";
 export const defaultNodes = [
   {
     id: "1",
-    type: "launch",
+    type: "launchApp",
     position: {
       x: 300,
       y: 80,
     },
     data: {
-      ...nodeConfig.launch,
+      ...nodeConfig.launchApp,
       fields: [
         {
           label: "Platform",
@@ -39,13 +39,13 @@ export const defaultNodes = [
 
   {
     id: "3",
-    type: "textInput",
+    type: "inputText",
     position: {
       x: 300,
       y: 460,
     },
     data: {
-      ...nodeConfig.input,
+      ...nodeConfig.inputText,
       fields: [
         {
           label: "Text",
@@ -79,18 +79,18 @@ export const defaultEdges = [
     id: "1-2",
     source: "1",
     target: "2",
-    type:"workflow"
+    type: "workflow",
   },
   {
     id: "2-3",
     source: "2",
     target: "3",
-    type:"workflow"
+    type: "workflow",
   },
   {
     id: "3-4",
     source: "3",
     target: "4",
-    type:"workflow"
+    type: "workflow",
   },
 ];

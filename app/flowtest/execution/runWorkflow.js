@@ -29,16 +29,11 @@ export async function runWorkflow() {
   try {
     for (let index = 0; index < nodes.length; index++) {
       const node = nodes[index];
-      const runner = runners[node.type];
-
-      if (!runner) {
-        execution.setStatus(node.id, "failed");
-        consoleStore.push(
-          "error",
-          `No runner found for node type "${node.type}".`
-        );
-        continue;
-      }
+      const runner = runners[node.type] ?? {
+        start: `Executing ${node.type}...`,
+        finish: `${node.type} completed successfully.`,
+        duration: 1200, // default duration in ms
+      };
 
       // Focus node
       execution.setCurrent(node.id);

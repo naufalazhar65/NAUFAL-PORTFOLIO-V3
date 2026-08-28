@@ -1,36 +1,190 @@
 export const nodeConfig = {
-  tap: {
-    color: "#22c55e",
-    icon: "👆",
-    title: "Tap",
-    type: "Interaction",
+  launchApp: {
+    color: "#6366f1",
+    icon: "📱",
+    title: "Launch App",
+    type: "Application",
+  },
+  closeApp: {
+    color: "#6366f1",
+    icon: "⏹️",
+    title: "Close App",
+    type: "Application",
   },
 
-  input: {
+  tap: { color: "#22c55e", icon: "👆", title: "Tap", type: "Element Action" },
+  inputText: {
     color: "#3b82f6",
     icon: "⌨️",
-    title: "Input",
-    type: "Interaction",
+    title: "Input Text",
+    type: "Element Action",
+  },
+  swipe: {
+    color: "#8b5cf6",
+    icon: "👉",
+    title: "Swipe",
+    type: "Element Action",
+  },
+  scroll: {
+    color: "#8b5cf6",
+    icon: "📜",
+    title: "Scroll",
+    type: "Element Action",
+  },
+  wait: { color: "#eab308", icon: "⏳", title: "Wait", type: "Element Action" },
+  longPress: {
+    color: "#22c55e",
+    icon: "👇",
+    title: "Long Press",
+    type: "Element Action",
+  },
+  doubleTap: {
+    color: "#22c55e",
+    icon: "👆👆",
+    title: "Double Tap",
+    type: "Element Action",
+  },
+  drag: { color: "#8b5cf6", icon: "✋", title: "Drag", type: "Element Action" },
+  pinch: {
+    color: "#8b5cf6",
+    icon: "🤏",
+    title: "Pinch",
+    type: "Element Action",
+  },
+  zoom: { color: "#8b5cf6", icon: "🔍", title: "Zoom", type: "Element Action" },
+  fling: {
+    color: "#8b5cf6",
+    icon: "💨",
+    title: "Fling",
+    type: "Element Action",
+  },
+  hideKeyboard: {
+    color: "#8b5cf6",
+    icon: "⌨️",
+    title: "Hide Keyboard",
+    type: "Element Action",
+  },
+  pressReturn: {
+    color: "#8b5cf6",
+    icon: "↩️",
+    title: "Press Return",
+    type: "Element Action",
   },
 
+  back: { color: "#f97316", icon: "🔙", title: "Back", type: "Device Action" },
+  home: { color: "#f97316", icon: "🏠", title: "Home", type: "Device Action" },
   delay: {
     color: "#eab308",
     icon: "⏱️",
     title: "Delay",
-    type: "Utility",
+    type: "Device Action",
   },
-
-  assert: {
+  screenshot: {
     color: "#f97316",
-    icon: "✔️",
-    title: "Assert",
-    type: "Validation",
+    icon: "📸",
+    title: "Screenshot",
+    type: "Device Action",
   },
 
-  launch: {
-    color: "#6366f1",
+  getText: {
+    color: "#06b6d4",
+    icon: "🔤",
+    title: "Get Text",
+    type: "Element Getter",
+  },
+  elementExists: {
+    color: "#06b6d4",
+    icon: "❓",
+    title: "Element Exists",
+    type: "Element Getter",
+  },
+  getAttribute: {
+    color: "#06b6d4",
+    icon: "📋",
+    title: "Get Attribute",
+    type: "Element Getter",
+  },
+  getDisplayed: {
+    color: "#06b6d4",
+    icon: "👁️",
+    title: "Get Displayed",
+    type: "Element Getter",
+  },
+  getEnabled: {
+    color: "#06b6d4",
+    icon: "✔️",
+    title: "Get Enabled",
+    type: "Element Getter",
+  },
+  getSelected: {
+    color: "#06b6d4",
+    icon: "🔘",
+    title: "Get Selected",
+    type: "Element Getter",
+  },
+
+  getCurrentActivity: {
+    color: "#10b981",
     icon: "📱",
-    title: "Launch App",
-    type: "Device",
+    title: "Get Current Activity",
+    type: "Device Getter",
+  },
+  getCurrentPackage: {
+    color: "#10b981",
+    icon: "📦",
+    title: "Get Current Package",
+    type: "Device Getter",
+  },
+  getOrientation: {
+    color: "#10b981",
+    icon: "🔄",
+    title: "Get Orientation",
+    type: "Device Getter",
+  },
+  getPlatformVersion: {
+    color: "#10b981",
+    icon: "🔢",
+    title: "Get Platform Version",
+    type: "Device Getter",
+  },
+  getDeviceName: {
+    color: "#10b981",
+    icon: "📱",
+    title: "Get Device Name",
+    type: "Device Getter",
+  },
+  getDeviceTime: {
+    color: "#10b981",
+    icon: "🕒",
+    title: "Get Device Time",
+    type: "Device Getter",
+  },
+  getLocation: {
+    color: "#10b981",
+    icon: "📍",
+    title: "Get Location",
+    type: "Device Getter",
+  },
+  getSize: {
+    color: "#10b981",
+    icon: "📐",
+    title: "Get Size",
+    type: "Device Getter",
+  },
+  getRect: {
+    color: "#10b981",
+    icon: "⬜",
+    title: "Get Rect",
+    type: "Device Getter",
+  },
+
+  if: { color: "#f59e0b", icon: "🔀", title: "If", type: "Logic" },
+  repeat: { color: "#f59e0b", icon: "🔁", title: "Repeat", type: "Logic" },
+  assert: { color: "#f97316", icon: "✔️", title: "Assert", type: "Validation" },
+  setVariable: {
+    color: "#f59e0b",
+    icon: "🧮",
+    title: "Set Variable",
+    type: "Logic",
   },
 };
