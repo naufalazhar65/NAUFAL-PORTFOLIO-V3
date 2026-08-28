@@ -28,7 +28,7 @@ export default function Skills() {
           max-w-[1280px]
           px-4
           sm:px-6
-          lg:px-0
+          lg:px-8
         "
       >
         <motion.div
@@ -42,7 +42,7 @@ export default function Skills() {
         >
           <SkillsHeader />
 
-          <div className="mt-12 lg:mt-16">
+          <div className="mt-12 space-y-12 lg:mt-16 lg:space-y-16">
             {skillGroups.map((group, index) => (
               <SkillGroup
                 key={group.title}

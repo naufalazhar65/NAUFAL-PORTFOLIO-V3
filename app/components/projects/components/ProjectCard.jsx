@@ -11,6 +11,7 @@ export default function ProjectCard({
   project,
   reverse = false,
   featured = false,
+  index = 0,
 }) {
   if (!project) {
     return null;
@@ -21,45 +22,28 @@ export default function ProjectCard({
   if (featured) {
     return (
       <motion.article
-        initial={{
-          opacity: 0,
-          y: 40,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        viewport={{
-          once: true,
-          amount: 0.15,
-        }}
-        transition={{
-          duration: 0.8,
-          ease: [0.16, 1, 0.3, 1],
-        }}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="project-featured"
       >
         <div className="project-featured-content">
           <div className="project-meta">
             <span className="project-index">01</span>
-
             <span className="project-category">{project.category}</span>
-
             <span className="project-status">{project.status}</span>
           </div>
 
           <h2 className="project-featured-title">{project.name}</h2>
-
           <p className="project-highlight">{project.highlight}</p>
-
           <p className="project-description">{project.description}</p>
 
           {project.stats?.length > 0 && (
             <div className="project-stats">
-              {project.stats.slice(0, 3).map((stat) => (
-                <div key={stat.label} className="project-stat">
+              {project.stats.slice(0, 3).map((stat, idx) => (
+                <div key={`${stat.label}-${idx}`} className="project-stat">
                   <strong>{stat.value}</strong>
-
                   <span>{stat.label}</span>
                 </div>
               ))}
@@ -68,10 +52,9 @@ export default function ProjectCard({
 
           {project.tools?.length > 0 && (
             <div className="project-tools">
-              {project.tools.slice(0, 5).map((tool) => (
-                <span key={tool.name}>{tool.name}</span>
+              {project.tools.slice(0, 5).map((tool, idx) => (
+                <span key={`${tool.name}-${idx}`}>{tool.name}</span>
               ))}
-
               {project.tools.length > 5 && (
                 <span>+{project.tools.length - 5}</span>
               )}
@@ -110,32 +93,15 @@ export default function ProjectCard({
 
   return (
     <motion.article
-      initial={{
-        opacity: 0,
-        y: 30,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-      }}
-      viewport={{
-        once: true,
-        amount: 0.15,
-      }}
-      transition={{
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      className={`
-        project-standard
-        ${reverse ? "project-standard-reverse" : ""}
-      `}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className={`project-standard ${reverse ? "project-standard-reverse" : ""}`}
     >
       <div className="project-standard-meta">
-        <span>{project.id}</span>
-
+        <span>{String(index + 1).padStart(2, "0")}</span>
         <span>{project.category}</span>
-
         <Link
           href={`/projects/${project.slug}`}
           aria-label={`View ${project.name}`}
@@ -147,18 +113,15 @@ export default function ProjectCard({
       <div className="project-standard-content">
         <div>
           <h2>{project.name}</h2>
-
           <p className="project-highlight">{project.highlight}</p>
-
           <p className="project-description">{project.description}</p>
         </div>
 
         {project.tools?.length > 0 && (
           <div className="project-tools project-tools-compact">
-            {project.tools.slice(0, 5).map((tool) => (
-              <span key={tool.name}>{tool.name}</span>
+            {project.tools.slice(0, 5).map((tool, idx) => (
+              <span key={`${tool.name}-${idx}`}>{tool.name}</span>
             ))}
-
             {project.tools.length > 5 && (
               <span>+{project.tools.length - 5}</span>
             )}
@@ -182,11 +145,7 @@ function ProjectPreview({ project, featured = false, overlayLabel }) {
       className={`
         project-preview
         ${featured ? "project-preview-featured" : ""}
-        ${
-          project.slug === "flowtest-studio"
-            ? "project-preview-flowtest-shell"
-            : ""
-        }
+        ${project.slug === "flowtest-studio" ? "project-preview-flowtest-shell" : ""}
       `}
     >
       {project.slug !== "flowtest-studio" && (
@@ -196,9 +155,7 @@ function ProjectPreview({ project, featured = false, overlayLabel }) {
             <span />
             <span />
           </div>
-
           <span>{project.slug}</span>
-
           <span className="flex items-center gap-1">
             VIEW
             <FiArrowUpRight size={11} />
@@ -216,7 +173,7 @@ function ProjectPreview({ project, featured = false, overlayLabel }) {
       >
         {project.slug === "flowtest-studio" ? (
           <FlowTestStudioPreview hideFrame />
-        ) : (
+        ) : project.image ? (
           <Image
             src={project.image}
             alt={project.name}
@@ -224,9 +181,14 @@ function ProjectPreview({ project, featured = false, overlayLabel }) {
             height={800}
             className="project-preview-img"
           />
+        ) : (
+          <div className="project-preview-img bg-gray-800" />
         )}
 
-        <div className="project-preview-overlay">
+        <div
+          className="project-preview-overlay"
+          style={{ pointerEvents: "none" }}
+        >
           <span>
             {overlayLabel}
             <FiArrowUpRight />

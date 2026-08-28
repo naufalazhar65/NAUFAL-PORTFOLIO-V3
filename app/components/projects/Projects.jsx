@@ -65,7 +65,7 @@ export default function Projects() {
           max-w-[1280px]
           px-4
           sm:px-6
-          lg:px-0
+          lg:px-8
         "
       >
         {/* =========================
@@ -124,13 +124,13 @@ export default function Projects() {
 
           <h1
             className="
-    max-w-5xl
-    text-[clamp(52px,8vw,112px)]
-    font-semibold
-    leading-[0.96]
-    tracking-[-0.07em]
-    text-white
-  "
+              max-w-5xl
+              text-[clamp(52px,8vw,112px)]
+              font-semibold
+              leading-[0.96]
+              tracking-[-0.07em]
+              text-white
+            "
           >
             QA work,
             <br />
@@ -139,13 +139,13 @@ export default function Projects() {
 
           <p
             className="
-    mt-8
-    max-w-2xl
-    text-[15px]
-    leading-7
-    text-gray-300
-    sm:text-base
-  "
+              mt-8
+              max-w-2xl
+              text-[15px]
+              leading-7
+              text-gray-300
+              sm:text-base
+            "
           >
             Automation frameworks, mobile test tooling, API validation,
             performance testing, and QA documentation built to make testing more
@@ -154,94 +154,96 @@ export default function Projects() {
         </motion.div>
 
         {/* =========================
-            FEATURED
+            FEATURED (Only if exists)
         ========================= */}
 
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.12,
-          }}
-          transition={{
-            duration: 0.7,
-            delay: 0.05,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="pt-14 lg:pt-20"
-        >
-          <div className="mb-8 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <span
-                className="
-                  text-[10px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.14em]
-                  text-[#16f2b3]
-                "
-              >
-                02
-              </span>
+        {featuredProject && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.12,
+            }}
+            transition={{
+              duration: 0.7,
+              delay: 0.05,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="pt-14 lg:pt-20"
+          >
+            <div className="mb-8 flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <span
+                  className="
+                    text-[10px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.14em]
+                    text-[#16f2b3]
+                  "
+                >
+                  02
+                </span>
+
+                <span
+                  className="
+                    text-[10px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.14em]
+                    text-gray-400
+                  "
+                >
+                  The Project I&apos;m Building Now
+                </span>
+              </div>
 
               <span
                 className="
+                  hidden
                   text-[10px]
-                  font-semibold
+                  font-medium
                   uppercase
-                  tracking-[0.14em]
+                  tracking-[0.12em]
                   text-gray-400
+                  sm:block
                 "
               >
-                The Project I&apos;m Building Now
+                Current Build
               </span>
             </div>
 
-            <span
-              className="
-                hidden
-                text-[10px]
-                font-medium
-                uppercase
-                tracking-[0.12em]
-                text-gray-400
-                sm:block
-              "
-            >
-              Current Build
-            </span>
-          </div>
+            {/* Featured Ambient Glow */}
 
-          {/* Featured Ambient Glow */}
+            <div className="relative">
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  left-1/2
+                  top-1/2
+                  -z-10
+                  h-[420px]
+                  w-[70%]
+                  -translate-x-1/2
+                  -translate-y-1/2
+                  rounded-full
+                  bg-white/[0.018]
+                  blur-[100px]
+                "
+              />
 
-          <div className="relative">
-            <div
-              className="
-                pointer-events-none
-                absolute
-                left-1/2
-                top-1/2
-                -z-10
-                h-[420px]
-                w-[70%]
-                -translate-x-1/2
-                -translate-y-1/2
-                rounded-full
-                bg-white/[0.018]
-                blur-[100px]
-              "
-            />
-
-            <FeaturedProject project={featuredProject} />
-          </div>
-        </motion.div>
+              <FeaturedProject project={featuredProject} />
+            </div>
+          </motion.div>
+        )}
 
         {/* =========================
             OTHER PROJECTS
@@ -265,7 +267,7 @@ export default function Projects() {
             delay: 0.05,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="pt-20 lg:pt-28"
+          className={`${featuredProject ? "pt-20 lg:pt-28" : "pt-14 lg:pt-20"}`}
         >
           <div
             className="

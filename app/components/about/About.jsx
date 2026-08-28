@@ -1,9 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-
 import { stagger } from "@/app/lib/motion";
-
 import AboutContent from "./components/AboutContent";
 import AboutImage from "./components/AboutImage";
 
@@ -18,6 +16,7 @@ export default function About() {
         py-20
         sm:py-24
         lg:py-32
+        overflow-hidden
       "
     >
       <div
@@ -27,7 +26,7 @@ export default function About() {
           max-w-[1280px]
           px-4
           sm:px-6
-          lg:px-0
+          lg:px-8
         "
       >
         <motion.div
@@ -44,7 +43,6 @@ export default function About() {
           "
         >
           <AboutContent />
-
           <AboutImage />
         </motion.div>
       </div>

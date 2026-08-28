@@ -14,23 +14,29 @@ export async function runWorkflow() {
   const execution = useExecutionStore.getState();
   const consoleStore = useConsoleStore.getState();
 
+  // Validasi workflow kosong
+  if (!nodes.length) {
+    consoleStore.push(
+      "error",
+      "Workflow is empty. Add nodes first."
+    );
+    return;
+  }
+
   execution.start();
   consoleStore.clear();
 
   try {
     for (let index = 0; index < nodes.length; index++) {
       const node = nodes[index];
-
       const runner = runners[node.type];
 
       if (!runner) {
         execution.setStatus(node.id, "failed");
-
         consoleStore.push(
           "error",
           `No runner found for node type "${node.type}".`
         );
-
         continue;
       }
 
@@ -41,17 +47,12 @@ export async function runWorkflow() {
       execution.setStatus(node.id, "running");
 
       const startedAt = performance.now();
-
-      execution.setTiming(node.id, {
-        startedAt,
-      });
+      execution.setTiming(node.id, { startedAt });
 
       consoleStore.push("info", runner.start);
-
       await wait(runner.duration);
 
       const endedAt = performance.now();
-
       execution.setTiming(node.id, {
         startedAt,
         endedAt,
@@ -59,7 +60,6 @@ export async function runWorkflow() {
       });
 
       execution.setStatus(node.id, "passed");
-
       consoleStore.push("success", runner.finish);
 
       // Update progress
@@ -77,7 +77,6 @@ export async function runWorkflow() {
     );
   } catch (error) {
     console.error(error);
-
     consoleStore.push(
       "error",
       "Workflow execution failed."

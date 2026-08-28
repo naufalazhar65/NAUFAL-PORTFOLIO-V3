@@ -30,6 +30,7 @@ body {
   margin: 0;
   overflow-x: hidden;
 }
+
 body {
   position: relative;
 
@@ -271,6 +272,11 @@ a {
   letter-spacing: 0.12em;
 }
 
+/* === PERBAIKAN: Tambahkan flex-wrap agar teks tidak overflow di layar kecil === */
+.hero-meta {
+  flex-wrap: wrap;
+}
+
 .hero-content {
   max-width: 1000px;
   padding: 96px 0 56px;
@@ -344,8 +350,6 @@ a {
     transform: scale(1);
   }
 }
-
-
 
 .hero-eyebrow {
   margin: 0 0 24px;
@@ -551,7 +555,6 @@ a {
 .text-link:hover {
   border-color: #fff;
 }
-
 
 .featured-preview {
   position: relative;
@@ -1105,8 +1108,6 @@ a {
   border-top: 1px solid var(--border);
 }
 
-
-
 .project-featured-content {
   max-width: 500px;
 }
@@ -1519,7 +1520,6 @@ a {
   transform: translateY(0);
 }
 
-
 /* =========================
    STANDARD PROJECT
 ========================= */
@@ -1735,25 +1735,15 @@ a {
     grid-row: 1;
   }
 
-  .project-standard .project-preview {
-  width: 100%;
-  min-width: 0;
-  align-self: start;
-}
-
-.project-standard .project-preview-image {
-  width: 100%;
-}
-
-  .project-standard-content {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
   .project-standard .project-preview,
   .project-standard-reverse .project-preview {
     grid-column: 2;
     grid-row: 2;
+  }
+
+  .project-standard-content {
+    grid-column: 2;
+    grid-row: 1;
   }
 }
 
@@ -1835,16 +1825,16 @@ a {
     padding-bottom: 28px;
   }
 
-.hero-content {
-  padding: 64px 0 52px;
-}
+  .hero-content {
+    padding: 64px 0 52px;
+  }
 
   .hero-content h1 {
-  max-width: 360px;
-  font-size: clamp(48px, 13vw, 64px);
-  line-height: 1.01;
-  letter-spacing: -0.065em;
-}
+    max-width: 360px;
+    font-size: clamp(48px, 13vw, 64px);
+    line-height: 1.01;
+    letter-spacing: -0.065em;
+  }
 
   .hero-meta,
   .hero-footer {
@@ -1856,6 +1846,11 @@ a {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+
+  /* === PERBAIKAN: Agar tombol CTA turun ke baris baru jika ruang tidak cukup === */
+  .hero-actions {
+    flex-wrap: wrap;
   }
 
   .stats-intro {
@@ -1890,7 +1885,6 @@ a {
     margin-top: 14px;
     font-size: 11px;
   }
-
 }
 
 /* =========================
@@ -1928,7 +1922,7 @@ a {
     width: 100% !important;
   }
 
-    .project-standard-meta {
+  .project-standard-meta {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
@@ -2016,6 +2010,7 @@ a {
   opacity: 0.8;
   pointer-events: none;
 }
+
 /* =========================
    MOBILE WHAT I DO FIX
 ========================= */
@@ -2189,12 +2184,12 @@ a {
   }
 
   #about h1 {
-  max-width: 100%;
+    max-width: 100%;
 
-  font-size: clamp(46px, 12.5vw, 62px);
-  line-height: 1.1;
-  letter-spacing: -0.07em;
-}
+    font-size: clamp(46px, 12.5vw, 62px);
+    line-height: 1.1;
+    letter-spacing: -0.07em;
+  }
 
   #about h1 + p {
     margin-top: 32px;

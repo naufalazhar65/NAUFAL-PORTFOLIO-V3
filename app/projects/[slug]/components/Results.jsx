@@ -93,7 +93,7 @@ export default function Results({ project }) {
             item.value ?? "—",
           label:
             item.label ?? "Result",
-          status: getProjectStatus(project),
+          status: item.status ?? getProjectStatus(project),
           description:
             item.description ??
             `A reported result from the ${project.name} project.`,
