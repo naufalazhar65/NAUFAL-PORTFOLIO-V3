@@ -38,6 +38,7 @@ export default function ProjectsList({ projects }) {
           <ProjectCard
             project={project}
             reverse={index % 2 !== 0}
+            index={index}
           />
         </motion.div>
       ))}

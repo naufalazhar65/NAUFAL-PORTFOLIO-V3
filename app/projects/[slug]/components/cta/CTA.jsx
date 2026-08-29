@@ -31,9 +31,9 @@ export default function CTA({ project }) {
         overflow-hidden
         border-b
         border-white/[0.08]
-        py-20
-        sm:py-24
-        lg:py-28
+        py-16
+        sm:py-20
+        lg:py-24
       "
     >
       <div

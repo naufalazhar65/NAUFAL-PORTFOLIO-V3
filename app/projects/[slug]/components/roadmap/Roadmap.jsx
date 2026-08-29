@@ -17,9 +17,9 @@ export default function Roadmap({ project }) {
         overflow-hidden
         border-b
         border-white/[0.08]
-        py-20
-        sm:py-24
-        lg:py-28
+        py-16
+        sm:py-20
+        lg:py-24
       "
     >
       <div
@@ -44,7 +44,7 @@ export default function Roadmap({ project }) {
           max-w-[1280px]
           px-4
           sm:px-6
-          lg:px-0
+          lg:px-8
         "
       >
         {/* Header */}

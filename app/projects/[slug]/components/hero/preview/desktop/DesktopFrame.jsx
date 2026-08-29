@@ -9,16 +9,10 @@ export default function DesktopFrame({
   shadow = true,
   hideFrame = false,
 }) {
-  const content = (
-    <DesktopScreen variant={variant} />
-  );
+  const content = <DesktopScreen variant={variant} />;
 
   if (hideFrame) {
-    return (
-      <div className="h-[560px] w-[900px] overflow-hidden">
-        {content}
-      </div>
-    );
+    return <div className="h-[560px] w-[900px] overflow-hidden">{content}</div>;
   }
 
   return (
@@ -35,11 +29,7 @@ export default function DesktopFrame({
 
         bg-[#0d1117]
 
-        ${
-          shadow
-            ? "shadow-[0_35px_120px_rgba(0,0,0,.45)]"
-            : "shadow-none"
-        }
+        ${shadow ? "shadow-[0_35px_120px_rgba(0,0,0,.45)]" : "shadow-none"}
       `}
     >
       {/* Background Glow */}
@@ -117,9 +107,7 @@ export default function DesktopFrame({
 
         {/* Desktop */}
 
-        <div className="h-[calc(100%-48px)]">
-          {content}
-        </div>
+        <div className="h-[calc(100%-48px)]">{content}</div>
       </div>
     </div>
   );

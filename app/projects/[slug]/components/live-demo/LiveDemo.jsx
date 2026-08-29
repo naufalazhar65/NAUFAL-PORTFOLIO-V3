@@ -17,9 +17,9 @@ export default function LiveDemo({ project }) {
         relative
         border-b
         border-white/[0.08]
-        py-20
-        sm:py-24
-        lg:py-32
+        py-16
+        sm:py-20
+        lg:py-24
       "
     >
       {/* Ambient glow */}

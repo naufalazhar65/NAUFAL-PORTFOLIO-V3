@@ -6,10 +6,5 @@ export default function DesktopPreview({
   variant = "workflow",
   isBackground = false,
 }) {
-  return (
-    <DesktopFrame
-      variant={variant}
-      isBackground={isBackground}
-    />
-  );
+  return <DesktopFrame variant={variant} isBackground={isBackground} />;
 }
