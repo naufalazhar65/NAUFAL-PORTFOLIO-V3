@@ -6,6 +6,7 @@ import "./css/card.scss";
 import "./css/globals.scss";
 
 import SiteChrome from "./components/layout/SiteChrome";
+import CommandPalette from "./components/layout/CommandPalette";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -90,6 +91,12 @@ export default function RootLayout({ children }) {
   ========================= */}
 
   <SiteChrome position="bottom" />
+
+  {/* =========================
+      COMMAND PALETTE — GLOBAL ⌘K
+  ========================= */}
+
+  <CommandPalette />
 
   {/* =========================
       GOOGLE TAG MANAGER

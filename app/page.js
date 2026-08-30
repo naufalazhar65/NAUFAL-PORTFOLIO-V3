@@ -5,84 +5,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   FiArrowUpRight,
-  FiCpu,
-  FiDownload,
-  FiFolder,
-  FiMail,
   FiSearch,
-  FiTerminal,
-  FiUser,
 } from "react-icons/fi";
 
 import FlowTestStudioPreview from "./components/flowtest-preview/FlowTestStudioPreview";
-import { personalData } from "@/utils/data/personal-data";
-
-const commands = [
-  {
-    id: "flowtest",
-    label: "Open FlowTest Studio",
-    hint: "Live demo · visual mobile automation",
-    keywords: ["flowtest", "studio", "demo", "mobile", "appium", "ide"],
-    href: "/flowtest",
-    icon: FiCpu,
-    tag: "DEMO",
-  },
-  {
-    id: "projects",
-    label: "View projects",
-    hint: "Automation frameworks and QA tooling",
-    keywords: ["project", "work", "automation", "portfolio"],
-    href: "/projects",
-    icon: FiFolder,
-  },
-  {
-    id: "skills",
-    label: "Tools I use",
-    hint: "Languages, frameworks, CI/CD",
-    keywords: ["skill", "tools", "tech", "stack", "languages"],
-    href: "/skills",
-    icon: FiTerminal,
-  },
-  {
-    id: "about",
-    label: "About Naufal",
-    hint: "Software Quality Assurance Engineer",
-    keywords: ["about", "bio", "profile", "me", "qa"],
-    href: "/about",
-    icon: FiUser,
-  },
-  {
-    id: "contact",
-    label: "Start a conversation",
-    hint: "Open to opportunities and collaborations",
-    keywords: ["contact", "mail", "talk", "hire", "email", "freelance"],
-    href: "/contact",
-    icon: FiMail,
-  },
-  {
-    id: "resume",
-    label: "Download resume",
-    hint: "PDF · opens in Google Drive",
-    keywords: ["resume", "cv", "pdf", "download", "file"],
-    external: true,
-    href: personalData.resume,
-    icon: FiDownload,
-  },
-];
-
-function highlight(text, query) {
-  const q = query.trim().toLowerCase();
-  if (!q) return text;
-  const index = text.toLowerCase().indexOf(q);
-  if (index === -1) return text;
-  return (
-    <>
-      {text.slice(0, index)}
-      <span className="palette-hit">{text.slice(index, index + q.length)}</span>
-      {text.slice(index + q.length)}
-    </>
-  );
-}
+import { projectsData } from "@/utils/data/projects-data";
+import { highlight, siteCommands } from "@/app/config/commands";
 
 function CommandPalette() {
   const router = useRouter();
@@ -92,8 +20,8 @@ function CommandPalette() {
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return commands;
-    return commands.filter((item) =>
+    if (!q) return siteCommands;
+    return siteCommands.filter((item) =>
       `${item.label} ${item.hint} ${item.keywords.join(" ")}`
         .toLowerCase()
         .includes(q),
@@ -106,6 +34,10 @@ function CommandPalette() {
 
   const open = useCallback(
     (item) => {
+      if (item.action) {
+        item.action();
+        return;
+      }
       if (item.external) {
         window.open(item.href, "_blank", "noopener,noreferrer");
       } else {
@@ -116,6 +48,15 @@ function CommandPalette() {
   );
 
   const handleKeyDown = (event) => {
+    if ((event.metaKey || event.ctrlKey) && /^[1-6]$/.test(event.key)) {
+      const idx = Number(event.key) - 1;
+      const item = results[idx];
+      if (item) {
+        event.preventDefault();
+        open(item);
+      }
+      return;
+    }
     if (event.key === "ArrowDown") {
       event.preventDefault();
       setActive((index) => (index + 1) % results.length);
@@ -133,6 +74,10 @@ function CommandPalette() {
       inputRef.current?.blur();
     }
   };
+
+  useEffect(() => {
+    setActive(0);
+  }, [query, results.length]);
 
   return (
     <div className="palette-window">
@@ -190,7 +135,7 @@ function CommandPalette() {
               const Icon = item.icon;
               const isActive = index === active;
 
-              return (
+              return item.href ? (
                 <Link
                   key={item.id}
                   id={`command-${item.id}`}
@@ -235,6 +180,44 @@ function CommandPalette() {
                     className="palette-command-arrow"
                   />
                 </Link>
+              ) : (
+                <button
+                  key={item.id}
+                  id={`command-${item.id}`}
+                  type="button"
+                  role="option"
+                  aria-selected={isActive}
+                  onMouseEnter={() => setActive(index)}
+                  onClick={() => open(item)}
+                  className={`palette-command${isActive ? " is-active" : ""}`}
+                >
+                  <span className="palette-command-icon" aria-hidden="true">
+                    <Icon size={15} />
+                  </span>
+
+                  <span className="palette-command-text">
+                    <span className="palette-command-label">
+                      {highlight(item.label, query)}
+                    </span>
+                    <span className="palette-command-hint">
+                      {highlight(item.hint, query)}
+                    </span>
+                  </span>
+
+                  {item.tag && (
+                    <span className="palette-command-tag">{item.tag}</span>
+                  )}
+
+                  <kbd className="palette-kbd palette-kbd-shortcut">
+                    ⌘{index + 1}
+                  </kbd>
+
+                  <FiArrowUpRight
+                    size={13}
+                    aria-hidden="true"
+                    className="palette-command-arrow"
+                  />
+                </button>
               );
             })
           ) : (
@@ -301,6 +284,10 @@ const technicalProof = [
 ];
 
 export default function Home() {
+  const featured = projectsData.find((p) => p.featured) ?? projectsData[0];
+  const featuredTools = featured?.tools?.slice(0, 4).map((t) => t.name) ?? ["React", "TypeScript", "Appium", "React Flow"];
+  const featuredStats = featured?.stats?.slice(0, 3).map((s) => `${s.value} ${s.label}`) ?? ["38 Nodes", "Android + iOS", "CI / JUnit"];
+
   return (
     <main className="vercel-home">
       <div className="home-grid" />
@@ -350,7 +337,7 @@ export default function Home() {
 
         <div className="featured-grid">
           <div className="featured-copy">
-            <p className="project-kicker">FLOWTEST STUDIO</p>
+            <p className="project-kicker">{(featured?.name ?? "FLOWTEST STUDIO").toUpperCase()}</p>
 
             <h2>
               Mobile test failures were
@@ -358,33 +345,26 @@ export default function Home() {
               scattered across tools.
             </h2>
 
-            <p>
-              Code, inspector sessions, device execution, logs, screenshots, and
-              reports often lived in separate places. FlowTest Studio is my
-              attempt to bring the most important parts of that workflow into
-              one workspace.
-            </p>
+            <p>{featured?.summary ?? "Code, inspector sessions, device execution, logs, screenshots, and reports often lived in separate places. FlowTest Studio is my attempt to bring the most important parts of that workflow into one workspace."}</p>
 
             <div className="featured-meta">
-              <span>React</span>
-              <span>TypeScript</span>
-              <span>Appium</span>
-              <span>React Flow</span>
+              {featuredTools.map((t) => (
+                <span key={t}>{t}</span>
+              ))}
             </div>
 
             <div className="featured-meta">
-              <span>38 Nodes</span>
-              <span>Android + iOS</span>
-              <span>CI / JUnit</span>
+              {featuredStats.map((s) => (
+                <span key={s}>{s}</span>
+              ))}
             </div>
 
             <Link
-              href="/projects/flowtest-studio"
+              href={`/projects/${featured?.slug ?? "flowtest-studio"}`}
               className="text-link featured-link"
             >
               Explore the build
               <FiArrowUpRight size={14} />
-              <span className="button-kbd">↵</span>
             </Link>
           </div>
 
@@ -467,7 +447,6 @@ export default function Home() {
             <Link href="/projects" className="button button-primary">
               View my QA work
               <FiArrowUpRight size={14} />
-              <span className="button-kbd">↵</span>
             </Link>
 
             <Link href="/contact" className="button button-secondary">

@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { FiArrowUpRight, FiDownload, FiMenu, FiX } from "react-icons/fi";
+import { FiArrowUpRight, FiDownload, FiMenu, FiSearch, FiX } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { personalData } from "@/utils/data/personal-data";
+// import { openCommandPalette } from "./CommandPalette";
 
 const menus = [
   { name: "Home", href: "/" },
@@ -137,6 +138,22 @@ export default function Navbar() {
 
             {/* Right */}
             <div className="flex items-center gap-3">
+              {/* <button
+                type="button"
+                onClick={openCommandPalette}
+                aria-label="Open command palette"
+                className="group/search hidden items-center gap-2 rounded-full border border-white/[0.09] px-3 py-1.5 text-[11px] font-medium text-gray-400 transition-all duration-200 hover:border-white/[0.18] hover:bg-white/[0.03] hover:text-white lg:flex"
+              >
+                <FiSearch
+                  size={12}
+                  className="text-gray-500 transition-colors duration-200 group-hover/search:text-gray-300"
+                />
+                Search
+                <kbd className="rounded-md border border-white/[0.12] bg-white/[0.05] px-1.5 py-0.5 font-mono text-[9px] text-gray-400">
+                  ⌘K
+                </kbd>
+              </button> */}
+
               <Link
                 href={personalData.resume || "#"}
                 target="_blank"
@@ -200,6 +217,23 @@ export default function Navbar() {
               />
 
               <nav className="relative z-10 p-3">
+                {/* <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    openCommandPalette();
+                  }}
+                  className="mb-1 flex w-full items-center justify-between rounded-2xl border border-white/[0.08] bg-white/[0.03] px-4 py-3.5 text-sm text-gray-300 transition-all duration-200 hover:bg-white/[0.06] hover:text-white"
+                >
+                  <span className="flex items-center gap-3">
+                    <FiSearch size={15} className="text-gray-500" />
+                    Search / Jump to…
+                  </span>
+                  <kbd className="rounded-md border border-white/[0.14] bg-white/[0.05] px-1.5 py-0.5 font-mono text-[9px] text-gray-500">
+                    ⌘K
+                  </kbd>
+                </button> */}
+
                 {menus.map((menu) => {
                   const active =
                     pathname === menu.href ||
