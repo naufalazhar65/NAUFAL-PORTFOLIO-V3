@@ -100,19 +100,19 @@ function getGroupTitle(title) {
 function getGroupDescription(title) {
   const descriptions = {
     Programming:
-      "Languages I use for automation, tooling, and application logic.",
+      "The languages I write automation in — Python for mobile, JavaScript for browser, TypeScript when I need type safety.",
 
     "Test Automation":
-      "Browser and mobile automation frameworks used in day-to-day test work.",
+      "The frameworks that actually run my tests — Selenium for browsers, Appium for devices, Cypress when I need fast feedback.",
 
     "API Testing":
-      "Tools for checking requests, contracts, and service behavior.",
+      "How I validate APIs before they break in production — Postman for exploration, Newman for automation.",
 
     "Performance Testing":
-      "Load and performance tools used to model and analyze system behavior.",
+      "Finding bottlenecks before users do — k6 for modern load testing, JMeter when I need more control.",
 
     "CI/CD & Tools":
-      "Source control, delivery, project, database, and operating-system tooling.",
+      "The glue that makes automation actually run — GitHub Actions for CI, Jenkins when I need more flexibility.",
   };
 
   return (

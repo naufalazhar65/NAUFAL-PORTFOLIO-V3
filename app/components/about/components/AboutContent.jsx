@@ -101,9 +101,10 @@ export default function AboutContent() {
         <span className="font-medium text-white">
           Naufal Azhar
         </span>
-        , a Software Quality Assurance Engineer working
-        across automation, mobile testing, API validation,
-        and performance testing.
+        . I break software for a living — and I mean that
+        as a compliment. Most of my work involves automation
+        frameworks, mobile device testing, API contracts,
+        and performance analysis.
       </motion.p>
 
       {/* =========================

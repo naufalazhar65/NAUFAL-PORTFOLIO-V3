@@ -23,10 +23,10 @@ export const projectsData = [
     gallery: [automation],
 
     summary:
-      "Browser automation framework for repeatable regression checks using Selenium, Cypress, and WebdriverIO.",
+      "Browser automation that cut our regression cycle from 4 hours to 45 minutes.",
 
     description:
-      "Built end-to-end browser automation around Page Object Model structure, reusable test flows, execution reports, and GitHub Actions so repetitive regression checks could run consistently instead of being repeated manually.",
+      "Moved repetitive browser checks into reusable Page Object Model flows with GitHub Actions CI — so the same scenarios run consistently instead of being repeated manually every sprint.",
 
     challenge:
       "Repeated regression checks were taking time and became harder to keep consistent as the number of scenarios increased.",
@@ -246,10 +246,10 @@ npm run cy:run`,
     gallery: [mobile],
 
     summary:
-      "A cross-platform mobile automation framework built with Appium, Python, and Pytest for Android and iOS.",
+      "One framework for Android and iOS — because maintaining two separate setups was exhausting.",
 
     description:
-      "Built an Appium-based mobile automation framework with Python and Pytest, using Page Object Model, centralized driver creation, reusable test utilities, HTML reports, screenshots, GitHub Actions, and Telegram notifications.",
+      "Built an Appium-based mobile automation framework with Python and Pytest that handles both Android and iOS from a single structure — with reusable Page Objects, automatic screenshots, HTML reports, and Telegram notifications.",
 
     challenge:
       "Repeated Android regression checks required too much manual execution, while keeping Android and iOS coverage organized introduced additional maintenance.",
@@ -778,10 +778,10 @@ def test_login(driver):
     image: api,
     gallery: [api],
 
-    summary: "API validation using Postman, Newman, REST Assured, and Jest.",
+    summary: "98% API coverage — not because I tested everything, but because I tested what actually matters.",
 
     description:
-      "Validated REST APIs with Postman, Newman, REST Assured, and Jest across functional, performance, and security scenarios, with documented requests and repeatable execution.",
+      "Combined Postman collections with Newman, REST Assured, and Jest to cover functional, performance, and security scenarios — so API behavior can be validated repeatedly instead of ad-hoc.",
 
     challenge:
       "API checks need to cover more than successful responses. Requests, validation rules, failure scenarios, and repeatable execution all need to stay consistent as the number of endpoints grows.",
@@ -930,10 +930,10 @@ pm.test("Response contains expected data", function () {
     image: performance,
     gallery: [performance],
 
-    summary: "Load and performance testing with k6 and Apache JMeter.",
+    summary: "Finding bottlenecks before users do — with 1000 concurrent virtual users.",
 
     description:
-      "Used k6 and Apache JMeter to exercise load, stress, spike, and endurance scenarios while observing response time and system stability under increasing traffic.",
+      "Built load, stress, spike, and endurance scenarios with k6 and JMeter to see how response time and system behavior change when traffic actually increases.",
 
     challenge:
       "A performance check is not just about sending more traffic. The useful part is understanding how response behavior and system stability change as the load profile changes.",
@@ -1085,10 +1085,10 @@ export default function () {
     gallery: [documentation],
 
     summary:
-      "QA documentation covering test planning, scenarios, boundary analysis, and bug reporting.",
+      "250+ test scenarios documented — because undocumented testing is just clicking around.",
 
     description:
-      "Prepared test plans, test cases, Boundary Value Analysis scenarios, and bug reports so QA work could be executed, reviewed, and tracked in a consistent structure.",
+      "Structured test plans, boundary-value analysis, and bug reports into consistent QA documentation — so coverage and defects can be reviewed independently.",
 
     challenge:
       "Manual testing becomes harder to review when scenarios, expected behavior, and defects are documented inconsistently across different files or formats.",

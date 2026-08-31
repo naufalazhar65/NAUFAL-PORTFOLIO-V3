@@ -253,33 +253,30 @@ function CommandPalette() {
   );
 }
 
-const technicalProof = [
-  {
+const technicalProof = [  {
     number: "01",
     title: "Automation",
     tools: "Selenium · Playwright · WebdriverIO · PyTest",
     contribution:
-      "Reusable automation structure, browser workflows, and CI execution.",
+      "Built frameworks that cut regression cycles from hours to minutes.",
   },
   {
     number: "02",
     title: "Mobile",
     tools: "Appium · UiAutomator2 · XCUITest",
-    contribution:
-      "Real-device flows, locator inspection, and session debugging.",
+    contribution: "Real-device testing that actually catches what emulators miss.",
   },
   {
     number: "03",
     title: "API",
     tools: "Postman · Newman · Supertest · Playwright API",
-    contribution:
-      "Contract checks, request validation, and failure diagnostics.",
+    contribution: "Contract tests that fail loud when APIs drift from spec.",
   },
   {
     number: "04",
     title: "Performance",
     tools: "k6 · JMeter",
-    contribution: "Load scenarios, thresholds, and result analysis.",
+    contribution: "Load tests that surface bottlenecks before users do.",
   },
 ];
 
@@ -311,9 +308,10 @@ export default function Home() {
             </h1>
 
             <p className="hero-description">
-              Software Quality Assurance Engineer focused on automation, mobile
-              testing, API testing, and the tooling around reliable execution,
-              inspection, and failure evidence.
+              I spend my days breaking apps so they don&rsquo;t break in
+              production. Most of that work involves automation frameworks,
+              device farms, and API contracts — but what I actually care about
+              is making failure evidence easy to find.
             </p>
           </div>
 
@@ -345,7 +343,7 @@ export default function Home() {
               scattered across tools.
             </h2>
 
-            <p>{featured?.summary ?? "Code, inspector sessions, device execution, logs, screenshots, and reports often lived in separate places. FlowTest Studio is my attempt to bring the most important parts of that workflow into one workspace."}</p>
+            <p>{featured?.summary ?? "Device logs here, screenshots there, reports somewhere else — FlowTest Studio puts the parts that matter in one view."}</p>
 
             <div className="featured-meta">
               {featuredTools.map((t) => (
@@ -394,9 +392,9 @@ export default function Home() {
           </h2>
 
           <p>
-            The tools matter less than the layer they support: automation
-            structure, real-device execution, API validation, and performance
-            analysis.
+            The tools matter less than the layer they support. I care more about
+            how fast I can reproduce a mobile flake than whether I used Appium
+            or Espresso to find it.
           </p>
         </div>
 
@@ -439,8 +437,8 @@ export default function Home() {
 
           <p className="hero-description">
             That means keeping execution evidence close to the workflow, making
-            selectors inspectable, reproducing device failures, and building
-            automation that can survive change.
+            selectors inspectable, and building automation that can survive
+            refactor storms.
           </p>
 
           <div className="hero-actions">

@@ -72,9 +72,9 @@ export default function SkillsHeader() {
           text-gray-500
         "
       >
-        Languages, automation frameworks, API tools,
-        performance tooling, and the systems I use to
-        build and run QA workflows.
+        The tools I reach for when I need to break things
+        systematically — and the ones that help me stop
+        breaking the same things twice.
       </p>
     </motion.div>
   );

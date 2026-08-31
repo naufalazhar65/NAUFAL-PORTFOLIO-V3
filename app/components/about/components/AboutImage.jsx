@@ -163,9 +163,8 @@ export default function AboutImage() {
               text-gray-300
             "
           >
-            Currently building FlowTest Studio while continuing
-            to work around automation, mobile execution,
-            and practical QA workflows.
+            Currently building FlowTest Studio — a visual mobile test IDE
+            that brings device execution, logs, and screenshots into one view.
           </p>
 
           <span

@@ -105,7 +105,7 @@ export default function ProblemDecision({ project }) {
           <p className="max-w-md text-[14px] leading-7 text-gray-300">
             {isFlowTest
               ? "The problem was not simply writing more tests. It was keeping authoring, device interaction, inspection, execution, and failure evidence understandable as the workflow grew."
-              : "The project started from a concrete testing problem, then focused on a practical way to make the workflow more repeatable."}
+              : "Every project started with a specific pain point — manual repetition, scattered evidence, or fragile workflows — and focused on making that part of QA work less painful."}
           </p>
         </motion.div>
 

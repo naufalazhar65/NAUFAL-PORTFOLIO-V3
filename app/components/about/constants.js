@@ -1,22 +1,22 @@
 export const STATS = [
   {
     value: "4+",
-    label: "Years Learning",
+    label: "Years in QA",
     icon: "award",
   },
   {
-    value: "20+",
-    label: "Projects",
+    value: "38",
+    label: "FlowTest Nodes Built",
     icon: "folder",
   },
   {
-    value: "120+",
-    label: "Automation Tests",
+    value: "2hr→15min",
+    label: "Regression Cycle Cut",
     icon: "check",
   },
   {
-    value: "25+",
-    label: "Technologies",
+    value: "6",
+    label: "Test Frameworks Used",
     icon: "code",
   },
 ];

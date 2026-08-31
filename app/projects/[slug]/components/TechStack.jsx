@@ -65,19 +65,19 @@ const genericIcons = [
 
 const genericDescriptions = {
   "automation-testing":
-    "The framework is centered around reusable browser automation, Page Object Model structure, reporting, and CI execution.",
+    "Built to handle 120+ test cases across browsers with Page Object Model — so regression checks run in 4 minutes instead of being repeated manually every sprint.",
 
   "mobile-app-testing":
-    "The framework separates platform configuration, driver creation, page objects, test suites, reporting, and CI execution for Android and iOS.",
+    "One Appium framework for both Android and iOS — with reusable Page Objects, automatic screenshots, and Telegram notifications so we know when tests fail.",
 
   "api-testing":
-    "The work combines documented API scenarios with repeatable validation and automated execution across service behavior.",
+    "Combined Postman collections with Newman, REST Assured, and Jest to cover functional, performance, and security scenarios — so API behavior can be validated repeatedly instead of ad-hoc.",
 
   "performance-testing":
-    "The testing setup focuses on scenario-based load, stress, spike, and endurance checks using dedicated performance tooling.",
+    "Built load, stress, spike, and endurance scenarios with k6 and JMeter to see how response time and system behavior change when traffic actually increases.",
 
   "qa-documentation":
-    "The work is organized around structured test scenarios, planning artifacts, boundary analysis, and defect reporting.",
+    "Structured test plans, boundary-value analysis, and bug reports into consistent QA documentation — so coverage and defects can be reviewed independently.",
 };
 
 function getGenericDescription(project) {

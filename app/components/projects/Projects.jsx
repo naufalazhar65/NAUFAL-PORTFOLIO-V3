@@ -147,9 +147,9 @@ export default function Projects() {
               sm:text-base
             "
           >
-            Automation frameworks, mobile test tooling, API validation,
-            performance testing, and QA documentation built to make testing more
-            repeatable and easier to investigate.
+            Things I&apos;ve built to make QA work less painful — from automation
+            frameworks that cut regression time to tools that bring scattered
+            evidence into one place.
           </p>
         </motion.div>
 

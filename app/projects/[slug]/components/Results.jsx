@@ -96,7 +96,7 @@ export default function Results({ project }) {
           status: item.status ?? getProjectStatus(project),
           description:
             item.description ??
-            `A reported result from the ${project.name} project.`,
+            `Key metric from the ${project.name} project.`,
         }),
       );
 
