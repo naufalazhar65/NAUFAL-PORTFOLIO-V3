@@ -28,6 +28,9 @@ yarn-error.log*
 .env*.local
 .env
 
+# graphify generated graph (regenerate with /graphify)
+graphify-out/
+
 # vercel
 .vercel
 

@@ -1,5 +1,7 @@
 import { FiHome, FiFolder, FiCpu, FiMail, FiFileText } from "react-icons/fi";
 
+import { personalData } from "@/utils/data/personal-data";
+
 export const navigationConfig = [
   {
     id: "home",
@@ -11,7 +13,7 @@ export const navigationConfig = [
   {
     id: "projects",
     label: "Projects",
-    href: "/#projects",
+    href: "/projects",
     icon: FiFolder,
   },
 
@@ -25,14 +27,14 @@ export const navigationConfig = [
   {
     id: "resume",
     label: "Resume",
-    href: "/resume",
+    href: personalData.resume,
     icon: FiFileText,
   },
 
   {
     id: "contact",
     label: "Contact",
-    href: "/#contact",
+    href: "/contact",
     icon: FiMail,
   },
 ];

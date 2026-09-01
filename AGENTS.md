@@ -26,7 +26,7 @@ Always use `npm ci` (lockfile). Do not bump `react`, `react-dom`, or `tailwindcs
 - Pages: `/`, `/about`, `/skills`, `/projects`, `/projects/[slug]`, `/contact`, `/flowtest`. Pages chain to the next via `app/components/layout/NextPage`.
 - Non-route folders live inside `app/` (`app/components/`, `app/config/`, `app/lib/`, `app/css/`) — valid because they contain no `page.js`.
 - `@/*` aliases the repo root (`jsconfig.json`).
-- `app/config/navigation.js` references `/resume` (no such page → 404) and `/#projects`, `/#contact` (home page has no matching anchors). These are vestigial; don't treat them as a source of truth for reachable routes.
+- `app/config/navigation.js` is the sidebar nav (Home, Projects, FlowTest, Resume→`personalData.resume`, Contact) — all reachable routes. `app/config/commands.js` powers the CommandPalette `siteCommands`; keep both in sync with reachable pages.
 
 ## Project data (single source of truth)
 
@@ -44,9 +44,8 @@ Always use `npm ci` (lockfile). Do not bump `react`, `react-dom`, or `tailwindcs
 ## UI components — two overlapping trees
 
 - **Active:** flat `app/components/ui/*.jsx` (`Button`, `GlassPanel`, `GlowCard`, `SectionHeader`, `TechBadge`, etc.) — these are imported across about/experience/education/hero sections.
-- **Dead/incomplete:** nested `app/components/ui/{button,card,panel,badge,section,effects}/` is an unfinished reorg that is not imported anywhere (e.g. `button/indx.js` is a typo, `ui/index.js` exports the nested tree). Do not extend the nested tree; use or extend the flat files.
-- Top-level `lib/` (`lib/motion.*`, empty `lib/projects/*`, `lib/seo/*`, `lib/theme.js`) is stale — the live motion presets are `app/lib/motion`. Only the unused nested `ui/card/MetricCard.jsx` imports `@/lib/motion`.
-- `utils/data/project.js` (`projects` array, older schema) is not imported by the app.
+- Nested UI survivors are **live**: `ui/panel/Panel`, `ui/section/Section`, `ui/section/SectionHeader` (imported by the project detail page). Everything else nested was removed; use or extend the flat `app/components/ui/*.jsx` files.
+- Top-level `lib/` and `utils/data/project.js` (older schema) were removed as dead code — the live motion presets are `app/lib/motion`.
 
 ## Styling
 
@@ -55,3 +54,16 @@ Always use `npm ci` (lockfile). Do not bump `react`, `react-dom`, or `tailwindcs
 - `next/image` remote domains are restricted to `res.cloudinary.com` and `media.dev.to`.
 
 `docs/ARCHITECTURE.md` is aspirational and disagrees with the real layout — trust the codebase over it.
+
+## graphify
+
+This project has a knowledge graph at graphify-out/ (gitignored — regenerate with `/graphify`) with god nodes, community structure, and cross-file relationships.
+
+When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
+
+Rules:
+- For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
+- Dirty graphify-out/ files are expected after hooks or incremental updates; dirty graph files are not a reason to skip graphify. Only skip graphify if the task is about stale or incorrect graph output, or the user explicitly says not to use it.
+- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
+- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
+- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).

@@ -10,7 +10,7 @@ export const personalData = {
   github: "https://github.com/naufalazhar65",
   facebook: "",
   linkedIn: "https://www.linkedin.com/in/naufal-azhar-0b2070240/",
-  twitter: "https://www.instagram.com/naufalazhar65/",
+  Instagram: "https://www.instagram.com/naufalazhar65/",
   stackOverflow: "",
   leetcode: "",
   devUsername: "naufalazhar65",
