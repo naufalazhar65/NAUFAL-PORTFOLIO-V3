@@ -4,13 +4,12 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   FiArrowUpRight,
+  FiInstagram,
   FiMail,
   FiMapPin,
 } from "react-icons/fi";
 import { BiLogoLinkedin } from "react-icons/bi";
 import { IoLogoGithub } from "react-icons/io5";
-import { FiTwitter } from "react-icons/fi"; // Ganti icon
-
 import { personalData } from "@/utils/data/personal-data";
 
 import ContactForm from "./contact-form";
@@ -27,9 +26,9 @@ const socials = [
     icon: BiLogoLinkedin,
   },
   {
-    label: "Twitter",
-    href: personalData.twitter,
-    icon: FiTwitter,
+    label: "Instagram",
+    href: personalData.Instagram,
+    icon: FiInstagram,
   },
 ].filter((social) => social.href); // Hanya tampilkan yang ada href
 
